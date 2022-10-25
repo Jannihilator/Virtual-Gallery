@@ -1,0 +1,292 @@
+body {
+	margin: 0;
+	background-color: #000;
+	color: #fff;
+	font-family: Monospace;
+	font-size: 13px;
+	line-height: 24px;
+	overscroll-behavior: none;
+	display: flex;
+	flex-direction: column;
+	justify-content:flex-end;
+	align-items: center;
+}
+
+a {
+	color: #ff0;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+button {
+	cursor: pointer;
+	text-transform: uppercase;
+}
+
+#info {
+	position: absolute;
+	top: 0px;
+	width: 100%;
+	padding: 10px;
+	box-sizing: border-box;
+	text-align: center;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	pointer-events: none;
+	z-index: 1;
+	/* TODO Solve this in HTML */
+}
+
+a,
+button,
+input,
+select {
+	pointer-events: auto;
+}
+
+.lil-gui {
+	z-index: 2 !important;
+	/* TODO Solve this in HTML */
+}
+
+@media all and (max-width: 640px) {
+	.lil-gui.root {
+		right: auto;
+		top: auto;
+		max-height: 50%;
+		max-width: 80%;
+		bottom: 0;
+		left: 0;
+	}
+}
+
+#overlay {
+	position: absolute;
+	font-size: 16px;
+	z-index: 2;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	background: rgba(0, 0, 0, 0.7);
+}
+
+#overlay button {
+	background: transparent;
+	border: 0;
+	border: 1px solid rgb(255, 255, 255);
+	border-radius: 4px;
+	color: #ffffff;
+	padding: 12px 18px;
+	text-transform: uppercase;
+	cursor: pointer;
+}
+
+#notSupported {
+	width: 50%;
+	margin: auto;
+	background-color: #f00;
+	margin-top: 20px;
+	padding: 10px;
+}
+
+.interact {
+	height: 40px;
+	width: 40px;
+	background-color: transparent;
+	position: absolute;
+	transform: translate(-50%, -50%);
+	top: 80%;
+	left: 50%;
+	border-radius: 8px;
+	display: flex;
+}
+
+.circular-progress {
+	position: relative;
+	height: 100%;
+	width: 100%;
+	/* border-radius: 50%; */
+	border: 3.5px solid;
+
+	border-image-slice: 1;
+	display: grid;
+	place-items: center;
+}
+
+/* .circular-progress:before {
+	content: "";
+	position: absolute;
+	height: 84%;
+	width: 84%;
+	background-color: #fcfcfc;
+	border-radius: 50%;
+} */
+
+.value-container {
+	position: relative;
+	font-size: 15px;
+	color: #231c3d;
+}
+
+.modal {
+	/* background-color: white; */
+	z-index: 1;
+	display: none;
+	position: absolute;
+	margin:auto;
+	width: 85vw;
+	height: 95vh;
+	background-color:white;
+	/* opacity: 0; */
+	/* transition: ; */
+}
+
+.modal_header{
+	height: 20%;
+	width: 90%;
+	padding: 30px 10px 10px;
+	color: #111;
+	font-size: 20px;
+	font-family: Helvetica, sans-serif;
+	line-height: normal;
+}
+
+.modal_header > p{
+	font-size: 16px;
+	color: #555;
+	padding-left: 1px;
+}
+
+embed{
+	width: 90%;
+	height: 80%;
+}
+
+/* .img_container{
+	width: 90%;
+	height: 80%;
+	padding-bottom: 30px;
+} */
+
+.detail_img{
+	width: 90%;
+	height: 70%;
+	object-fit: contain;
+	margin-bottom: 30px;
+}
+
+/* .hide{
+	z-index: -5;
+	opacity: 0;
+	animation: hide .5s;
+	transform: scale(0);
+}@keyframes hide{
+	from{
+		z-index: 5;
+		transform: scale(1);
+		opacity: 1;
+	}to{
+		z-index: -5;
+		transform: scale(0);
+		opacity: 0;
+	}
+} */
+.modal.show {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	opacity: 1;
+	animation: show .3s;
+	transform: scale(1);
+}
+
+@keyframes show {
+	from {
+		transform: scale(0);
+		opacity: 0;
+	}
+
+	to {
+		transform: scale(1);
+		opacity: 1;
+	}
+}
+
+.close{
+	margin: unset;
+	position: absolute;
+	right: 15px;
+	top:10px;
+	color:#000;
+	opacity: 0.3;
+	font-size: 24px;
+	
+}
+
+.close:hover{
+	opacity: 1;
+	cursor: pointer;
+}
+
+#music {
+	/* background-color: white; */
+	z-index: 1;
+	display: none;
+	position: absolute;
+	top:30%;
+	transform: translateY(-50%);
+	margin:auto;
+	/* width: 300px;
+	height: 300px; */
+	background-color:transparent
+}
+
+#music > p{
+	border: 3px solid white;
+	border-radius: 8px;
+	color: white;
+	font-size: 16px;
+	padding: 10px;
+	margin: 10px;
+	width: 400px;
+	height: 25px;
+	text-align: center;
+}
+
+#music > p:hover{
+	cursor: pointer;
+}
+#music > .close{
+	position: unset;
+	color: white;
+	opacity: 1;
+	position:absolute;
+	right:10px;
+	top:-20px;
+}
+
+audio{
+	margin-top: 30px;
+}
+
+#music.show {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	opacity: 1;
+	animation: show .3s;
+	transform: scale(1);
+}
+
