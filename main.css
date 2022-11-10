@@ -140,7 +140,7 @@ select {
 
 .modal {
 	/* background-color: white; */
-	z-index: 1;
+	z-index: 5;
 	display: none;
 	position: absolute;
 	margin:auto;
@@ -241,7 +241,7 @@ embed{
 
 #music {
 	/* background-color: white; */
-	z-index: 1;
+	z-index: 5;
 	display: none;
 	position: absolute;
 	top:30%;
@@ -250,6 +250,54 @@ embed{
 	/* width: 300px;
 	height: 300px; */
 	background-color:transparent
+}
+#paintUI {
+	/* background-color: white; */
+	z-index: 5;
+	display: none;
+	position: absolute;
+	top:30%;
+	transform: translateY(-50%);
+	margin:auto;
+	/* width: 300px;
+	height: 300px; */
+	background-color:transparent
+}
+
+
+#paintUI > p{
+	border: 3px solid white;
+	border-radius: 8px;
+	color: white;
+	font-size: 16px;
+	padding: 10px;
+	margin: 10px;
+	width: 400px;
+	height: 25px;
+	text-align: center;
+}
+
+#paintUI > p:hover{
+	cursor: pointer;
+}
+#paintUI > .close{
+	position: unset;
+	color: white;
+	opacity: 1;
+	position:absolute;
+	right:10px;
+	top:-20px;
+}
+
+
+#paintUI.show {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	opacity: 1;
+	animation: show .3s;
+	transform: scale(1);
 }
 
 #music > p{
@@ -290,3 +338,21 @@ audio{
 	transform: scale(1);
 }
 
+.card{
+	color: #222;
+	height:60px;
+	width:80px;
+	background: transparent;	
+	border: 1.5px solid #555555;
+
+	border-image-slice: 1;
+	font-size: 12px;
+	padding: 10px;
+	z-index: -1;
+	font-family: Helvetica, sans-serif;
+	line-height: normal;
+}
+
+#css{
+	pointer-events: none;
+}
