@@ -492,7 +492,7 @@ function init() {
 
             case 'Space':
                 if (canJump === true) velocity.y += 10;
-                // canJump = false;
+                canJump = false;
                 break;
             case 'KeyE':
                 interacting = true;
