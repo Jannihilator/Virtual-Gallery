@@ -239,12 +239,40 @@ embed{
 	cursor: pointer;
 }
 
+.container{
+	display: none;
+	/* background: rgba(255, 255, 255, 0.5); */
+	color: #eeeeee;
+	width: 80vw;
+	height: fit-content;
+	padding: 15px;
+	border-radius: 15px;
+	position: absolute;
+	transform: translate(-50%, -50%);
+	z-index: 5;
+	top: 50%;
+	left: 50%;
+}
+
+.container.show{
+	display: block;
+}
+
+.container .close{
+	position: unset;
+	color: #eeeeee;
+	opacity: 1;
+	position:absolute;
+	right:0px;
+	top:0px;
+}
+
 #music {
 	/* background-color: white; */
 	z-index: 5;
 	display: none;
 	position: absolute;
-	top:30%;
+	top:20%;
 	transform: translateY(-50%);
 	margin:auto;
 	/* width: 300px;
@@ -273,7 +301,7 @@ embed{
 	padding: 10px;
 	margin: 10px;
 	width: 400px;
-	height: 25px;
+	/* height: 25px; */
 	text-align: center;
 }
 
@@ -299,6 +327,66 @@ embed{
 	animation: show .3s;
 	transform: scale(1);
 }
+#travelatorUI {
+	/* background-color: white; */
+	z-index: 5;
+	display: none;
+	position: absolute;
+	top:30%;
+	transform: translateY(-50%);
+	margin:auto;
+	width: 400px;
+	/* height: 300px; */
+	background-color:transparent
+}
+
+
+#travelatorUI > p{
+	/* border: 3px solid white; */
+	/* border-radius: 8px; */
+	color: white;
+	font-size: 16px;
+
+	width: 400px;
+	height: 25px;
+}
+#travelatorUI > .wing-button{
+	display:inline-flex;
+	border: 3px solid white;
+	border-radius: 50%;
+	color: white;
+	font-size: 20px;
+	padding: 10px;
+	margin: 10px;
+	width: 60px;
+	height: 60px;
+	justify-content: center;
+	align-items: center;
+}
+
+#travelatorUI > .wing-button:hover{
+	cursor: pointer;
+}
+#travelatorUI > .close{
+	position: unset;
+	color: white;
+	opacity: 1;
+	position:absolute;
+	right:10px;
+	top:-20px;
+}
+
+
+#travelatorUI.show {
+	display: block;
+	text-align: center;
+	/* justify-content: center;
+	align-items: center;
+	flex-direction: column; */
+	opacity: 1;
+	animation: show .3s;
+	transform: scale(1);
+}
 
 #music > p{
 	border: 3px solid white;
@@ -308,7 +396,7 @@ embed{
 	padding: 10px;
 	margin: 10px;
 	width: 400px;
-	height: 25px;
+	/* height: 25px; */
 	text-align: center;
 }
 
@@ -340,19 +428,137 @@ audio{
 
 .card{
 	color: #222;
+	display:none;
 	height:60px;
 	width:80px;
 	background: transparent;	
-	border: 1.5px solid #555555;
+	border: 1.5px solid #999999;
 
 	border-image-slice: 1;
 	font-size: 12px;
 	padding: 10px;
-	z-index: -1;
+	/* z-index: -1; */
 	font-family: Helvetica, sans-serif;
 	line-height: normal;
 }
 
+.card.show{
+	display: block;
+}
+
+.interact_progress{
+	display:none;
+	height:18px;
+	width:18px;
+	background: transparent;	
+	border: 1px solid #fafafa;
+
+	border-image-slice: 1;
+}
+.interact_progress.show{
+	display: block;
+}
+
+.sign{
+	color: #222;
+	display:none;
+	height:60px;
+	width:80px;
+	background: transparent;	
+	font-size: 12px;
+	font-weight: 100;
+	/* z-index: -1; */
+	font-family: Montserrat, sans-serif;
+	line-height: normal;
+}
+
+.sign.show{
+	display: block;
+}
+.interact_instruction{
+	color: #222;
+	display:none;
+	width:200px;
+	background: transparent;	
+	font-size: 12px;
+	/* z-index: -1; */
+	font-family: Helvetica, sans-serif;
+	line-height: normal;
+	text-align: center;
+}
+
+.interact_instruction.show{
+	display: block;
+	animation: blink 2s 2;
+}
+
+@keyframes blink {
+	0%,
+	100% {
+	  opacity: 1;
+	}
+	50%{
+	  opacity: 0;
+	}
+  }
+
 #css{
 	pointer-events: none;
+}
+.spin-wrapper {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.7);
+	display: none;
+	/* opacity: 0; */
+	z-index: 5;
+	pointer-events: none;
+}
+
+.spin-wrapper .spinner {
+	position: absolute;
+	height: 60px;
+	width: 60px;
+	border: 3px solid transparent;
+	border-top-color: #ff1199;
+	top: 50%;
+	left: 50%;
+	margin: -30px;
+	border-radius: 50%;
+	animation: spin 2s linear infinite;
+}
+.spin-wrapper .spinner:before, .spin-wrapper .spinner:after {
+	content: '';
+	position: absolute;
+	border: 3px solid transparent;
+	border-radius: 50%;
+}
+.spin-wrapper .spinner:before {
+	border-top-color: #11ffee;
+	top: -12px;
+	left: -12px;
+	right: -12px;
+	bottom: -12px;
+	animation: spin 3s linear infinite;
+}
+.spin-wrapper .spinner:after {
+	border-top-color: #fffbfe;
+	top: 6px;
+	left: 6px;
+	right: 6px;
+	bottom: 6px;
+	animation: spin 4s linear infinite;
+}
+@keyframes spin {
+	0% {
+		transform: rotate(0deg);
+   }
+	100% {
+		transform: rotate(360deg);
+   }
+}
+
+.dg.ac{
+	z-index: 10;
 }
