@@ -985,6 +985,7 @@ function create() {
     wall2.position.x = -20;
     wall2.rotation.y = Math.PI / 2;
     wall2.myNormal = new THREE.Vector3(0.01, 0, 0);
+    //end window
     wall3.position.x = 60;
     wall3.rotation.y = -Math.PI / 2;
     wall3.myNormal = new THREE.Vector3(-0.01, 0, 0);
@@ -1007,7 +1008,30 @@ function create() {
     wall4_6.rotation.y = Math.PI;
     wall4_6.myNormal = new THREE.Vector3(0, 0, -0.01);
 
-
+    let beamMaterial = new THREE.MeshPhysicalMaterial({ color: 0x999999, metalness: 0.5, roughness: 0.5 })
+    // let beamMaterial = new THREE.MeshPhongMaterial({color:0x555555, shininess:80})
+    for (let i = 0; i < 3; i++) {
+        let beamVer = new THREE.Mesh(new THREE.BoxGeometry(0.3, 7, 0.2), beamMaterial);
+        beamVer.position.set(60, 0, -5+5*i);
+        // beam.rotation.x = Math.PI / 2;
+        beamVer.rotation.z = Math.PI;
+        hallwayGroup.add(beamVer);
+        let beamHor = new THREE.Mesh(new THREE.BoxGeometry(0.3, 10, 0.2), beamMaterial);
+        beamHor.position.set(60, -3.5+3.5*i, 0);
+        beamHor.rotation.x = Math.PI / 2;
+        beamHor.rotation.z = Math.PI;
+        hallwayGroup.add(beamHor);
+    }
+    // let beam1 = new THREE.Mesh(new THREE.BoxGeometry(40, 0.3, 0.2), beamMaterial);
+    // beam1.position.set(0, 2.98, 5);
+    // beam1.rotation.x = Math.PI / 2;
+    // // beam1.castShadow = true;
+    // wingGroup.add(beam1);
+    // let beam2 = new THREE.Mesh(new THREE.BoxGeometry(40, 0.3, 0.2), beamMaterial);
+    // beam2.position.set(0, 2.98, -5);
+    // beam2.rotation.x = Math.PI / 2;
+    // // beam2.castShadow = true;
+    // wingGroup.add(beam2);
 
     addWing(50);
     addWing(35);
@@ -1480,7 +1504,6 @@ function animate() {
                     let target = document.querySelector('#card' + location + '-' + intersects[0].object.parent.name.substring(4));
 
                     progressValue++;
-                    console.log(progressValue);
                     // valueContainer.textContent = `${progressValue}%`;
                     target.style.borderImageSource = `conic-gradient(
                         #ee82ee,
