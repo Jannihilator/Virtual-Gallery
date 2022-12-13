@@ -1490,7 +1490,7 @@ function animate() {
                         #555555 ${progressValue * 5}deg
                     )`;
                     if (progressValue == progressEndValue) {
-                        valueContainer.textContent = "done";
+                        // valueContainer.textContent = "done";
                         progressValue--;
                         // console.log(document.getElementById(intersects[0].object.parent.name));
                         document.getElementById(intersects[0].object.parent.name).classList.add('show');
@@ -1501,7 +1501,13 @@ function animate() {
             }
             
             else {
+                // interact.style.display = 'none'
                 progressValue = 0;
+                // progressBar.style.borderImageSource = `conic-gradient(
+                //     #444444 ${progressValue * 1.2}deg,
+                //     #555555 ${progressValue * 1.2}deg
+                // )`;
+                // valueContainer.textContent = "E";
                 
             }
 
