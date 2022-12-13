@@ -7,7 +7,7 @@ import { Sky } from './Sky.js'
 // import { RectAreaLightUniformsLib } from './RectAreaLightUniformsLib.js'
 // import { RectAreaLightHelper } from './RectAreaLightHelper.js';
 
-let speed = 100;
+let speed = 50;
 let
     ui=false,
     wing_BBox=[],
