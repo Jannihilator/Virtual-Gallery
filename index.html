@@ -22,6 +22,8 @@
     <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-222145117-15"></script>
     <script
         type="text/javascript">window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments); } gtag('js', new Date()); gtag('config', 'UA-222145117-15', { 'anonymize_ip': false });</script>
+
+    
 </head>
 
 <body>
@@ -36,7 +38,7 @@
         <div class="nav-container w-container">
             <div class="nav-menu-wrapper">
                 <nav role="navigation" class="nav-menu-wrap w-nav-menu">
-                    <div class="nav-menu-shadow-overlay">
+                    <div class="nav-menu-shadow-overlay" style="display: none;">
                         <!-- <div class="nav-brand-desktop-wrapper"><a href="/" aria-current="page"
                                 class="nav-brand-link w-nav-brand w--current"><img
                                     src="https://assets.website-files.com/625fb3e7a51e311f6f9aecb1/6261172259ba101a2a76d8b7_logo-art.png"
@@ -259,7 +261,7 @@
         </div>
         <div data-w-id="9eb270dd-3956-cb0a-bc69-3d5bb7e3e6b9" class="search-close-button"></div>
     </form>
-    <div class="banner-section home-banner wf-section">
+    <div class="banner-section home-banner wf-section" style="padding-top: 0;">
         <div data-delay="4000" data-animation="slide" class="home-banner-slider w-slider" data-autoplay="false"
             data-easing="ease" data-hide-arrows="false" data-disable-swipe="false" data-autoplay-limit="0"
             data-nav-spacing="3" data-duration="500" data-infinite="true">
@@ -1076,5 +1078,9 @@
         type="text/javascript"></script>
     <!--[if lte IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif]-->
 </body>
-
+<style>
+    .w-webflow-badge{
+        display: none !important;
+    }
+</style>
 </html>

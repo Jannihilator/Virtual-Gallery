@@ -606,7 +606,7 @@ audio{
 
 #instructions{
 	width: 500px;
-	height: 430px;
+	height: 540px;
 	background: #eee;
 	position: absolute;
 	left: 50%;
@@ -624,7 +624,7 @@ audio{
 }
 
 #instructions .title{
-	margin: 12px;
+	margin: 16px;
 	font-size: 24px;
 }
 
@@ -733,26 +733,34 @@ audio{
   }
   
   .wing-text-en{
+	opacity: 0;
+	transition: opacity .5s;
 	color: #444;
 	width:350px;
 	font-size:15px;
 	line-height: normal;
-	display: none;
+	/* display: none; */
   }
   .wing-text-en.show{
-	display: block;
+	opacity: 1;
+	transition: opacity .5s;
+	/* display: block; */
   }
   .wing-text-cn{
+	transition: opacity .5s;
 	color: #444;
 	width:350px;
 	font-size:15px;
 	line-height: 18px;
 	/* word-break: keep-all; */
 	font-family: 'cwTeXYen', sans-serif;
-	display: none;
+	/* display: none; */
+	opacity: 0;
   }
   .wing-text-cn.show{
-	display: block;
+	transition: opacity .5s;
+	/* display: block; */
+	opacity: 1;
   }
   .wing-title{
 	color: #444;

@@ -10,10 +10,11 @@ import { Sky } from './Sky.js'
 
 let speed = 70;
 let
-    translate_text=false,
-    translate=[],
+    en=true,
+    translate_text = false,
+    translate = [],
     prevHover,
-    num_of_paintings = [6,9],
+    num_of_paintings = [6, 9],
     offset_back = [-30, -48],
     ui = false,
     floor,
@@ -64,6 +65,9 @@ let cards = [];
 let video = document.getElementById("video");
 video.play();
 let videoTexture = new THREE.VideoTexture(video);
+let gif = document.getElementById("gif");
+gif.play();
+let gifTexture = new THREE.VideoTexture(gif);
 let cube1, cube2;
 let enablePaint = false;
 let colorPicker = document.getElementById('color-picker');
@@ -250,7 +254,7 @@ function init() {
     });
 
     loader.load('./scene.gltf', function (gltf) {
-        gltf.scene.position.set(-10, 1.65, 30);
+        gltf.scene.position.set(20, 1.65, 30);
         gltf.scene.scale.set(0.0012, 0.0012, 0.0012);
         gltf.scene.rotateY(Math.PI / 3)
         gltf.scene.castShadow = true;
@@ -335,12 +339,12 @@ function init() {
         gltf.scene.scale.set(0.3, 0.3, 0.3);
         // gltf.scene.rotateY(-Math.PI / 2);
         gltf.scene.rotateX(Math.PI);
-        for(let i=0;i<=5;i++){
+        for (let i = 0; i <= 5; i++) {
             let clone = gltf.scene.clone()
-            clone.position.set(-10+12*i, 6.95, 3.15);
+            clone.position.set(-10 + 12 * i, 6.95, 3.15);
             scene.add(clone);
             clone = gltf.scene.clone()
-            clone.position.set(-10+12*i, 6.95, -3.15);
+            clone.position.set(-10 + 12 * i, 6.95, -3.15);
             scene.add(clone);
         }
         // obstacles_bbox.push(new THREE.Box3(new THREE.Vector3(-13.5, 0, 52.5), new THREE.Vector3(-12.5, 2, 56.5)));
@@ -350,12 +354,12 @@ function init() {
     //     dae.scene.position.set(-15,0,0);
     //     scene.add(dae.scene);
     // });
-    for(let i=0;i<=5;i++){
+    for (let i = 0; i <= 5; i++) {
         let ceilLight = new THREE.PointLight(0xfffaee, 2.5, 3, 1.2);
-        ceilLight.position.set(-10+12*i, 6.75, 3.15);
+        ceilLight.position.set(-10 + 12 * i, 6.75, 3.15);
         scene.add(ceilLight);
         let clone = ceilLight.clone()
-        clone.position.set(-10+12*i, 6.75, -3.15);
+        clone.position.set(-10 + 12 * i, 6.75, -3.15);
         scene.add(clone);
     }
     //Light up 2nd pedestal music player
@@ -459,7 +463,7 @@ function init() {
         })
 
     });
-    
+
     //Travelator UI
     wingButton.forEach(e => {
         e.addEventListener('click', function () {
@@ -503,7 +507,7 @@ function init() {
     window.addEventListener('click', function () {
         if (!ui) {
             nav_click = true;
-            translate_text=true;
+            translate_text = true;
         }
     });
 
@@ -737,15 +741,25 @@ function addWing(x, wing_number) {
     sign_obj.rotateY(Math.PI / 2)
     sign_obj.position.set(-20, -0.3, -2.6)
 
+    let wing_title = document.createElement('div');
+    wing_title.innerHTML = "<b class='wing-title'>1652</b><b class='wing-title-ch'> 藝術創作基礎</b><b class='wing-title'><br>Core Studio in Fine Arts</b>";
+
+    let wing_title_obj = new CSS3DObject(wing_title);
+    wing_title_obj.scale.set(0.008, 0.008, 0.008);
+    wing_title_obj.rotateY(Math.PI / 2)
+    wing_title_obj.position.set(21, 2.3, -4.5)
+    wingGroup.add(wing_title_obj)
+
     let wing_text = document.createElement('div');
-    wing_text.innerHTML = "<b class='wing-title'>1652</b><b class='wing-title-ch'> 藝術創作基礎</b><b class='wing-title'><br>Core Studio in Fine Arts</b><div class='wing-text-en show'><p class='wing-text'>Conceptual art is art for which the idea (or concept) behind the work is more important than the finished art object. Artists associated with the Conceptual Art Movement attempted to bypass the increasingly commercialised art world by stressing thought processes and methods of production as the value of the work.<br><br>The art forms they used were often intentionally those that do not produce a finished object such as a sculpture or painting. This meant that their work could not be easily bought and sold and did not need to be viewed in a formal gallery situation.<br><br>It was not just the structures of the art world that many conceptual artists questioned, there was often a strong socio-political dimension to much of the work they produced, reflecting wider dissatisfaction with society and government policies.</p><div class='wing-text-ui-cn'>中</div></div>";
+    wing_text.innerHTML = "<div class='wing-text-en show'><p class='wing-text'>Conceptual art is art for which the idea (or concept) behind the work is more important than the finished art object. Artists associated with the Conceptual Art Movement attempted to bypass the increasingly commercialised art world by stressing thought processes and methods of production as the value of the work.<br><br>The art forms they used were often intentionally those that do not produce a finished object such as a sculpture or painting. This meant that their work could not be easily bought and sold and did not need to be viewed in a formal gallery situation.<br><br>It was not just the structures of the art world that many conceptual artists questioned, there was often a strong socio-political dimension to much of the work they produced, reflecting wider dissatisfaction with society and government policies.</p>";
+    // <div class='wing-text-ui-cn'>中</div></div>
     // wing_text.className = 'wing-text';
     // wing_text.classList.add('sign' + x);
 
     let wing_text_obj = new CSS3DObject(wing_text);
     wing_text_obj.scale.set(0.008, 0.008, 0.008);
     wing_text_obj.rotateY(Math.PI / 2)
-    wing_text_obj.position.set(21, 0.6, -4.5)
+    wing_text_obj.position.set(21, 0.2, -4.5)
     wingGroup.add(wing_text_obj)
 
     let wing_text2 = document.createElement('div');
@@ -758,7 +772,7 @@ function addWing(x, wing_number) {
     wing_text2_obj.rotateY(Math.PI / 2)
     wing_text2_obj.position.set(21, 0.2, -4.5)
     wingGroup.add(wing_text2_obj)
-    
+
     // translate.push(wing_text_obj, wing_text2_obj);
 
     wingGroup.add(sign_obj)
@@ -827,120 +841,136 @@ function addWing(x, wing_number) {
 
     // const num_of_paintings = 6;
     const seperation = 8, artHeight = 2.5 - 3, cardHeight = 1.8 - 3, card_offset = 0.9, offset__front = -8;
-    if(wing_number<=2){
-    for (var i = 0; i < num_of_paintings[wing_number-1]; i++) {
-        (function (index) {
-            //https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/Image
-            var artwork = new Image();
-            var ratiow = 0;
-            var ratioh = 0;
+    if (wing_number <= 2) {
+        for (var i = 0; i < num_of_paintings[wing_number - 1]; i++) {
+            (function (index) {
+                //https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/Image
+                var artwork = new Image();
+                var ratiow = 0;
+                var ratioh = 0;
 
-            var source = './img/wing'+wing_number.toString()+'/art-' + (index).toString() + '.jpg';
-            artwork.src = source;
+                var source = './img/wing' + wing_number.toString() + '/art-' + (index).toString() + '.jpg';
+                artwork.src = source;
 
-            var texture = new THREE.TextureLoader(manager).load(artwork.src);
-            texture.generateMipmaps = false;
-            texture.minFilter = THREE.LinearFilter;
-            var img = new THREE.MeshLambertMaterial({ map: texture });
+                var texture = new THREE.TextureLoader(manager).load(artwork.src);
+                texture.generateMipmaps = false;
+                texture.minFilter = THREE.LinearFilter;
+                var img = new THREE.MeshLambertMaterial({ map: texture });
 
-            artwork.onload = function () {
-                if (artwork.width > 100) {
+                artwork.onload = function () {
+                    if (artwork.width > 100) {
 
-                    // console.log(artwork.width)
-                    ratiow = artwork.width / 200;
-                    ratioh = artwork.height / 200;
+                        // console.log(artwork.width)
+                        ratiow = artwork.width / 200;
+                        ratioh = artwork.height / 200;
 
-                    var art = new THREE.Group();
-                    art.name = 'art-' + (index).toString();
+                        var art = new THREE.Group();
+                        art.name = 'art-' + (index).toString();
 
 
-                    // plane for artwork
-                    var plane = new THREE.Mesh(new THREE.PlaneGeometry(ratiow, ratioh), img); //width, height
-                    plane.overdraw = true;
+                        // plane for artwork
+                        var plane = new THREE.Mesh(new THREE.PlaneGeometry(ratiow, ratioh), img); //width, height
+                        plane.overdraw = true;
 
-                    let card = document.createElement('div');
-                    card.innerHTML = "<b>Artist<br></b><nobr><b><i>Artwork, &nbsp</i></b>2022</nobr><p>Material</p>";
-                    card.className = 'card';
-                    card.classList.add('card' + x);
-                    card.id = 'card' + x.toString() + '-' + index.toString();
-                    let card_obj = new CSS3DObject(card);
-                    card_obj.scale.set(0.005, 0.005, 0.005);
-                    let art_border = document.createElement('div');
-                    art_border.style.height=(100*ratioh+20)+'px';
-                    art_border.style.width=(100*ratiow+20)+'px';
-                    art_border.innerHTML="";
-                    // art_border.style.border='10px solid red';
-                    art_border.style.boxShadow = '0px 0px 10px #ffe800';
-                    art_border.className = 'art-border';
-                    art_border.classList.add('art-border'+x);
-                    art_border.id = 'art-border' + x.toString() + '-' + index.toString();
-                    let art_border_obj = new CSS3DObject(art_border);
-                    art_border_obj.scale.set(0.01, 0.01, 0.01);
+                        let card = document.createElement('div');
+                        card.innerHTML = "<b>Artist<br></b><nobr><b><i>Artwork, &nbsp</i></b>2022</nobr><p>Material</p>";
+                        card.className = 'card';
+                        card.classList.add('card' + x);
+                        card.id = 'card' + x.toString() + '-' + index.toString();
+                        let card_obj = new CSS3DObject(card);
+                        card_obj.scale.set(0.005, 0.005, 0.005);
+                        let art_border = document.createElement('div');
+                        art_border.style.height = (100 * ratioh + 20) + 'px';
+                        art_border.style.width = (100 * ratiow + 20) + 'px';
+                        art_border.innerHTML = "";
+                        // art_border.style.border='10px solid red';
+                        art_border.style.boxShadow = '0px 0px 10px #ffe800';
+                        art_border.className = 'art-border';
+                        art_border.classList.add('art-border' + x);
+                        art_border.id = 'art-border' + x.toString() + '-' + index.toString();
+                        let art_border_obj = new CSS3DObject(art_border);
+                        art_border_obj.scale.set(0.01, 0.01, 0.01);
 
-                    //-1 because index is 0 - n-1 but num of paintings is n 
-                    if (index <= Math.floor(num_of_paintings[wing_number-1] / 2) - 1) //bottom half
-                    {
-                        //plane.rotation.z = Math.PI/2;
-                        plane.position.set(seperation * index + offset__front, artHeight, -4.96); //y and z kept constant
-                        card_obj.position.set(seperation * index + offset__front + ratiow / 2 + card_offset, cardHeight, -5);
-                        // art_border_obj.position.set(seperation * index + offset__front, artHeight, -4.5)
-                        var mesh = drawFrame({
-                            x: seperation * index + offset__front - (ratiow / 2) - 0.1,
-                            y: artHeight + (ratioh / 2) + 0.1,
-                            z: -5
-                        }, {
-                            x: seperation * index + offset__front + (ratiow / 2) + 0.1,
-                            y: artHeight - (ratioh / 2) - 0.1,
-                            z: -5
-                        }, 0.005);
-                        art.add(mesh);
+                        //-1 because index is 0 - n-1 but num of paintings is n 
+                        if (index <= Math.floor(num_of_paintings[wing_number - 1] / 2) - 1) //bottom half
+                        {
+                            //plane.rotation.z = Math.PI/2;
+                            plane.position.set(seperation * index + offset__front, artHeight, -4.96); //y and z kept constant
+                            card_obj.position.set(seperation * index + offset__front + ratiow / 2 + card_offset, cardHeight, -5);
+                            // art_border_obj.position.set(seperation * index + offset__front, artHeight, -4.5)
+                            var mesh = drawFrame({
+                                x: seperation * index + offset__front - (ratiow / 2) - 0.1,
+                                y: artHeight + (ratioh / 2) + 0.1,
+                                z: -5
+                            }, {
+                                x: seperation * index + offset__front + (ratiow / 2) + 0.1,
+                                y: artHeight - (ratioh / 2) - 0.1,
+                                z: -5
+                            }, 0.005);
+                            art.add(mesh);
 
+                        }
+                        else {
+                            // plane.rotation.z = Math.PI/2;
+                            plane.position.set(-(seperation * index + offset_back[wing_number - 1]), artHeight, 4.96);
+                            //plane.position.set(65*i - 75*Math.floor(num_of_paintings/2) - 15*Math.floor(num_of_paintings/2), 48, 90);
+                            plane.rotation.y = Math.PI;
+                            // art_border_obj.position.set(seperation * index + offset__front, artHeight, 4.5)
+                            card_obj.position.set(-(seperation * index + offset_back[wing_number - 1] + ratiow / 2 + card_offset), cardHeight, 5);
+                            card_obj.rotation.y = Math.PI;
+                            var mesh = drawFrame({
+                                x: seperation * index + offset_back[wing_number - 1] - (ratiow / 2) - 0.1,
+                                y: artHeight + (ratioh / 2) + 0.1,
+                                z: -5
+                            }, {
+                                x: seperation * index + offset_back[wing_number - 1] + (ratiow / 2) + 0.1,
+                                y: artHeight - (ratioh / 2) - 0.1,
+                                z: -5
+                            }, 0.005);
+                            // mesh.rotation.y = Math.PI;
+                            mesh.lookAt(0, 0, -1);
+                            art.add(mesh);
+                        }
+                        // card_cover.position.copy(card_obj.position);
+                        plane.receiveShadow = true;
+                        art.add(card_obj);
+
+                        // cssGroup.add(card_cover);
+                        //https://aerotwist.com/tutorials/create-your-own-environment-maps/
+                        if (wing_number == 1 && index == 5) {
+                            gifTexture.minFilter = THREE.LinearFilter;
+                            gifTexture.magFilter = THREE.LinearFilter;
+                            // videoTexture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+                            var gifMaterial = new THREE.MeshLambertMaterial({
+                                map: gifTexture
+                            })
+                            let gifGeometry = new THREE.PlaneGeometry(3.5, 2.8);
+                            let gifScreen = new THREE.Mesh(gifGeometry, gifMaterial);
+                            gifScreen.position.set(-(seperation * index + offset_back[wing_number - 1]), artHeight, 4.96);
+                            //plane.position.set(65*i - 75*Math.floor(num_of_paintings/2) - 15*Math.floor(num_of_paintings/2), 48, 90);
+                            gifScreen.rotation.y = Math.PI;
+                            art.add(gifScreen)
+                        } else {
+                            art.add(plane);
+
+                        }
+                        art_border_obj.position.copy(plane.position);
+
+                        art.add(art_border_obj);
+
+
+
+
+
+
+                        wingGroup.add(art);
+                        paintings.push(art);
                     }
-                    else {
-                        // plane.rotation.z = Math.PI/2;
-                        plane.position.set(-(seperation * index + offset_back[wing_number-1]), artHeight, 4.96);
-                        //plane.position.set(65*i - 75*Math.floor(num_of_paintings/2) - 15*Math.floor(num_of_paintings/2), 48, 90);
-                        plane.rotation.y = Math.PI;
-                        // art_border_obj.position.set(seperation * index + offset__front, artHeight, 4.5)
-                        card_obj.position.set(-(seperation * index + offset_back[wing_number-1] + ratiow / 2 + card_offset), cardHeight, 5);
-                        card_obj.rotation.y = Math.PI;
-                        var mesh = drawFrame({
-                            x: seperation * index + offset_back[wing_number-1] - (ratiow / 2) - 0.1,
-                            y: artHeight + (ratioh / 2) + 0.1,
-                            z: -5
-                        }, {
-                            x: seperation * index + offset_back[wing_number-1] + (ratiow / 2) + 0.1,
-                            y: artHeight - (ratioh / 2) - 0.1,
-                            z: -5
-                        }, 0.005);
-                        // mesh.rotation.y = Math.PI;
-                        mesh.lookAt(0, 0, -1);
-                        art.add(mesh);
-                    }
-                    // card_cover.position.copy(card_obj.position);
-                    plane.receiveShadow = true;
-                    art.add(card_obj);
-                    
-                    // cssGroup.add(card_cover);
-                    //https://aerotwist.com/tutorials/create-your-own-environment-maps/
-                    art.add(plane);
-                    art_border_obj.position.copy(plane.position);
+                };
 
-                    art.add(art_border_obj);
-
-
-
-
-
-
-                    wingGroup.add(art);
-                    paintings.push(art);
-                }
-            };
-
-            // img.map.needsUpdate = true; //ADDED
-        }(i))
-    }
+                // img.map.needsUpdate = true; //ADDED
+            }(i))
+        }
     }
 
     let material = new THREE.MeshPhysicalMaterial({})
@@ -1178,11 +1208,11 @@ function create() {
     // // beam2.castShadow = true;
     // wingGroup.add(beam2);
 
-    addWing(50,5);
-    addWing(35,4);
-    addWing(20,3);
-    addWing(5,2);
-    addWing(-10,1);
+    addWing(50, 5);
+    addWing(35, 4);
+    addWing(20, 3);
+    addWing(5, 2);
+    addWing(-10, 1);
 
     wing_BBox.push(new THREE.Box3(new THREE.Vector3(-15, 0, 5), new THREE.Vector3(-5, 7, 45)));
     wing_BBox.push(new THREE.Box3(new THREE.Vector3(0, 0, 5), new THREE.Vector3(10, 7, 45)));
@@ -1251,13 +1281,13 @@ function create() {
         new THREE.MeshBasicMaterial({ color: 0xffffff }),
     ];
 
-    let pedestal_wing1 = new THREE.Mesh(new THREE.BoxGeometry(1, 1.6, 1), pedestalMaterial);
+    let pedestal_wing3 = new THREE.Mesh(new THREE.BoxGeometry(1, 1.6, 1), pedestalMaterial);
     // let card = document.createElement('div');
     // card.innerHTML = "<b>Student<br></b><nobr><b><i>Research, &nbsp</i></b>2022</nobr><p>Topic</p>";
     // card.className = 'card show';
-    pedestal_wing1.position.set(-10, 0.8, 30);
-    pedestal_wing1.receiveShadow = true;
-    pedestal_wing1.castShadow = true;
+    pedestal_wing3.position.set(20, 0.8, 30);
+    pedestal_wing3.receiveShadow = true;
+    pedestal_wing3.castShadow = true;
 
     let pedestal1 = new THREE.Mesh(new THREE.BoxGeometry(1, 1.6, 1), hallwaypedestalMaterial);
     let pedestal2 = new THREE.Mesh(new THREE.BoxGeometry(1, 1.6, 1), hallwaypedestalMaterial);
@@ -1303,10 +1333,10 @@ function create() {
         scene.add(progress_obj)
     }
 
-    scene.add(pedestal_wing1);
+    scene.add(pedestal_wing3);
     scene.add(pedestal1, pedestal2, pedestal3, pedestal4, pedestal5);
 
-    obstacles.push(pedestal_wing1, pedestal1, pedestal2, pedestal3, pedestal4, pedestal5)
+    obstacles.push(pedestal_wing3, pedestal1, pedestal2, pedestal3, pedestal4, pedestal5)
     interactables.push(pedestal1, pedestal2, pedestal3, pedestal4, pedestal5)
     var geometry = new THREE.BoxGeometry(0.5, 0.5, 0.5)
     cube1 = new THREE.LineSegments(new THREE.EdgesGeometry(geometry), new THREE.LineBasicMaterial({ color: 0x333333 }));
@@ -1333,6 +1363,8 @@ function create() {
     slideshowScreen.position.set(-19.99, 3, 54);
     slideshowScreen.rotation.y = Math.PI / 2;
     scene.add(slideshowScreen)
+
+
     // videoTexture2.minFilter = THREE.LinearFilter;
     // videoTexture2.magFilter = THREE.LinearFilter;
     // // videoTexture.anisotropy = renderer.capabilities.getMaxAnisotropy();
@@ -1429,59 +1461,59 @@ function animate() {
 
             });
             document.querySelector(".sign" + location).classList.add("show");
-            
+
             let intersects = raycaster.intersectObjects(paintings);
-        if (intersects.length !== 0) {
-            // intersects[0].object.material.color.set(0xaaeeee);
-            // intersects[0].object.parent.children[0].visible=false;
-            // console.log(intersects[0].object.name);
-            if (intersects[0].object.parent.name) {
-                // console.log(intersects[0].distance);
-                // console.log($('#card-'+intersects[0].object.parent.name.substring(4)).innerHTML);
+            if (intersects.length !== 0) {
+                // intersects[0].object.material.color.set(0xaaeeee);
+                // intersects[0].object.parent.children[0].visible=false;
+                // console.log(intersects[0].object.name);
+                if (intersects[0].object.parent.name) {
+                    // console.log(intersects[0].distance);
+                    // console.log($('#card-'+intersects[0].object.parent.name.substring(4)).innerHTML);
 
-                // interact.style.display = 'block';
-                if(intersects[0].distance<10){
-                    document.querySelector('#art-border' + location + '-' + intersects[0].object.parent.name.substring(4)).classList.add('show');
-                    prevHover = '#art-border' + location + '-' + intersects[0].object.parent.name.substring(4);
+                    // interact.style.display = 'block';
+                    if (intersects[0].distance < 10) {
+                        document.querySelector('#art-border' + location + '-' + intersects[0].object.parent.name.substring(4)).classList.add('show');
+                        prevHover = '#art-border' + location + '-' + intersects[0].object.parent.name.substring(4);
 
-                }
-                if (interacting) {
-                    let target = document.querySelector('#card' + location + '-' + intersects[0].object.parent.name.substring(4));
+                    }
+                    if (interacting) {
+                        let target = document.querySelector('#card' + location + '-' + intersects[0].object.parent.name.substring(4));
 
-                    progressValue++;
-                    // valueContainer.textContent = `${progressValue}%`;
-                    target.style.borderImageSource = `conic-gradient(
+                        progressValue++;
+                        // valueContainer.textContent = `${progressValue}%`;
+                        target.style.borderImageSource = `conic-gradient(
                         #ee82ee,
                         #ffff00,
                         #ee82ee
                         ${progressValue * 5}deg,
                         #555555 ${progressValue * 5}deg
                     )`;
-                    if (progressValue == progressEndValue) {
-                        // valueContainer.textContent = "done";
-                        progressValue--;
-                        // console.log(document.getElementById(intersects[0].object.parent.name));
-                        document.getElementById(intersects[0].object.parent.name).classList.add('show');
-                        // blocker.style.display = 'block';
-                        controls.unlock();
+                        if (progressValue == progressEndValue) {
+                            // valueContainer.textContent = "done";
+                            progressValue--;
+                            // console.log(document.getElementById(intersects[0].object.parent.name));
+                            document.getElementById(intersects[0].object.parent.name).classList.add('show');
+                            // blocker.style.display = 'block';
+                            controls.unlock();
+                        }
                     }
                 }
+
+                else {
+                    // interact.style.display = 'none'
+                    if (prevHover)
+                        document.querySelector(prevHover).classList.remove('show');
+                    progressValue = 0;
+                    // progressBar.style.borderImageSource = `conic-gradient(
+                    //     #444444 ${progressValue * 1.2}deg,
+                    //     #555555 ${progressValue * 1.2}deg
+                    // )`;
+                    // valueContainer.textContent = "E";
+
+                }
+
             }
-
-            else {
-                // interact.style.display = 'none'
-                if(prevHover)
-                    document.querySelector(prevHover).classList.remove('show');
-                progressValue = 0;
-                // progressBar.style.borderImageSource = `conic-gradient(
-                //     #444444 ${progressValue * 1.2}deg,
-                //     #555555 ${progressValue * 1.2}deg
-                // )`;
-                // valueContainer.textContent = "E";
-
-            }
-
-        }
         }
         else {
             if (screen)
@@ -1493,7 +1525,7 @@ function animate() {
                 s.classList.remove("show")
 
             });
-            
+
             document.querySelector(".sign" + prevLocation).classList.remove("show");
         }
 
@@ -1636,13 +1668,24 @@ function animate() {
 
         let intersects_text = raycaster.intersectObjects(translate);
         if (intersects_text.length !== 0 && translate_text) {
-            document.querySelectorAll('.wing-text-cn').forEach(e => {
-                e.classList.add('show');
-            });
-            document.querySelectorAll('.wing-text-en').forEach(e => {
-                e.classList.remove('show');
-            });
-            console.log("translate")
+            if(en){
+
+                document.querySelectorAll('.wing-text-cn').forEach(e => {
+                    e.classList.add('show');
+                });
+                document.querySelectorAll('.wing-text-en').forEach(e => {
+                    e.classList.remove('show');
+                });
+            }
+            else{
+                document.querySelectorAll('.wing-text-en').forEach(e => {
+                    e.classList.add('show');
+                });
+                document.querySelectorAll('.wing-text-cn').forEach(e => {
+                    e.classList.remove('show');
+                });
+            }
+            en=!en;
         }
         let intersects_obj = raycaster.intersectObjects(interactables);
         if (intersects_obj.length !== 0) {
@@ -1731,12 +1774,12 @@ function animate() {
             }
         }
         nav_click = false;
-        translate_text=false;
+        translate_text = false;
         if (intersects_obj.length !== 0) {
             document.querySelector(".circle").classList.remove("show");
         }
         //calculate objects interesting ray
-        
+
 
 
     }
