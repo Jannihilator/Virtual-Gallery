@@ -1,0 +1,24 @@
+let pedestalMaterial = new THREE.MeshLambertMaterial({ color: 0xeeeeee });
+
+let pedestal_wing3 = new THREE.Mesh(new THREE.BoxGeometry(1, 1.6, 1), pedestalMaterial);
+pedestal_wing3.position.set(17, 0.8, 15);
+pedestal_wing3.receiveShadow = true;
+pedestal_wing3.castShadow = true;
+scene.add(pedestal_wing3);
+obstacles.push(pedestal_wing3);
+let clone=pedestal_wing3.clone();
+pedestal_wing3.position.set(19, 0.8, 23);
+scene.add(clone);
+obstacles.push(clone);
+clone=pedestal_wing3.clone();
+pedestal_wing3.position.set(22, 0.8, 29);
+scene.add(clone);
+obstacles.push(clone);
+clone=pedestal_wing3.clone();
+pedestal_wing3.position.set(18, 0.8, 36);
+scene.add(clone);
+obstacles.push(clone);
+clone=pedestal_wing3.clone();
+pedestal_wing3.position.set(23, 0.8, 20);
+scene.add(clone);
+obstacles.push(clone);

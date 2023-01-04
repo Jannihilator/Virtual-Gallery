@@ -10,12 +10,13 @@ import { Sky } from './Sky.js'
 
 let speed = 70;
 let
-    en=true,
+    wing3_pedestal_position=[],
+    en = true,
     translate_text = false,
     translate = [],
     prevHover,
-    num_of_paintings = [6, 9],
-    offset_back = [-30, -48],
+    num_of_paintings = [6, 9, 5],
+    offset_back = [-30, -48, -30],
     ui = false,
     floor,
     navigate = false,
@@ -108,11 +109,12 @@ manager.onLoad = function () {
     document.querySelector("#dot-flashing").style.display = "none";
     document.querySelector("#start-button").style.display = "block";
     animate();
-    for (var i = 0; i < 87; i++) {
+    console.log(obstacles);
+    for (var i = 0; i < 91; i++) {
         obstacles[i].geometry.computeBoundingBox();
         obstacles_bbox.push(new THREE.Box3().copy(obstacles[i].geometry.boundingBox).applyMatrix4(obstacles[i].matrixWorld));
     }
-    for (var i = 87; i < obstacles.length; i++) {
+    for (var i = 91; i < obstacles.length; i++) {
         obstacles_bbox.push(new THREE.Box3().setFromObject(obstacles[i]));
     }
     scene.traverse(obj => obj.frustumCulled = true);
@@ -253,15 +255,43 @@ function init() {
         obstacles.push(glb.scene);
     });
 
-    loader.load('./scene.gltf', function (gltf) {
-        gltf.scene.position.set(20, 1.65, 30);
-        gltf.scene.scale.set(0.0012, 0.0012, 0.0012);
-        gltf.scene.rotateY(Math.PI / 3)
+    loader.load('./monitor.gltf', function (gltf) {
+        gltf.scene.position.set(17, 1.7, 15);
+        gltf.scene.scale.set(0.002, 0.002, 0.002);
+        gltf.scene.rotateY(Math.PI / 2)
         gltf.scene.castShadow = true;
         gltf.scene.receiveShadow = true;
         scene.add(gltf.scene);
-        gltf.scene.updateMatrixWorld(true)
-        obstacles.push(gltf.scene);
+        
+        
+        let clone = gltf.scene.clone()
+        clone.position.set(19, 1.7, 23);
+        gltf.scene.rotateY(Math.PI / 6);
+        scene.add(clone);
+        
+        
+        clone = gltf.scene.clone()
+        clone.position.set(22, 1.7, 29);
+        gltf.scene.rotateY(-Math.PI / 8);
+        scene.add(clone);
+        
+
+        
+        clone = gltf.scene.clone()
+        clone.position.set(18, 1.7, 36);
+        gltf.scene.rotateY(Math.PI / 4);
+        scene.add(clone);
+       
+
+        
+        clone = gltf.scene.clone()
+        clone.position.set(23, 1.7, 20);
+        gltf.scene.rotateY(-Math.PI / 12);
+        scene.add(clone);
+        
+
+
+        
     });
     loader.load('./projector.glb', function (glb) {
         glb.scene.position.set(-7, 5, 54.5);
@@ -743,6 +773,7 @@ function addWing(x, wing_number) {
 
     let wing_title = document.createElement('div');
     wing_title.innerHTML = "<b class='wing-title'>1652</b><b class='wing-title-ch'> 藝術創作基礎</b><b class='wing-title'><br>Core Studio in Fine Arts</b>";
+    // wing_text.className = 'wing-title-visible';
 
     let wing_title_obj = new CSS3DObject(wing_title);
     wing_title_obj.scale.set(0.008, 0.008, 0.008);
@@ -753,7 +784,7 @@ function addWing(x, wing_number) {
     let wing_text = document.createElement('div');
     wing_text.innerHTML = "<div class='wing-text-en show'><p class='wing-text'>Conceptual art is art for which the idea (or concept) behind the work is more important than the finished art object. Artists associated with the Conceptual Art Movement attempted to bypass the increasingly commercialised art world by stressing thought processes and methods of production as the value of the work.<br><br>The art forms they used were often intentionally those that do not produce a finished object such as a sculpture or painting. This meant that their work could not be easily bought and sold and did not need to be viewed in a formal gallery situation.<br><br>It was not just the structures of the art world that many conceptual artists questioned, there was often a strong socio-political dimension to much of the work they produced, reflecting wider dissatisfaction with society and government policies.</p>";
     // <div class='wing-text-ui-cn'>中</div></div>
-    // wing_text.className = 'wing-text';
+    // wing_text.className = 'wing-text-visible';
     // wing_text.classList.add('sign' + x);
 
     let wing_text_obj = new CSS3DObject(wing_text);
@@ -841,7 +872,7 @@ function addWing(x, wing_number) {
 
     // const num_of_paintings = 6;
     const seperation = 8, artHeight = 2.5 - 3, cardHeight = 1.8 - 3, card_offset = 0.9, offset__front = -8;
-    if (wing_number <= 2) {
+    if (wing_number <= 3) {
         for (var i = 0; i < num_of_paintings[wing_number - 1]; i++) {
             (function (index) {
                 //https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/Image
@@ -884,87 +915,97 @@ function addWing(x, wing_number) {
                         art_border.style.width = (100 * ratiow + 20) + 'px';
                         art_border.innerHTML = "";
                         // art_border.style.border='10px solid red';
-                        art_border.style.boxShadow = '0px 0px 10px #ffe800';
+                        art_border.style.border = '2px solid #999';
+                        // art_border.style.boxShadow = '0px 0px 15px #ff6ec7';
                         art_border.className = 'art-border';
                         art_border.classList.add('art-border' + x);
                         art_border.id = 'art-border' + x.toString() + '-' + index.toString();
                         let art_border_obj = new CSS3DObject(art_border);
                         art_border_obj.scale.set(0.01, 0.01, 0.01);
 
-                        //-1 because index is 0 - n-1 but num of paintings is n 
-                        if (index <= Math.floor(num_of_paintings[wing_number - 1] / 2) - 1) //bottom half
-                        {
-                            //plane.rotation.z = Math.PI/2;
-                            plane.position.set(seperation * index + offset__front, artHeight, -4.96); //y and z kept constant
-                            card_obj.position.set(seperation * index + offset__front + ratiow / 2 + card_offset, cardHeight, -5);
-                            // art_border_obj.position.set(seperation * index + offset__front, artHeight, -4.5)
-                            var mesh = drawFrame({
-                                x: seperation * index + offset__front - (ratiow / 2) - 0.1,
-                                y: artHeight + (ratioh / 2) + 0.1,
-                                z: -5
-                            }, {
-                                x: seperation * index + offset__front + (ratiow / 2) + 0.1,
-                                y: artHeight - (ratioh / 2) - 0.1,
-                                z: -5
-                            }, 0.005);
-                            art.add(mesh);
+                        //-1 because index is 0 - n-1 but num of paintings is n
+                        if (wing_number != 3) {
+                            if (index <= Math.floor(num_of_paintings[wing_number - 1] / 2) - 1) //bottom half
+                            {
+                                //plane.rotation.z = Math.PI/2;
+                                plane.position.set(seperation * index + offset__front, artHeight, -4.96); //y and z kept constant
+                                card_obj.position.set(seperation * index + offset__front + ratiow / 2 + card_offset, cardHeight, -5);
+                                // art_border_obj.position.set(seperation * index + offset__front, artHeight, -4.5)
+                                // var mesh = drawFrame({
+                                //     x: seperation * index + offset__front - (ratiow / 2) - 0.1,
+                                //     y: artHeight + (ratioh / 2) + 0.1,
+                                //     z: -5
+                                // }, {
+                                //     x: seperation * index + offset__front + (ratiow / 2) + 0.1,
+                                //     y: artHeight - (ratioh / 2) - 0.1,
+                                //     z: -5
+                                // }, 0.005);
+                                // art.add(mesh);
 
+                            }
+                            else {
+                                // plane.rotation.z = Math.PI/2;
+                                plane.position.set(-(seperation * index + offset_back[wing_number - 1]), artHeight, 4.96);
+                                //plane.position.set(65*i - 75*Math.floor(num_of_paintings/2) - 15*Math.floor(num_of_paintings/2), 48, 90);
+                                plane.rotation.y = Math.PI;
+                                // art_border_obj.position.set(seperation * index + offset__front, artHeight, 4.5)
+                                card_obj.position.set(-(seperation * index + offset_back[wing_number - 1] + ratiow / 2 + card_offset), cardHeight, 5);
+                                card_obj.rotation.y = Math.PI;
+                                // var mesh = drawFrame({
+                                //     x: seperation * index + offset_back[wing_number - 1] - (ratiow / 2) - 0.1,
+                                //     y: artHeight + (ratioh / 2) + 0.1,
+                                //     z: -5
+                                // }, {
+                                //     x: seperation * index + offset_back[wing_number - 1] + (ratiow / 2) + 0.1,
+                                //     y: artHeight - (ratioh / 2) - 0.1,
+                                //     z: -5
+                                // }, 0.005);
+                                // mesh.rotation.y = Math.PI;
+                                // mesh.lookAt(0, 0, -1);
+                                // art.add(mesh);
+                            }
+                            plane.receiveShadow = true;
+                            art.add(card_obj);
+                            if (wing_number == 1 && index == 5) {
+                                gifTexture.minFilter = THREE.LinearFilter;
+                                gifTexture.magFilter = THREE.LinearFilter;
+                                // videoTexture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+                                var gifMaterial = new THREE.MeshLambertMaterial({
+                                    map: gifTexture
+                                })
+                                let gifGeometry = new THREE.PlaneGeometry(3.5, 2.8);
+                                let gifScreen = new THREE.Mesh(gifGeometry, gifMaterial);
+                                gifScreen.position.set(-(seperation * index + offset_back[wing_number - 1]), artHeight, 4.96);
+                                //plane.position.set(65*i - 75*Math.floor(num_of_paintings/2) - 15*Math.floor(num_of_paintings/2), 48, 90);
+                                gifScreen.rotation.y = Math.PI;
+                                art.add(gifScreen)
+                                } else {
+                                    art.add(plane);
+
+                                }
+                                art_border_obj.position.copy(plane.position);
+
+                                art.add(art_border_obj);
+
+                                wingGroup.add(art);
+                                paintings.push(art);
                         }
-                        else {
-                            // plane.rotation.z = Math.PI/2;
-                            plane.position.set(-(seperation * index + offset_back[wing_number - 1]), artHeight, 4.96);
-                            //plane.position.set(65*i - 75*Math.floor(num_of_paintings/2) - 15*Math.floor(num_of_paintings/2), 48, 90);
-                            plane.rotation.y = Math.PI;
-                            // art_border_obj.position.set(seperation * index + offset__front, artHeight, 4.5)
-                            card_obj.position.set(-(seperation * index + offset_back[wing_number - 1] + ratiow / 2 + card_offset), cardHeight, 5);
-                            card_obj.rotation.y = Math.PI;
-                            var mesh = drawFrame({
-                                x: seperation * index + offset_back[wing_number - 1] - (ratiow / 2) - 0.1,
-                                y: artHeight + (ratioh / 2) + 0.1,
-                                z: -5
-                            }, {
-                                x: seperation * index + offset_back[wing_number - 1] + (ratiow / 2) + 0.1,
-                                y: artHeight - (ratioh / 2) - 0.1,
-                                z: -5
-                            }, 0.005);
-                            // mesh.rotation.y = Math.PI;
-                            mesh.lookAt(0, 0, -1);
-                            art.add(mesh);
+                        else if(wing_number==3) {
+                            switch (index) {
+                                case (1):
+                                    plane.position.set(17, 2, 14); //y and z kept constant
+                                    plane.rotation.y = Math.PI;
+                                    scene.add(plane);
+                                    break;
+                                
+                            }
                         }
                         // card_cover.position.copy(card_obj.position);
-                        plane.receiveShadow = true;
-                        art.add(card_obj);
+                        
 
                         // cssGroup.add(card_cover);
                         //https://aerotwist.com/tutorials/create-your-own-environment-maps/
-                        if (wing_number == 1 && index == 5) {
-                            gifTexture.minFilter = THREE.LinearFilter;
-                            gifTexture.magFilter = THREE.LinearFilter;
-                            // videoTexture.anisotropy = renderer.capabilities.getMaxAnisotropy();
-                            var gifMaterial = new THREE.MeshLambertMaterial({
-                                map: gifTexture
-                            })
-                            let gifGeometry = new THREE.PlaneGeometry(3.5, 2.8);
-                            let gifScreen = new THREE.Mesh(gifGeometry, gifMaterial);
-                            gifScreen.position.set(-(seperation * index + offset_back[wing_number - 1]), artHeight, 4.96);
-                            //plane.position.set(65*i - 75*Math.floor(num_of_paintings/2) - 15*Math.floor(num_of_paintings/2), 48, 90);
-                            gifScreen.rotation.y = Math.PI;
-                            art.add(gifScreen)
-                        } else {
-                            art.add(plane);
 
-                        }
-                        art_border_obj.position.copy(plane.position);
-
-                        art.add(art_border_obj);
-
-
-
-
-
-
-                        wingGroup.add(art);
-                        paintings.push(art);
                     }
                 };
 
@@ -1270,8 +1311,31 @@ function create() {
     // scene.add(ceil3);
     // scene.add(ceil4);
 
-
     let pedestalMaterial = new THREE.MeshLambertMaterial({ color: 0xeeeeee });
+
+    let pedestal_wing3 = new THREE.Mesh(new THREE.BoxGeometry(1, 1.6, 1), pedestalMaterial);
+    pedestal_wing3.position.set(17, 0.8, 15);
+    pedestal_wing3.receiveShadow = true;
+    pedestal_wing3.castShadow = true;
+    scene.add(pedestal_wing3);
+    obstacles.push(pedestal_wing3);
+    let clone=pedestal_wing3.clone();
+    pedestal_wing3.position.set(19, 0.8, 23);
+    scene.add(clone);
+    obstacles.push(clone);
+    clone=pedestal_wing3.clone();
+    pedestal_wing3.position.set(22, 0.8, 29);
+    scene.add(clone);
+    obstacles.push(clone);
+    clone=pedestal_wing3.clone();
+    pedestal_wing3.position.set(18, 0.8, 36);
+    scene.add(clone);
+    obstacles.push(clone);
+    clone=pedestal_wing3.clone();
+    pedestal_wing3.position.set(23, 0.8, 20);
+    scene.add(clone);
+    obstacles.push(clone);
+    
     let hallwaypedestalMaterial = [
         new THREE.MeshBasicMaterial({ color: 0xffffff }),
         new THREE.MeshBasicMaterial({ color: 0xffffff }),
@@ -1280,14 +1344,6 @@ function create() {
         new THREE.MeshBasicMaterial({ color: 0xffffff }),
         new THREE.MeshBasicMaterial({ color: 0xffffff }),
     ];
-
-    let pedestal_wing3 = new THREE.Mesh(new THREE.BoxGeometry(1, 1.6, 1), pedestalMaterial);
-    // let card = document.createElement('div');
-    // card.innerHTML = "<b>Student<br></b><nobr><b><i>Research, &nbsp</i></b>2022</nobr><p>Topic</p>";
-    // card.className = 'card show';
-    pedestal_wing3.position.set(20, 0.8, 30);
-    pedestal_wing3.receiveShadow = true;
-    pedestal_wing3.castShadow = true;
 
     let pedestal1 = new THREE.Mesh(new THREE.BoxGeometry(1, 1.6, 1), hallwaypedestalMaterial);
     let pedestal2 = new THREE.Mesh(new THREE.BoxGeometry(1, 1.6, 1), hallwaypedestalMaterial);
@@ -1333,10 +1389,9 @@ function create() {
         scene.add(progress_obj)
     }
 
-    scene.add(pedestal_wing3);
     scene.add(pedestal1, pedestal2, pedestal3, pedestal4, pedestal5);
 
-    obstacles.push(pedestal_wing3, pedestal1, pedestal2, pedestal3, pedestal4, pedestal5)
+    obstacles.push(pedestal1, pedestal2, pedestal3, pedestal4, pedestal5)
     interactables.push(pedestal1, pedestal2, pedestal3, pedestal4, pedestal5)
     var geometry = new THREE.BoxGeometry(0.5, 0.5, 0.5)
     cube1 = new THREE.LineSegments(new THREE.EdgesGeometry(geometry), new THREE.LineBasicMaterial({ color: 0x333333 }));
@@ -1502,8 +1557,9 @@ function animate() {
 
                 else {
                     // interact.style.display = 'none'
-                    if (prevHover)
+                    if (prevHover) {
                         document.querySelector(prevHover).classList.remove('show');
+                    }
                     progressValue = 0;
                     // progressBar.style.borderImageSource = `conic-gradient(
                     //     #444444 ${progressValue * 1.2}deg,
@@ -1513,6 +1569,9 @@ function animate() {
 
                 }
 
+            }
+            else if (prevHover) {
+                document.querySelector(prevHover).classList.remove('show');
             }
         }
         else {
@@ -1668,7 +1727,7 @@ function animate() {
 
         let intersects_text = raycaster.intersectObjects(translate);
         if (intersects_text.length !== 0 && translate_text) {
-            if(en){
+            if (en) {
 
                 document.querySelectorAll('.wing-text-cn').forEach(e => {
                     e.classList.add('show');
@@ -1677,7 +1736,7 @@ function animate() {
                     e.classList.remove('show');
                 });
             }
-            else{
+            else {
                 document.querySelectorAll('.wing-text-en').forEach(e => {
                     e.classList.add('show');
                 });
@@ -1685,7 +1744,42 @@ function animate() {
                     e.classList.remove('show');
                 });
             }
-            en=!en;
+            en = !en;
+        }
+        if (camera.position.z > 5) {
+            document.querySelectorAll('.wing-text-cn').forEach(e => {
+                e.classList.remove('show');
+            });
+            document.querySelectorAll('.wing-title').forEach(e => {
+                e.classList.add('invisible');
+            });
+            document.querySelectorAll('.wing-title-ch').forEach(e => {
+                e.classList.add('invisible');
+            });
+            document.querySelectorAll('.wing-text-en').forEach(e => {
+                e.classList.remove('show');
+            });
+        }
+        else {
+            document.querySelectorAll('.wing-title').forEach(e => {
+                e.classList.remove('invisible');
+            });
+            document.querySelectorAll('.wing-title-ch').forEach(e => {
+                e.classList.remove('invisible');
+            });
+            if (en) {
+
+                document.querySelectorAll('.wing-text-en').forEach(e => {
+                    e.classList.add('show');
+                });
+
+            }
+            else {
+                document.querySelectorAll('.wing-text-cn').forEach(e => {
+                    e.classList.add('show');
+                });
+
+            }
         }
         let intersects_obj = raycaster.intersectObjects(interactables);
         if (intersects_obj.length !== 0) {

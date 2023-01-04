@@ -778,6 +778,12 @@ audio{
 	font-family: 'cwTeXYen', sans-serif;
 	white-space: nowrap;
   }
+  .wing-title.invisible{
+	display: none;
+  }
+  .wing-title-ch.invisible{
+	display: none;
+  }
   .wing-text-ui{
 	margin-top: -10px;
 	position: absolute;
