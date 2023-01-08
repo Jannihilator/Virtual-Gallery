@@ -10,13 +10,15 @@ import { Sky } from './Sky.js'
 
 let speed = 70;
 let
+    walls=[],
+    detail = false,
     wing3_pedestal_position=[],
     en = true,
     translate_text = false,
     translate = [],
     prevHover,
-    num_of_paintings = [6, 9, 5],
-    offset_back = [-30, -48, -30],
+    num_of_paintings = [6, 9, 5, 8],
+    offset_back = [-40, -48, -30, -50],
     ui = false,
     floor,
     navigate = false,
@@ -66,14 +68,17 @@ let cards = [];
 let video = document.getElementById("video");
 video.play();
 let videoTexture = new THREE.VideoTexture(video);
-let gif = document.getElementById("gif");
-gif.play();
-let gifTexture = new THREE.VideoTexture(gif);
+let gif_mirror = document.getElementById("gif-mirror");
+gif_mirror.play();
+let gif_mirror_Texture = new THREE.VideoTexture(gif_mirror);
+let gif_band = document.getElementById("gif-band");
+gif_band.play();
+let gif_band_Texture = new THREE.VideoTexture(gif_band);
 let cube1, cube2;
 let enablePaint = false;
 let colorPicker = document.getElementById('color-picker');
 let paintColor = "#ff0099"
-let location = null, screen = null, prevLocation = -10, spot_helper;
+let location = null, screen = null, prevLocation = 1, spot_helper;
 let hallway_material = new THREE.MeshBasicMaterial({ color: 0xffffff });
 
 
@@ -265,28 +270,28 @@ function init() {
         
         
         let clone = gltf.scene.clone()
-        clone.position.set(19, 1.7, 23);
-        gltf.scene.rotateY(Math.PI / 6);
+        clone.position.set(16.5, 1.7, 23);
+        clone.rotateY(-Math.PI / 2);
         scene.add(clone);
         
         
         clone = gltf.scene.clone()
         clone.position.set(22, 1.7, 29);
-        gltf.scene.rotateY(-Math.PI / 8);
+        // gltf.scene.rotateY(-Math.PI / 8);
         scene.add(clone);
         
 
         
         clone = gltf.scene.clone()
-        clone.position.set(18, 1.7, 36);
-        gltf.scene.rotateY(Math.PI / 4);
+        clone.position.set(23, 1.4, 11);
+        clone.rotateY(2*Math.PI / 3);
         scene.add(clone);
        
 
         
         clone = gltf.scene.clone()
-        clone.position.set(23, 1.7, 20);
-        gltf.scene.rotateY(-Math.PI / 12);
+        clone.position.set(19.5, 1.5, 20);
+        clone.rotateY(-Math.PI / 4);
         scene.add(clone);
         
 
@@ -463,8 +468,8 @@ function init() {
     user.BBox = new THREE.Box3().setFromObject(user);
 
     camera.add(user);
-    camera.position.set(-19, 2, 0);
-    // camera.position.set(-10, 2, 40);
+    // camera.position.set(-19, 2, 0);
+    camera.position.set(-10, 2, 5);
     camera.rotation.y = -Math.PI / 2;
 
     //For fps control
@@ -538,6 +543,7 @@ function init() {
         if (!ui) {
             nav_click = true;
             translate_text = true;
+            detail=true;
         }
     });
 
@@ -738,7 +744,6 @@ function addWing(x, wing_number) {
     ];
     let wall1 = new THREE.Mesh(new THREE.BoxGeometry(40, 6, 0.001), wall_material);
     let wall2_1 = new THREE.Mesh(new THREE.BoxGeometry(3.4, 6, 1), wall_material);
-    let wall2_2 = new THREE.Mesh(new THREE.BoxGeometry(3.2, 2, 1), wall_material);
     let wall2_3 = new THREE.Mesh(new THREE.BoxGeometry(3.4, 6, 1), wall_material);
     let wall3_2 = new THREE.Mesh(new THREE.BoxGeometry(3.2, 7, 1), wall3_2Material);
     // let wall3_3 = new THREE.Mesh(new THREE.BoxGeometry(3.6, 2.5, 1), wall3_3Material);
@@ -764,7 +769,7 @@ function addWing(x, wing_number) {
     let room_sign = document.createElement('div');
     room_sign.innerHTML = "<b style='font-size: 48px; line-height: 0; margin-left:-2px;'>&#8593;</b><br><b>放映室<br>Screening<br>Room</b>";
     room_sign.className = 'sign';
-    room_sign.classList.add('sign' + x);
+    room_sign.classList.add('sign' + wing_number);
 
     let sign_obj = new CSS3DObject(room_sign);
     sign_obj.scale.set(0.015, 0.015, 0.015);
@@ -803,20 +808,39 @@ function addWing(x, wing_number) {
     wing_text2_obj.rotateY(Math.PI / 2)
     wing_text2_obj.position.set(21, 0.2, -4.5)
     wingGroup.add(wing_text2_obj)
+    wingGroup.add(sign_obj)
 
     // translate.push(wing_text_obj, wing_text2_obj);
+    if(wing_number==1){
 
-    wingGroup.add(sign_obj)
+        let wall2_2 = new THREE.Mesh(new THREE.BoxGeometry(10, 6, 1), wall_material);
+        wall2_2.position.set(-20.5, 0, 0);
+        wall2_2.rotation.y = -Math.PI / 2;
+        wall2_2.receiveShadow = true;
+            wingGroup.add(wall2_2);
+            obstacles.push(wall2_2);
+            walls.push(wall2_2);
+    }
+    else{
+        let wall2_2 = new THREE.Mesh(new THREE.BoxGeometry(3.2, 2, 1), wall_material);
+        wall2_2.position.set(-20.5, 2, 0);
+    wall2_2.rotation.y = -Math.PI / 2;
+    wall2_2.receiveShadow = true;
+        wingGroup.add(wall2_2);
+        obstacles.push(wall2_2);
+        walls.push(wall2_2);
+    }
+            wingGroup.add(sign_obj)
+
     wall1.position.z = -5;
     wall1.myNormal = new THREE.Vector3(0, 0, 0.01);
     wall1.castShadow = true;
     wall2_1.position.set(-20.5, 0, 3.3);
     wall2_1.rotation.y = -Math.PI / 2;
     wall2_1.receiveShadow = true;
-    wall2_2.receiveShadow = true;
+    
     wall2_3.receiveShadow = true;
-    wall2_2.position.set(-20.5, 2, 0);
-    wall2_2.rotation.y = -Math.PI / 2;
+    
     wall2_3.position.set(-20.5, 0, -3.3);
     wall2_3.rotation.y = -Math.PI / 2;
     wall3_1.position.set(20.5, 0.5, 3.4);
@@ -871,16 +895,21 @@ function addWing(x, wing_number) {
     floorDark.position.set(-28, -2.999, -2.5);
 
     // const num_of_paintings = 6;
-    const seperation = 8, artHeight = 2.5 - 3, cardHeight = 1.8 - 3, card_offset = 0.9, offset__front = -8;
-    if (wing_number <= 3) {
+    const seperation = 8, artHeight = 2.5 - 3, cardHeight = 1.8 - 3, card_offset = 0.7, offset__front = -8;
+    if (wing_number <= 4) {
         for (var i = 0; i < num_of_paintings[wing_number - 1]; i++) {
             (function (index) {
                 //https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/Image
                 var artwork = new Image();
                 var ratiow = 0;
                 var ratioh = 0;
+                if(wing_number==4){
+                    var source = './img/wing' + wing_number.toString() + '/art-' + (index).toString() + '.png';
+                }
+                else{
 
-                var source = './img/wing' + wing_number.toString() + '/art-' + (index).toString() + '.jpg';
+                    var source = './img/wing' + wing_number.toString() + '/art-' + (index).toString() + '.jpg';
+                }
                 artwork.src = source;
 
                 var texture = new THREE.TextureLoader(manager).load(artwork.src);
@@ -896,7 +925,7 @@ function addWing(x, wing_number) {
                         ratioh = artwork.height / 200;
 
                         var art = new THREE.Group();
-                        art.name = 'art-' + (index).toString();
+                        art.name = 'art-' + wing_number.toString()+'-'+(index).toString();
 
 
                         // plane for artwork
@@ -904,12 +933,37 @@ function addWing(x, wing_number) {
                         plane.overdraw = true;
 
                         let card = document.createElement('div');
-                        card.innerHTML = "<b>Artist<br></b><nobr><b><i>Artwork, &nbsp</i></b>2022</nobr><p>Material</p>";
+                        switch(wing_number){
+                            case 1:
+                                switch(index){
+                                    case 0:
+                                        card.innerHTML = "<p class='artist'>林佳翰</p><b><i class='title'>光與幾何,</i></b><p class='year'>2020</p><p class='content'><br>石膏繃帶、雕塑、攝影、數位影像檔</p>";
+                                        break;
+                                    case 1:
+                                        card.innerHTML = "<p class='artist'>郭光祥</p><b><i class='title'>Key metrics,</i></b><p class='year'>2020</p><p class='content'><br>電腦鍵盤、攝影、數位影像檔</p>";
+                                        break;
+                                    case 2:
+                                        card.innerHTML = "<p class='artist'>陳睦夫</p><b><i class='title'>兩面之隔,</i></b><p class='year'>2020</p><p class='content'><br>手、自拍像、影像合成、數位影像檔</p>";
+                                        break;
+                                    case 3:
+                                        card.innerHTML = "<p class='artist'>蔣承育</p><b><i class='title'>Between 1 and 0,</i></b><p class='year'>2020</p><p class='content'><br>衍生藝術、自動生成數位影像</p>";
+                                        break;
+                                    case 4:
+                                        card.innerHTML = "<p class='artist'>林佳翰</p><b><i class='title'>逝,</i></b><p class='year'>2020</p><p class='content'><br>番茄皮、玻璃器皿、水、衣物、各類生活用品、攝影、文字、影像、電子書檔</p>";
+                                        break;
+                                    case 5:
+                                        card.innerHTML = "<p class='artist'>程祖寧</p><b><i class='title'>鏡像空間,</i></b><p class='year'>2020</p><p><br>水晶、攝影、影像後製、圖像互換格式</p>";
+                                        break;
+                                    
+                                }
+                            break;  
+                        }
+                        // card.innerHTML = "<b>Artist<br></b><nobr><b><i>Artwork, &nbsp</i></b>2022</nobr><p>Material</p>";
                         card.className = 'card';
-                        card.classList.add('card' + x);
-                        card.id = 'card' + x.toString() + '-' + index.toString();
+                        card.classList.add('card' + wing_number);
+                        card.id = 'card' + wing_number.toString() + '-' + index.toString();
                         let card_obj = new CSS3DObject(card);
-                        card_obj.scale.set(0.005, 0.005, 0.005);
+                        card_obj.scale.set(0.003, 0.003, 0.003);
                         let art_border = document.createElement('div');
                         art_border.style.height = (100 * ratioh + 20) + 'px';
                         art_border.style.width = (100 * ratiow + 20) + 'px';
@@ -918,8 +972,8 @@ function addWing(x, wing_number) {
                         art_border.style.border = '2px solid #999';
                         // art_border.style.boxShadow = '0px 0px 15px #ff6ec7';
                         art_border.className = 'art-border';
-                        art_border.classList.add('art-border' + x);
-                        art_border.id = 'art-border' + x.toString() + '-' + index.toString();
+                        // art_border.classList.add('art-border' + x);
+                        art_border.id = 'art-border-' + wing_number.toString() + '-' + index.toString();
                         let art_border_obj = new CSS3DObject(art_border);
                         art_border_obj.scale.set(0.01, 0.01, 0.01);
 
@@ -967,11 +1021,11 @@ function addWing(x, wing_number) {
                             plane.receiveShadow = true;
                             art.add(card_obj);
                             if (wing_number == 1 && index == 5) {
-                                gifTexture.minFilter = THREE.LinearFilter;
-                                gifTexture.magFilter = THREE.LinearFilter;
+                                gif_mirror_Texture.minFilter = THREE.LinearFilter;
+                                gif_mirror_Texture.magFilter = THREE.LinearFilter;
                                 // videoTexture.anisotropy = renderer.capabilities.getMaxAnisotropy();
                                 var gifMaterial = new THREE.MeshLambertMaterial({
-                                    map: gifTexture
+                                    map: gif_mirror_Texture
                                 })
                                 let gifGeometry = new THREE.PlaneGeometry(3.5, 2.8);
                                 let gifScreen = new THREE.Mesh(gifGeometry, gifMaterial);
@@ -979,10 +1033,25 @@ function addWing(x, wing_number) {
                                 //plane.position.set(65*i - 75*Math.floor(num_of_paintings/2) - 15*Math.floor(num_of_paintings/2), 48, 90);
                                 gifScreen.rotation.y = Math.PI;
                                 art.add(gifScreen)
-                                } else {
+                            } 
+                            else if (wing_number == 4 && index == 3) {
+                                gif_band_Texture.minFilter = THREE.LinearFilter;
+                                gif_band_Texture.magFilter = THREE.LinearFilter;
+                                // videoTexture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+                                var gifMaterial = new THREE.MeshLambertMaterial({
+                                    map: gif_band_Texture
+                                })
+                                let gifGeometry = new THREE.PlaneGeometry(2.8, 2);
+                                let gifScreen = new THREE.Mesh(gifGeometry, gifMaterial);
+                                gifScreen.position.set(-(seperation * index + offset__front), artHeight, -4.96);
+                                //plane.position.set(65*i - 75*Math.floor(num_of_paintings/2) - 15*Math.floor(num_of_paintings/2), 48, 90);
+                                // gifScreen.rotation.y = Math.PI;
+                                art.add(gifScreen)
+                            } 
+                            else {
                                     art.add(plane);
 
-                                }
+                            }
                                 art_border_obj.position.copy(plane.position);
 
                                 art.add(art_border_obj);
@@ -992,9 +1061,19 @@ function addWing(x, wing_number) {
                         }
                         else if(wing_number==3) {
                             switch (index) {
+                                case (0):
+                                    plane.position.set(22.8, 1.97, 11.1); //y and z kept constant
+                                    plane.rotation.y = -Math.PI/3;
+                                    plane.scale.set(0.22,0.22,0.22)
+                                    scene.add(plane);
+                                    break;
+                                
+                            }
+                            switch (index) {
                                 case (1):
-                                    plane.position.set(17, 2, 14); //y and z kept constant
+                                    plane.position.set(16.95, 2.26, 14.78); //y and z kept constant
                                     plane.rotation.y = Math.PI;
+                                    plane.scale.set(0.43,0.39,0.4)
                                     scene.add(plane);
                                     break;
                                 
@@ -1052,8 +1131,9 @@ function addWing(x, wing_number) {
     // beam2.castShadow = true;
     wingGroup.add(beam2);
 
-    wingGroup.add(wall1, wall2_1, wall2_2, wall2_3, wall3_1, wall3_2, arch_mesh, wall4, dark1, dark2, dark3, dark4_1, dark4_2, dark4_3, floorDark, ceilDark);
-    obstacles.push(wall1, wall2_1, wall2_2, wall2_3, wall3_1, wall3_2, arch_mesh, wall4, dark1, dark2, dark3, dark4_1, dark4_2, dark4_3)
+    wingGroup.add(wall1, wall2_1, wall2_3, wall3_1, wall3_2, arch_mesh, wall4, dark1, dark2, dark3, dark4_1, dark4_2, dark4_3, floorDark, ceilDark);
+    obstacles.push(wall1, wall2_1, wall2_3, wall3_1, wall3_2, arch_mesh, wall4, dark1, dark2, dark3, dark4_1, dark4_2, dark4_3)
+    walls.push(wall1, wall2_1, wall2_3, wall3_1, wall3_2, arch_mesh, wall4, dark1, dark2, dark3, dark4_1, dark4_2, dark4_3)
     wingGroup.position.set(x, 3, 26);
     wingGroup.rotateY(Math.PI / 2);
 
@@ -1175,6 +1255,7 @@ function create() {
     hallwayGroup.add(wall1, wall2_1, wall2_2, door, wall2_3, wall3, wall4_1, wall4_2, wall4_3, wall4_4, wall4_5, wall4_6);
     drawables.push(wall1, wall2_1, wall2_2, wall2_3, wall3, wall4_1, wall4_2, wall4_3, wall4_4, wall4_5, wall4_6);
     obstacles.push(wall1, wall2_1, door, wall2_3, wall3, wall4_1, wall4_2, wall4_3, wall4_4, wall4_5, wall4_6)
+    walls.push(wall1, wall2_1, door, wall2_3, wall3, wall4_1, wall4_2, wall4_3, wall4_4, wall4_5, wall4_6)
     // wingGroup.add(wall1, wall2, wall3, wall4, dark1, dark2, dark3, dark4);
     hallwayGroup.position.y = 3.5;
 
@@ -1249,22 +1330,23 @@ function create() {
     // // beam2.castShadow = true;
     // wingGroup.add(beam2);
 
-    addWing(50, 5);
-    addWing(35, 4);
+    addWing(-10, 5);
+    addWing(5, 4);
     addWing(20, 3);
-    addWing(5, 2);
-    addWing(-10, 1);
+    addWing(35, 2);
+    addWing(50, 1);
 
-    wing_BBox.push(new THREE.Box3(new THREE.Vector3(-15, 0, 5), new THREE.Vector3(-5, 7, 45)));
-    wing_BBox.push(new THREE.Box3(new THREE.Vector3(0, 0, 5), new THREE.Vector3(10, 7, 45)));
-    wing_BBox.push(new THREE.Box3(new THREE.Vector3(15, 0, 5), new THREE.Vector3(25, 7, 45)));
-    wing_BBox.push(new THREE.Box3(new THREE.Vector3(30, 0, 5), new THREE.Vector3(40, 7, 45)));
+    //按照wing順序推
     wing_BBox.push(new THREE.Box3(new THREE.Vector3(45, 0, 5), new THREE.Vector3(55, 7, 45)));
-    screen_BBox.push(new THREE.Box3(new THREE.Vector3(-20, 0, 45), new THREE.Vector3(-5, 7, 60)));
-    screen_BBox.push(new THREE.Box3(new THREE.Vector3(-5, 0, 45), new THREE.Vector3(10, 7, 60)));
-    screen_BBox.push(new THREE.Box3(new THREE.Vector3(10, 0, 45), new THREE.Vector3(25, 7, 60)));
-    screen_BBox.push(new THREE.Box3(new THREE.Vector3(25, 0, 45), new THREE.Vector3(40, 7, 60)));
+    wing_BBox.push(new THREE.Box3(new THREE.Vector3(30, 0, 5), new THREE.Vector3(40, 7, 45)));
+    wing_BBox.push(new THREE.Box3(new THREE.Vector3(15, 0, 5), new THREE.Vector3(25, 7, 45)));
+    wing_BBox.push(new THREE.Box3(new THREE.Vector3(0, 0, 5), new THREE.Vector3(10, 7, 45)));
+    wing_BBox.push(new THREE.Box3(new THREE.Vector3(-15, 0, 5), new THREE.Vector3(-5, 7, 45)));
     screen_BBox.push(new THREE.Box3(new THREE.Vector3(40, 0, 45), new THREE.Vector3(55, 7, 60)));
+    screen_BBox.push(new THREE.Box3(new THREE.Vector3(25, 0, 45), new THREE.Vector3(40, 7, 60)));
+    screen_BBox.push(new THREE.Box3(new THREE.Vector3(10, 0, 45), new THREE.Vector3(25, 7, 60)));
+    screen_BBox.push(new THREE.Box3(new THREE.Vector3(-5, 0, 45), new THREE.Vector3(10, 7, 60)));
+    screen_BBox.push(new THREE.Box3(new THREE.Vector3(-20, 0, 45), new THREE.Vector3(-5, 7, 60)));
 
     let nav_circle = document.createElement('div');
     nav_circle.className = 'circle';
@@ -1319,22 +1401,29 @@ function create() {
     pedestal_wing3.castShadow = true;
     scene.add(pedestal_wing3);
     obstacles.push(pedestal_wing3);
+    walls.push(pedestal_wing3);
     let clone=pedestal_wing3.clone();
-    pedestal_wing3.position.set(19, 0.8, 23);
+    pedestal_wing3.position.set(16.5, 0.8, 23);
     scene.add(clone);
     obstacles.push(clone);
+    walls.push(clone);
     clone=pedestal_wing3.clone();
     pedestal_wing3.position.set(22, 0.8, 29);
     scene.add(clone);
     obstacles.push(clone);
-    clone=pedestal_wing3.clone();
-    pedestal_wing3.position.set(18, 0.8, 36);
-    scene.add(clone);
-    obstacles.push(clone);
-    clone=pedestal_wing3.clone();
-    pedestal_wing3.position.set(23, 0.8, 20);
-    scene.add(clone);
-    obstacles.push(clone);
+    walls.push(clone);
+    let pedestal_wing3_0 = new THREE.Mesh(new THREE.BoxGeometry(1, 1.3, 1), pedestalMaterial);
+    pedestal_wing3_0.position.set(23, 0.65, 11);
+    pedestal_wing3_0.receiveShadow = true;
+    pedestal_wing3_0.castShadow = true;
+    scene.add(pedestal_wing3_0);
+    obstacles.push(pedestal_wing3_0);
+    walls.push(pedestal_wing3_0);
+    let pedestal_wing3_2 = new THREE.Mesh(new THREE.BoxGeometry(1, 1.4, 1), pedestalMaterial);
+    pedestal_wing3_2.position.set(19.5, 0.7, 20);
+    scene.add(pedestal_wing3_2);
+    obstacles.push(pedestal_wing3_2);
+    walls.push(pedestal_wing3_2);
     
     let hallwaypedestalMaterial = [
         new THREE.MeshBasicMaterial({ color: 0xffffff }),
@@ -1392,6 +1481,7 @@ function create() {
     scene.add(pedestal1, pedestal2, pedestal3, pedestal4, pedestal5);
 
     obstacles.push(pedestal1, pedestal2, pedestal3, pedestal4, pedestal5)
+    walls.push(pedestal1, pedestal2, pedestal3, pedestal4, pedestal5)
     interactables.push(pedestal1, pedestal2, pedestal3, pedestal4, pedestal5)
     var geometry = new THREE.BoxGeometry(0.5, 0.5, 0.5)
     cube1 = new THREE.LineSegments(new THREE.EdgesGeometry(geometry), new THREE.LineBasicMaterial({ color: 0x333333 }));
@@ -1491,7 +1581,7 @@ function animate() {
 
         for (i = 0; i < wing_BBox.length; i++) {
             if (user.BBox.intersectsBox(wing_BBox[i])) {
-                location = 15 * i - 10;
+                location = i+1;
                 prevLocation = location;
                 break;
             }
@@ -1501,7 +1591,7 @@ function animate() {
         }
         for (i = 0; i < screen_BBox.length; i++) {
             if (user.BBox.intersectsBox(screen_BBox[i])) {
-                screen = 15 * i - 10;
+                screen = i+1;
                 break;
             }
             else {
@@ -1515,7 +1605,10 @@ function animate() {
                 s.classList.add("show")
 
             });
-            document.querySelector(".sign" + location).classList.add("show");
+            if(location!=1){
+
+                document.querySelector(".sign" + location).classList.add("show");
+            }
 
             let intersects = raycaster.intersectObjects(paintings);
             if (intersects.length !== 0) {
@@ -1528,31 +1621,36 @@ function animate() {
 
                     // interact.style.display = 'block';
                     if (intersects[0].distance < 10) {
-                        document.querySelector('#art-border' + location + '-' + intersects[0].object.parent.name.substring(4)).classList.add('show');
-                        prevHover = '#art-border' + location + '-' + intersects[0].object.parent.name.substring(4);
-
-                    }
-                    if (interacting) {
-                        let target = document.querySelector('#card' + location + '-' + intersects[0].object.parent.name.substring(4));
-
-                        progressValue++;
-                        // valueContainer.textContent = `${progressValue}%`;
-                        target.style.borderImageSource = `conic-gradient(
-                        #ee82ee,
-                        #ffff00,
-                        #ee82ee
-                        ${progressValue * 5}deg,
-                        #555555 ${progressValue * 5}deg
-                    )`;
-                        if (progressValue == progressEndValue) {
-                            // valueContainer.textContent = "done";
-                            progressValue--;
-                            // console.log(document.getElementById(intersects[0].object.parent.name));
+                        document.querySelector('#art-border-'+ intersects[0].object.parent.name.substring(4)).classList.add('show');
+                        prevHover = '#art-border-' + intersects[0].object.parent.name.substring(4);
+                        if(detail){
+                            nav_click=false;
                             document.getElementById(intersects[0].object.parent.name).classList.add('show');
-                            // blocker.style.display = 'block';
                             controls.unlock();
+                            ui=true;                       
                         }
                     }
+                    // if (interacting) {
+                    //     let target = document.querySelector('#card' + location + '-' + intersects[0].object.parent.name.substring(4));
+
+                    //     progressValue++;
+                    //     // valueContainer.textContent = `${progressValue}%`;
+                    //     target.style.borderImageSource = `conic-gradient(
+                    //     #ee82ee,
+                    //     #ffff00,
+                    //     #ee82ee
+                    //     ${progressValue * 5}deg,
+                    //     #555555 ${progressValue * 5}deg
+                    // )`;
+                    //     if (progressValue == progressEndValue) {
+                    //         // valueContainer.textContent = "done";
+                    //         progressValue--;
+                    //         // console.log(document.getElementById(intersects[0].object.parent.name));
+                    //         document.getElementById(intersects[0].object.parent.name).classList.add('show');
+                    //         // blocker.style.display = 'block';
+                    //         controls.unlock();
+                    //     }
+                    // }
                 }
 
                 else {
@@ -1584,7 +1682,6 @@ function animate() {
                 s.classList.remove("show")
 
             });
-
             document.querySelector(".sign" + prevLocation).classList.remove("show");
         }
 
@@ -1838,21 +1935,27 @@ function animate() {
             });
         }
 
+        let intersects_walls = raycaster.intersectObjects(walls);
         let intersects_floor = raycaster.intersectObject(floor);
+        if(intersects_walls.length!=0){
+            document.querySelector(".circle").classList.remove("show");
+        }
+        else{
 
-        if (intersects_floor.length != 0) {
-            document.querySelector(".circle").classList.add("show");
-            if (!navigate) {
-                nav_circle_obj.position.copy(intersects_floor[0].point);
-
-                nav_circle_obj.position.y = 0.01;
-            }
-            if (nav_click == true) {
-                document.querySelector(".circle").classList.add("grow");
-                nav_target.copy(nav_circle_obj.position);
-                nav_target.y = 2;
-                navigate = true;
-                controls.pointerSpeed = 0;
+            if (intersects_floor.length != 0) {
+                document.querySelector(".circle").classList.add("show");
+                if (!navigate) {
+                    nav_circle_obj.position.copy(intersects_floor[0].point);
+    
+                    nav_circle_obj.position.y = 0.01;
+                }
+                if (nav_click == true ) {
+                    document.querySelector(".circle").classList.add("grow");
+                    nav_target.copy(nav_circle_obj.position);
+                    nav_target.y = 2;
+                    navigate = true;
+                    controls.pointerSpeed = 0;
+                }
             }
         }
         if (navigate == true) {
@@ -1868,6 +1971,8 @@ function animate() {
             }
         }
         nav_click = false;
+        detail=false;
+
         translate_text = false;
         if (intersects_obj.length !== 0) {
             document.querySelector(".circle").classList.remove("show");

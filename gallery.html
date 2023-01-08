@@ -16,6 +16,7 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:100,200,400,300,500,600">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+TC:100,200,300,400">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:100,200,300,400">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono:100,200,300,400">
 	<!-- <link href="https://fonts.cdnfonts.com/css/nobel" rel="stylesheet">
 	<link href="https://fonts.cdnfonts.com/css/apercu" rel="stylesheet"> -->
 	<link type="text/css" rel="stylesheet" href="main.css">
@@ -28,14 +29,16 @@
 <body>
 	<video id="video" src="./img/works/slideshow.mp4" playsinline webkit-playsinline Loop autoplay width="1920"
 		height="1080" style="display: none;" muted="muted" type="video/mp4"></video>
-	<video id="gif" src="./img/wing1/art-5.mp4" playsinline webkit-playsinline Loop autoplay width="2000"
+	<video id="gif-mirror" src="./img/wing1/art-5.mp4" playsinline webkit-playsinline Loop autoplay width="2000"
 		height="1600" style="display: none;" muted="muted" type="video/mp4"></video>
+	<video id="gif-band" src="./img/wing4/art-3.mp4" playsinline webkit-playsinline Loop autoplay width="1685"
+		height="1192" style="display: none;" muted="muted" type="video/mp4"></video>
 		<!-- <img id="escape" src="./img/escape.png" alt=""> -->
 		<div id="blocker">
 			<div id="instructions">
 				<div class="title">Tutorial</div>
 				<div class="box">
-					<div class="en">Use WASD or arrow keys to move, or just point and click on the floor.</div>
+					<div class="en">Use WASD or arrow keys to move, or just point and click on the floor with the mouse.</div>
 					<div class="ch">使用 WASD 或方向鍵移動，或用滑鼠點擊地板前進。</div>
 				</div>
 				<div class="img-box">
@@ -46,7 +49,7 @@
 					<img src="./img/click.png" alt="wasd" style="width: 38px;">
 				</div>
 				<div class="box">
-					<div class="en">Move your mouse to change your view angle.</div>
+					<div class="en">Move the mouse to change your view angle.</div>
 					<div class="ch">移動滑鼠來挑整視角。</div>
 					<img src="./img/mouse.png" alt="" style="width: 40px; position: absolute; right:45px;"></img>
 				</div>
@@ -58,13 +61,13 @@
 				</div>
 				<div class="img-box" style="padding-bottom: 10px;"></div>
 				<div class="box">
-					<div class="en">Click to interact with objects when aiming at them.</div>
+					<div class="en">Click to interact with objects when aiming.</div>
 					<div class="ch">對準物件後可點擊互動。</div>
 					<img src="./img/click2.png" alt="" style="width: 35px; position: absolute; right:45px; opacity: 0.9;"></img>
 				</div>
 				<div class="img-box" style="padding-bottom: 10px;"></div>
 				<div class="box">
-					<div class="en">Click on the text on the wall to toggle language.</div>
+					<div class="en">Click the text on the wall to toggle between languages.</div>
 					<div class="ch">對著牆上的文字點擊可<br>切換語言。</div>
 					<img src="./img/translation.png" alt="" style="width: 36px;position: absolute; right:43px;"></img>
 				</div>
@@ -182,19 +185,126 @@
 		<iframe src="https://editor.p5js.org/currynee.eed08/full/a2ngAqveu"></iframe>
 
 	</div>
-	<div class="modal" id="art-4">
+	<div class="modal" id="art-1-4">
+		<div class="modal_header">
+			<p class="close">X</p>
+			<b>林佳翰 Jia-Han John Lin</b>
+			<br>
+			<b><i>逝,</i></b>
+			<nobr>&nbsp;2020</nobr>
+			<br>
+			<b style="font-size: 16px;">番茄皮、玻璃器皿、水、衣物、各類生活用品、攝影、文字、影像、電子書檔</b>
+			<p style="font-family: 'cwTeXYen', sans-serif;">逝，消逝，
+			<br><br>
+				人的每分每秒都在進行消逝，對面室友的午餐，窗外落下的雨水，剛點起的香煙，洗衣機的倒計時，過去伴侶的面容、口吻、觸覺。
+			<br><br>	
+				一切的一切伴隨著地球的自轉改變,又或者只是人與人之間的感性糾葛間接導致的現象。
+			<br><br>	
+				閉上眼睛，一瓶瓶出現的空酒瓶，一次次補充的洗衣精，還有反覆清空、填滿、清空、填滿的冰箱食材。睜開眼回到了那片我曾無數次想超脫的現實，回過頭看到行事曆上的數字已經增長到五月的末期，有一種越發莫名的困頓感。
+				</p>
+			<embed class="detail_pdf" src="./img/detail/John.pdf#view=FitH&toolbar=0&navpanes=0&scrollbar=0" type="application/pdf">
+			</div>
+	</div>
+	<div class="modal" id="art-1-0">
 		<div class="modal_header">
 			<p class="close">X</p>
 			<b>林佳翰</b>
 			<br>
-			<b><i>逝,</i></b>
-			<nobr>&nbsp;2021</nobr>
+			<b><i>光與幾何,</i></b>
+			<nobr>&nbsp;2020</nobr>
 			<br>
-			<p>more description...</p>
+			<b style="font-size: 16px;">石膏繃帶、雕塑、攝影、數位影像檔</b>
+			<p>談論到空間，我回想到小時候曾經去過的一個兒童遊玩空間，是一個由不同 顏色、大量軟質曲面材料所組成的可攀爬空間。對於任何空間而言，最重要的元素是光線，人眼在缺乏光線的情況是無法接收視覺資訊的，如果去除一切空間的狀態下，人眼只會看的一面白。 光與空線即是相互呼應的。
+			</p>
+			<img class="detail_img" src="./img/wing1/art-0.jpg" alt="some image">
 		</div>
-		<embed src="./img/detail/John.pdf#view=FitH&toolbar=0&navpanes=0&scrollbar=0" type="application/pdf">
 	</div>
-	<div class="modal" id="art-0">
+	<div class="modal" id="art-1-5">
+		<div class="modal_header">
+			<p class="close">X</p>
+			<b>程祖寧</b>
+			<br>
+			<b><i>鏡像空間,</i></b>
+			<nobr>&nbsp;2020</nobr>
+			<br>
+			<b  style="font-size: 16px;">水晶、攝影、影像後製、圖像互換格式</b>
+			<p>由於我對於捕捉「光線的流動」很有興趣，於是決定結合傳科系之數位媒體的應用，來拆解、重組先前「space攝影作品」中的三張照片，改造為動態的GIF影像。之前的我鮮少嘗試過鮮豔、高對比度的色彩運用，所以這次算是比較突破舒適圈的發揮。我捨棄了較為熟悉的傳統手繪工具，轉而利用Photoshop這類電腦軟體來製作圖片。我認為電子媒體的光線能夠很好地表達動圖中「稍縱即逝」的動態感。
+			</p>
+			<img class="detail_img" src="./img/wing1/art-5.gif" alt="some image">
+		</div>
+	</div>
+	<div class="modal" id="art-1-1">
+		<div class="modal_header">
+			<p class="close">X</p>
+			<b>郭光祥</b>
+			<br>
+			<b><i>Key metrics,</i></b>
+			<nobr>&nbsp;2020</nobr>
+			<br>
+			<b style="font-size: 16px;">電腦鍵盤、攝影、數位影像檔</b>
+			<p>Key metrics透過攝影鏡頭的角度觀看人們習以為常的電腦鍵盤，異於使用鍵盤時的視角而是以特寫的手法拍攝，使鍵盤的功能在視覺上轉換成一堵巨大的高牆迷宮，藉由兩個鍵盤的組合，延伸觀者視線至無底的盡頭，再加上景深的糢糊為作品帶來視覺上的神秘感卻又和諧的畫面。</p>
+			<img class="detail_img" src="./img/wing1/art-1.jpg" alt="some image">
+		</div>
+	</div>
+	<div class="modal" id="art-1-2">
+		<div class="modal_header">
+			<p class="close">X</p>
+			<b>陳睦夫</b>
+			<br>
+			<b><i>兩面之隔,</i></b>
+			<nobr>&nbsp;2020</nobr>
+			<br>
+			<b style="font-size: 16px;">手、自拍像、影像合成、數位影像檔</b>
+			<p>每經過一層屏幕，你就越加顯得模糊 。
+				在每道屏幕之間，作為理解者，同時作為創作者，最終匯集在一起的便是答案。本次作品透過螢幕重複的把三維空間以二維屏幕詮釋，造就出了畫面以及畫面中的畫面的空間，且正在看此作品的你也與它隔了層屏幕，你可以選擇你的焦距、你的構圖，使得你在解讀的同時也加入了自己的看法。在第二次取樣時把焦距放在手上，造就出了模糊的人像，而第三次取樣再透過燈光不同彰顯不同的圖層。
+				</p>
+			<img class="detail_img" src="./img/wing1/art-2.jpg" alt="some image">
+		</div>
+	</div>
+	<div class="modal" id="art-1-3">
+		<div class="modal_header">
+			<p class="close">X</p>
+			<b>蔣承育</b>
+			<br>
+			<b><i>Between 1 and 0,</i></b>
+			<nobr>&nbsp;2020</nobr>
+			<br>
+			<b style="font-size: 16px;">衍生藝術、自動生成數位影像，16秒、15秒、19秒</b>
+			<p>
+				An exploration into generative art and randomness.
+				Work #1: Herd
+				A metaphor for conformity in human society.
+				</p>
+			<video src="./img/wing1/Video1.mp4" playsinline webkit-playsinline Loop autoplay muted="muted" type="video/mp4"></video>
+			<p>Work #2: Six Clicks Away
+				Inspired by the theory six degress of separation
+				In the modern world, a lot of human connection happens on social media, hence the six "clicks" away. 
+				</p>
+			<video src="./img/wing1/Video2.mp4" playsinline webkit-playsinline Loop autoplay muted="muted" type="video/mp4"></video>
+
+			<p>Work #3: Social Distanced
+				A reflection of our mental state/health during quarantine: convoluted, chaotic, and random. 
+				</p>
+			<video src="./img/wing1/Video3.mp4" playsinline webkit-playsinline Loop autoplay muted="muted" type="video/mp4"></video>
+
+		</div>
+	</div>
+	<!--wing2-->
+	<div class="modal" id="art-2-0">
+		<div class="modal_header">
+			<p class="close">X</p>
+			<b>蕭筑元</b>
+			<br>
+			<b><i>光與幾何,</i></b>
+			<nobr>&nbsp;2020</nobr>
+			<br>
+			<b style="font-size: 16px;">石膏繃帶、雕塑、攝影、數位影像檔</b>
+			<p>談論到空間，我回想到小時候曾經去過的一個兒童遊玩空間，是一個由不同 顏色、大量軟質曲面材料所組成的可攀爬空間。對於任何空間而言，最重要的元素是光線，人眼在缺乏光線的情況是無法接收視覺資訊的，如果去除一切空間的狀態下，人眼只會看的一面白。 光與空線即是相互呼應的。
+			</p>
+			<img class="detail_img" src="./img/wing1/art-0.jpg" alt="some image">
+		</div>
+	</div>
+	<div class="modal" id="art-2-0">
 		<div class="modal_header">
 			<p class="close">X</p>
 			<b>紀禹豪</b>
