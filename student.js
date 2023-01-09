@@ -10,6 +10,7 @@ import { Sky } from './Sky.js'
 
 let speed = 70;
 let
+    research=[],
     walls = [],
     detail = false,
     wing3_pedestal_position = [],
@@ -269,7 +270,7 @@ function init() {
     });
 
     loader.load('./monitor.gltf', function (gltf) {
-        gltf.scene.position.set(17, 1.7, 15);
+        gltf.scene.position.set(17.5, 1.7, 15);
         gltf.scene.scale.set(0.002, 0.002, 0.002);
         gltf.scene.rotateY(Math.PI / 2)
         gltf.scene.castShadow = true;
@@ -278,28 +279,26 @@ function init() {
 
 
         let clone = gltf.scene.clone()
-        clone.position.set(16.5, 1.7, 23);
-        clone.rotateY(-Math.PI / 2);
+        clone.position.set(22.5, 1.7, 15);
         scene.add(clone);
 
 
         clone = gltf.scene.clone()
-        clone.position.set(22, 1.7, 29);
+        clone.position.set(22.5, 1.7, 24);
         // gltf.scene.rotateY(-Math.PI / 8);
         scene.add(clone);
 
 
 
         clone = gltf.scene.clone()
-        clone.position.set(23, 1.4, 11);
-        clone.rotateY(2 * Math.PI / 3);
+        clone.position.set(17.5, 1.7, 24);
         scene.add(clone);
 
 
 
         clone = gltf.scene.clone()
-        clone.position.set(19.5, 1.5, 20);
-        clone.rotateY(-Math.PI / 4);
+        clone.position.set(20, 1.7, 33);
+        // clone.rotateY(-Math.PI / 4);
         scene.add(clone);
 
 
@@ -1252,22 +1251,38 @@ function addWing(x, wing_number) {
                         else if (wing_number == 3) {
                             switch (index) {
                                 case (0):
-                                    plane.position.set(22.8, 1.97, 11.1); //y and z kept constant
-                                    plane.rotation.y = -Math.PI / 3;
+                                    plane.position.set(22.45, 2.26, 14.78); //y and z kept constant
+                                    plane.rotation.y = Math.PI;
                                     plane.scale.set(0.22, 0.22, 0.22)
                                     scene.add(plane);
                                     break;
-
-                            }
-                            switch (index) {
                                 case (1):
-                                    plane.position.set(16.95, 2.26, 14.78); //y and z kept constant
+                                    plane.position.set(17.45, 2.26, 14.78); //y and z kept constant
                                     plane.rotation.y = Math.PI;
-                                    plane.scale.set(0.43, 0.39, 0.4)
+                                    plane.scale.set(0.43, 0.4, 0.4)
                                     scene.add(plane);
                                     break;
-
+                                case (2):
+                                    plane.position.set(22.45, 2.26, 23.78); //y and z kept constant
+                                    plane.rotation.y = Math.PI;
+                                    plane.scale.set(0.4, 0.4, 0.4)
+                                    scene.add(plane);
+                                    break;
+                                case (3):
+                                    plane.position.set(17.45, 2.26, 23.78); //y and z kept constant
+                                    plane.rotation.y = Math.PI;
+                                    plane.scale.set(0.42, 0.42, 0.42)
+                                    scene.add(plane);
+                                    break;
+                                case (4):
+                                    plane.position.set(19.95, 2.26, 32.78); //y and z kept constant
+                                    plane.rotation.y = Math.PI;
+                                    plane.scale.set(0.42, 0.42, 0.42)
+                                    scene.add(plane);
+                                    break;
                             }
+                            plane.name = 'art-3-'+ index.toString();
+                            research.push(plane);
                         }
                         // card_cover.position.copy(card_obj.position);
 
@@ -1613,34 +1628,34 @@ function create() {
     let pedestalMaterial = new THREE.MeshLambertMaterial({ color: 0xeeeeee });
 
     let pedestal_wing3 = new THREE.Mesh(new THREE.BoxGeometry(1, 1.6, 1), pedestalMaterial);
-    pedestal_wing3.position.set(17, 0.8, 15);
+    pedestal_wing3.position.set(17.5, 0.8, 15);
     pedestal_wing3.receiveShadow = true;
     pedestal_wing3.castShadow = true;
     scene.add(pedestal_wing3);
     obstacles.push(pedestal_wing3);
     walls.push(pedestal_wing3);
     let clone = pedestal_wing3.clone();
-    pedestal_wing3.position.set(16.5, 0.8, 23);
+    pedestal_wing3.position.set(22.5, 0.8, 15);
     scene.add(clone);
     obstacles.push(clone);
     walls.push(clone);
     clone = pedestal_wing3.clone();
-    pedestal_wing3.position.set(22, 0.8, 29);
+    pedestal_wing3.position.set(22.5, 0.8, 24);
     scene.add(clone);
     obstacles.push(clone);
     walls.push(clone);
-    let pedestal_wing3_0 = new THREE.Mesh(new THREE.BoxGeometry(1, 1.3, 1), pedestalMaterial);
-    pedestal_wing3_0.position.set(23, 0.65, 11);
-    pedestal_wing3_0.receiveShadow = true;
-    pedestal_wing3_0.castShadow = true;
-    scene.add(pedestal_wing3_0);
-    obstacles.push(pedestal_wing3_0);
-    walls.push(pedestal_wing3_0);
-    let pedestal_wing3_2 = new THREE.Mesh(new THREE.BoxGeometry(1, 1.4, 1), pedestalMaterial);
-    pedestal_wing3_2.position.set(19.5, 0.7, 20);
-    scene.add(pedestal_wing3_2);
-    obstacles.push(pedestal_wing3_2);
-    walls.push(pedestal_wing3_2);
+    clone = pedestal_wing3.clone();
+    pedestal_wing3.position.set(17.5, 0.8, 24);
+    scene.add(clone);
+    obstacles.push(clone);
+    walls.push(clone);
+    clone = pedestal_wing3.clone();
+    pedestal_wing3.position.set(20, 0.8, 33);
+    scene.add(clone);
+    obstacles.push(clone);
+    walls.push(clone);
+    
+    
 
     let hallwaypedestalMaterial = [
         new THREE.MeshBasicMaterial({ color: 0xffffff }),
@@ -1700,15 +1715,15 @@ function create() {
     obstacles.push(pedestal1, pedestal2, pedestal3, pedestal4, pedestal5)
     walls.push(pedestal1, pedestal2, pedestal3, pedestal4, pedestal5)
     interactables.push(pedestal1, pedestal2, pedestal3, pedestal4, pedestal5)
-    var geometry = new THREE.BoxGeometry(0.5, 0.5, 0.5)
-    cube1 = new THREE.LineSegments(new THREE.EdgesGeometry(geometry), new THREE.LineBasicMaterial({ color: 0x333333 }));
-    cube1.position.set(-10, 2.2, 0);
-    cube1.name = "music";
-    // scene.add(cube1);
-    // paintings.push(cube1);
-    cube2 = new THREE.LineSegments(new THREE.EdgesGeometry(geometry), new THREE.LineBasicMaterial({ color: 0x333333 }));
-    cube2.position.set(10, 2.2, 0);
-    cube2.name = "paint";
+    // var geometry = new THREE.BoxGeometry(0.5, 0.5, 0.5)
+    // cube1 = new THREE.LineSegments(new THREE.EdgesGeometry(geometry), new THREE.LineBasicMaterial({ color: 0x333333 }));
+    // cube1.position.set(-10, 2.2, 0);
+    // cube1.name = "music";
+    // // scene.add(cube1);
+    // // paintings.push(cube1);
+    // cube2 = new THREE.LineSegments(new THREE.EdgesGeometry(geometry), new THREE.LineBasicMaterial({ color: 0x333333 }));
+    // cube2.position.set(10, 2.2, 0);
+    // cube2.name = "paint";
     // scene.add(cube2);
     // paintings.push(cube2);
 
@@ -1823,7 +1838,68 @@ function animate() {
 
             });
             document.querySelector(".sign" + location).classList.add("show");
-            
+            let research_interact = raycaster.intersectObjects(research);
+            if (research_interact.length !== 0) {
+                // intersects[0].object.material.color.set(0xaaeeee);
+                // intersects[0].object.parent.children[0].visible=false;
+                // console.log(intersects[0].object.name);
+                if (research_interact[0].object.name) {
+                    console.log(research_interact[0].object.name)
+                    // console.log(intersects[0].distance);
+                    // console.log($('#card-'+intersects[0].object.parent.name.substring(4)).innerHTML);
+
+                    // interact.style.display = 'block';
+                    if (research_interact[0].distance < 10) {
+                        // document.querySelector('#art-border-' + research_interact[0].object.parent.name.substring(4)).classList.add('show');
+                        // prevHover = '#art-border-' + research_interact[0].object.parent.name.substring(4);
+                        // if (detail) {
+                        //     nav_click = false;
+                        //     document.getElementById(intersects[0].object.parent.name).classList.add('show');
+                        //     controls.unlock();
+                        //     ui = true;
+                        // }
+                    }
+                    // if (interacting) {
+                    //     let target = document.querySelector('#card' + location + '-' + intersects[0].object.parent.name.substring(4));
+
+                    //     progressValue++;
+                    //     // valueContainer.textContent = `${progressValue}%`;
+                    //     target.style.borderImageSource = `conic-gradient(
+                    //     #ee82ee,
+                    //     #ffff00,
+                    //     #ee82ee
+                    //     ${progressValue * 5}deg,
+                    //     #555555 ${progressValue * 5}deg
+                    // )`;
+                    //     if (progressValue == progressEndValue) {
+                    //         // valueContainer.textContent = "done";
+                    //         progressValue--;
+                    //         // console.log(document.getElementById(intersects[0].object.parent.name));
+                    //         document.getElementById(intersects[0].object.parent.name).classList.add('show');
+                    //         // blocker.style.display = 'block';
+                    //         controls.unlock();
+                    //     }
+                    // }
+                }
+
+                else {
+                    // interact.style.display = 'none'
+                    // if (prevHover) {
+                    //     document.querySelector(prevHover).classList.remove('show');
+                    // }
+                    // progressValue = 0;
+                    // progressBar.style.borderImageSource = `conic-gradient(
+                    //     #444444 ${progressValue * 1.2}deg,
+                    //     #555555 ${progressValue * 1.2}deg
+                    // )`;
+                    // valueContainer.textContent = "E";
+
+                }
+
+            }
+            else if (prevHover) {
+                // document.querySelector(prevHover).classList.remove('show');
+            }
 
             let intersects = raycaster.intersectObjects(paintings);
             if (intersects.length !== 0) {
