@@ -19,7 +19,7 @@ let
     prevHover,
     num_of_paintings = [6, 9, 5, 8],
     offset_back = [-50, -48, -30, -50],
-    offset_front = [-13,-8,-8,-8],
+    offset_front = [-13,-10,-8,-8],
     seperation = [12,8,10,10],
     ui = false,
     floor,
@@ -131,7 +131,13 @@ manager.onLoad = function () {
 init();
 initSky();
 create();
+const size = 100;
+const divisions = 1000;
 
+const gridHelper = new THREE.GridHelper( size, divisions );
+gridHelper.position.set(0,3.5,5)
+gridHelper.rotateX(Math.PI/2)
+// scene.add( gridHelper );
 
 function init() {
     scene.fog = new THREE.FogExp2(0x666666, 0.01);
@@ -254,7 +260,7 @@ function init() {
         obstacles.push(clone);
     });
     loader.load('./books.glb', function (glb) {
-        glb.scene.position.set(32.95, 1.6, 4.4);
+        glb.scene.position.set(47.95, 1.6, 4.4);
         glb.scene.rotation.y = Math.PI / 2
         glb.scene.scale.set(1, 1, 1);
         scene.add(glb.scene);
@@ -309,6 +315,27 @@ function init() {
         scene.add(glb.scene);
         // gltf.scene.updateMatrixWorld(true)
         // obstacles.push(gltf.scene);
+        let clone = glb.scene.clone()
+        clone.position.set(-8, 5, 54.5);
+        scene.add(clone);
+
+
+        clone = glb.scene.clone()
+        clone.position.set(23, 5, 54.5);
+        // gltf.scene.rotateY(-Math.PI / 8);
+        scene.add(clone);
+
+
+
+        clone = glb.scene.clone()
+        clone.position.set(38, 5, 54.5);
+        scene.add(clone);
+
+
+
+        clone = glb.scene.clone()
+        clone.position.set(53, 5, 54.5);
+        scene.add(clone);
     });
     loader.load('./gramophone.glb', function (gltf) {
         gltf.scene.position.set(2.7, 2.5, 4.4);
@@ -372,6 +399,30 @@ function init() {
         scene.add(gltf.scene);
         // obstacles_bbox.push(new THREE.Box3(new THREE.Vector3(-13.5, 0, 52.5), new THREE.Vector3(-12.5, 2, 56.5)));
     });
+    loader.load('./variety_of_books.glb', function (gltf) {
+        gltf.scene.position.set(32.6, 1.6, 4.65);
+        gltf.scene.scale.set(0.15, 0.2, 0.15);
+        gltf.scene.rotateY(Math.PI / 2);
+        // gltf.scene.rotateX(7*Math.PI/12);
+        scene.add(gltf.scene);
+        // obstacles_bbox.push(new THREE.Box3(new THREE.Vector3(-13.5, 0, 52.5), new THREE.Vector3(-12.5, 2, 56.5)));
+    });
+    loader.load('./book_opened.glb', function (gltf) {
+        gltf.scene.position.set(32.63, 1.7, 4.18);
+        gltf.scene.scale.set(0.1, 0.15, 0.098);
+        gltf.scene.rotateY(-Math.PI / 2);
+        gltf.scene.rotateX(-Math.PI/2);
+        scene.add(gltf.scene);
+        // obstacles_bbox.push(new THREE.Box3(new THREE.Vector3(-13.5, 0, 52.5), new THREE.Vector3(-12.5, 2, 56.5)));
+    });
+    // loader.load('./book.glb', function (gltf) {
+    //     gltf.scene.position.set(47.63, 1.7, 4.18);
+    //     gltf.scene.scale.set(0.1, 0.1, 0.1);
+    //     // gltf.scene.rotateY(-Math.PI / 2);
+    //     // gltf.scene.rotateX(-Math.PI/2);
+    //     scene.add(gltf.scene);
+    //     // obstacles_bbox.push(new THREE.Box3(new THREE.Vector3(-13.5, 0, 52.5), new THREE.Vector3(-12.5, 2, 56.5)));
+    // });
     loader.load('./wet_floor_sign.glb', function (gltf) {
         gltf.scene.position.set(50, 0.8, 46.5);
         gltf.scene.scale.set(0.02, 0.02, 0.02);
@@ -480,7 +531,7 @@ function init() {
 
     camera.add(user);
     // camera.position.set(-19, 2, 0);
-    camera.position.set(50, 2, 5);
+    camera.position.set(35, 2, 5);
     camera.rotation.y = -Math.PI / 2;
 
     //For fps control
@@ -613,7 +664,7 @@ function init() {
 
             case 'Space':
                 if (canJump === true) velocity.y += 10;
-                // canJump = false;
+                canJump = false;
                 break;
             case 'KeyE':
                 interacting = true;
@@ -795,17 +846,67 @@ function addWing(x, wing_number) {
     sign_obj.position.set(-20, -0.3, -2.6)
 
     let wing_title = document.createElement('div');
-    wing_title.innerHTML = "<b class='wing-title'>1652</b><b class='wing-title-ch'> 藝術創作基礎</b><b class='wing-title'><br>Core Studio in Fine Arts</b>";
-    // wing_text.className = 'wing-title-visible';
+    switch(wing_number){
+        case 1:
+            wing_title.innerHTML = "<b class='wing-title'>109</b><b class='wing-title-ch'>下，</b><b class='wing-title-ch'>藝術創作基礎</b><b class='wing-title'><br>Core Studio in Fine Arts</b>";
+            break;
+        case 2:
+            wing_title.innerHTML = "<b class='wing-title'>110</b><b class='wing-title-ch'>上，</b><b class='wing-title-ch'>當代藝術與跨域設計</b><b class='wing-title' style='font-size:32px'><br>Contemporary Art and Cross-Disciplinary Design</b>";
+            break;
+        case 3:
+            wing_title.innerHTML = "<b class='wing-title'>110</b><b class='wing-title-ch'>上，</b><b class='wing-title-ch'>視覺藝術概論</b><b class='wing-title'><br>Introduction to Visual</b>";
+            break;
+        case 4:
+            wing_title.innerHTML = "<b class='wing-title'>110</b><b class='wing-title-ch'>下，</b><b class='wing-title-ch'>藝術創作基礎</b><b class='wing-title'><br>Core Studio in Fine Arts</b>";
+            break;
+        case 5:
+            wing_title.innerHTML = "<b class='wing-title'>111</b><b class='wing-title-ch'>上，</b><b class='wing-title-ch'>當代藝術與跨域設計</b><b class='wing-title' style='font-size:32px'><br>Contemporary Art and Cross-Disciplinary Design</b>";
+            break;
+            // wing_title.innerHTML = "<b class='wing-title'>109</b><b class='wing-title-ch'>下，</b><b class='wing-title'>1652</b><b class='wing-title-ch'> 藝術創作基礎</b><b class='wing-title'><br>Core Studio in Fine Arts</b>";
+    }
 
     let wing_title_obj = new CSS3DObject(wing_title);
     wing_title_obj.scale.set(0.008, 0.008, 0.008);
     wing_title_obj.rotateY(Math.PI / 2)
-    wing_title_obj.position.set(21, 2.3, -4.5)
+    switch(wing_number){
+        case 1:
+            wing_title_obj.position.set(21, 2.3, -4.5);
+            break;
+        case 2:
+            wing_title_obj.position.set(21, 2.3, -5.66);
+            break;
+        case 3:
+            wing_title_obj.position.set(21, 2.3, -4.4);
+            break;
+        case 4:
+            wing_title_obj.position.set(21, 2.3, -4.5);
+            break;
+        case 5:
+            wing_title_obj.position.set(21, 2.3, -5.66);
+            break;
+    }
+    // wing_title_obj.position.set(21, 2.3, -4.5)
+    
     wingGroup.add(wing_title_obj)
 
     let wing_text = document.createElement('div');
-    wing_text.innerHTML = "<div class='wing-text-en show'><p class='wing-text'>Conceptual art is art for which the idea (or concept) behind the work is more important than the finished art object. Artists associated with the Conceptual Art Movement attempted to bypass the increasingly commercialised art world by stressing thought processes and methods of production as the value of the work.<br><br>The art forms they used were often intentionally those that do not produce a finished object such as a sculpture or painting. This meant that their work could not be easily bought and sold and did not need to be viewed in a formal gallery situation.<br><br>It was not just the structures of the art world that many conceptual artists questioned, there was often a strong socio-political dimension to much of the work they produced, reflecting wider dissatisfaction with society and government policies.</p>";
+    switch(wing_number){
+        case 1:
+            wing_text.innerHTML = "<div class='wing-text-en show'><p class='wing-text'>The elements and principles of design are the building blocks used to create a work of art. Elements of Art are the visual &quot;tools&quot; that artists use to create artwork - they make up an image or an art object: line, shape/form, value, color, space, and texture. Principles of Design are how artists use the Elements of Art in an artwork - this is &quot;what we do with the Elements&quot; - how we arrange them, balance them, what is being emphasized, etc.</p>";
+            break;
+        case 2:
+            wing_text.innerHTML = "<div class='wing-text-en show'><p class='wing-text'>Conceptual art is art for which the idea (or concept) behind the work is more important than the finished art object. Artists associated with the Conceptual Art Movement attempted to bypass the increasingly commercialized art world by stressing thought processes and methods of production as the value of the work. The art forms they used were often intentionally those that did not produce a finished object, such as a sculpture or painting. This meant their work could not be easily bought and sold and did not need to be viewed in a formal gallery. It was not just the structures of the art world that many conceptual artists questioned; there was often a strong socio-political dimension to much of the work they produced, reflecting broader dissatisfaction with society and government policies.</p>";
+            break;
+        case 3:
+            wing_text.innerHTML = "<div class='wing-text-en show'><p class='wing-text' style='width:530px;'>Seeing is not a simple act. According to Jacques-Marie-Émile Lacan's &quot;mirror stage,&quot; infants between the ages of six and eighteen months come to recognize themselves through the reflection of the self-image, an &quot;other&quot; in the mirror. This process of self-identification is also the creation of an external self. Du Shenfeng commented on this concept, explaining that when a baby sees and interacts with their reflection in the mirror, they later understand it as an image and eventually confirm that this image is themselves. This is how they come to understand the identity and wholeness of their own body. Lacan's ideas have influenced art criticism, and his concept of the &quot;mirror stage&quot; of spiritual development was later used as a tool in theoretical works, such as film theory, and even extended to all media based on the lens, including perspective records in drawing and sketching. His theory of the &quot;gaze,&quot; in particular, has drawn the attention of artists and critics. According to Lacan, the gaze represents the division between the eye and the sight, with the sight examining what one looks at and the gaze being produced by what one looks at. The relationship between “the sight towards oneself” and “the gaze returned by the object” is symmetrical, as Lacan said: &quot;You never see me where I see you.&quot; This emphasis on the gaze highlights Lacan's belief that &quot;the subject is within the self.&quot; Dynamic image works that depict the active viewing and passive gaze of the same human body challenge the balance of female self-agency in different media.</p>";
+            break;
+        case 4:
+            wing_text.innerHTML = "<div class='wing-text-en show'><p class='wing-text'>Art history doesn’t consist in simply listing all the art movements and placing them on a timeline. It is the study of objects of art considered within their time period. Studying the art of the past teaches us how people see themselves and their world and ignites the desire to show our world to others. Art history provides a means by which we can understand our human past and its relationship to our present and future, because making art is one of humanity's most ubiquitous activities.</p>";
+            break;
+        case 5:
+            wing_text.innerHTML = "<div class='wing-text-en show'><p class='wing-text' style='width:470px;'>In our contemporary urban life, we experience visuality and its constantly shifting cultural phenomena daily. Visual culture studies a work that uses art history, humanities, sciences, and social sciences. It is intertwined with everything one sees in day-to-day life - advertising, landscape, buildings, photographs, movies, paintings, apparel - anything within our culture that communicates through visual means. When looking at visual culture, one must focus on production, reception, and intention, as well as economic, social, and ideological aspects. It reflects the culture of the work and analyzes how the visual aspect affected it. Visual culture focuses on questions of the visible object and the viewer - how sight, knowledge, and power are all related. Visual culture analyzes the act of seeing as 'tension between the external object and the internal thought processes.' Visual and critical studies enable students to critically unpack such visual information and meaningfully situate their journey/research within a broader epistemological horizon.</p>";
+            break;
+        }
     // <div class='wing-text-ui-cn'>中</div></div>
     // wing_text.className = 'wing-text-visible';
     // wing_text.classList.add('sign' + x);
@@ -813,18 +914,66 @@ function addWing(x, wing_number) {
     let wing_text_obj = new CSS3DObject(wing_text);
     wing_text_obj.scale.set(0.008, 0.008, 0.008);
     wing_text_obj.rotateY(Math.PI / 2)
-    wing_text_obj.position.set(21, 0.2, -4.5)
+    switch(wing_number){
+        case 1:
+            wing_text_obj.position.set(21, 1.1, -4.5);
+            break;
+        case 2:
+            wing_text_obj.position.set(21, 0.42, -4.5);
+            break;
+        case 3:
+            wing_text_obj.position.set(21, 0.12, -4.5);
+            break;
+        case 4:
+            wing_text_obj.position.set(21, 0.93, -4.5);
+            break;
+        case 5:
+            wing_text_obj.position.set(21, 0.5, -4.5);
+            break;
+    }
     wingGroup.add(wing_text_obj)
 
     let wing_text2 = document.createElement('div');
-    wing_text2.innerHTML = "<p class='wing-text-cn'>「大家」，這個耳熟能詳的名詞，在台灣是日常的口語詞彙。但在西方文化裡，傳統上卻是個令人卻步的概念框架。無論時空改變或人類科技的進步，「大家」仍舊以不同的結構樣貌存留下來；而達成健全永續的「大家」的唯一途徑，則是透過教育。在北美生活的二十年裡，我充分體會到個人主義的缺陷及侷限。從美國高等教育劇烈的私有企業化開始，到其健保制度過度資本化的全盤崩壞，即便坐擁從五零年代到八零年代的璀璨輝煌時期，世界強國美國卻無法解決當今自身層層的矛盾與衝突。台灣，在太平洋的另一端，比起來資源實在少得多；然而台灣卻是少而小、小而美。台式「大家」，在儒家思維「群」與「己」的架構下，充分吸收了從個體向大眾循序漸進的「克己復禮」。這一種外在約束與內在負責的思想，不只是儒家所訴求的核心價值，也是清楚區分台灣共同價值與共產的黨國大家、抑或西方文化所說的自我和個體思想之差異。而在台灣的創作與設計教育，無可厚非的，就算秉持著叛逆的龐克精神衝撞，仍舊是要經過「大家」系統的對照，才能產生真實的價值。我就是一個帶著濃厚個人主義的台式大家一員。經歷了美國最高藝術學府任教六年的洗禮與低薪勞動，我依然相信教育是大家投資更美好明日的答案。因為台灣小，因為我們少，所以「大家」是我們一直以來僅有的資源。誠如網路用語所說：台灣最美的風景是人。而維持台灣最美的風景之辦法，除了教育無他。</p><div class='wing-text-ui'>EN</div>";
+    switch(wing_number){
+        case 1:
+            wing_text2.innerHTML = "<p class='wing-text-cn'>設計的本質和原則是藝術創作的構成條件。組成藝術的元素是藝術家創造作品時所運用的視覺 「工具」 － 它們可以堆疊出一個圖像或藝術物件：線條、形狀／形式、明暗、色彩、空間和肌理；而設計原則是藝術家在作品中應用這些組成工具的手法 – 即 「我們如何運用元素」 – 如何編排與平衡，並抉擇怎樣做出重點的強調等等。</p>";
+            break;
+        case 2:
+            wing_text2.innerHTML = "<p class='wing-text-cn'>概念藝術是指作品背後的思想（或概念）比完成的實際作品更為重要的藝術類型。概念藝術運動相關的藝術家試圖強調的作品價值在於思想過程與創作方式，以繞過日益商業化的藝術界。這些藝術家經常刻意不製作如雕塑或繪畫一般具有「結果」的作品；這一方面代表他們的作品不一定需要在正式或者實體的畫廊裡被觀看，然而另一方面也說明作品無法輕易被買賣的特色。許多概念藝術家質疑的不僅僅是藝術界的結構；他們的創作往往具有強烈的社會批判與政治色彩，能更大幅度的映射對社會和政府政策的不滿。</p>";
+            break;
+        case 3:
+            wing_text2.innerHTML = "<p class='wing-text-cn' style='width:400px;'>觀看，從來就不只是一個單純的行為。拉康（Jacques-Marie-Émile Lacan）著名的「鏡像階段」便是指嬰兒在六到十八個月大的這段期間，透過鏡子反射出的自我形象（他者）來認識自己，進而去認同自己的過程。能夠辨認鏡中人完全相等於自己的當下，一個外在於自己的他者便同時被賦予存在。杜聲鋒對鏡像階段下了這樣的註解：嬰兒看見鏡中的自己並且與之互動，後來將它理解成影像，最後當他確認這個影像就是自己時，便掌握自己身體的同一性與整體性，也就是一個完形的概念。拉康的思想日後深刻影響了藝術評論學界；其中心靈發展之「鏡像階段」後來更被各領域理論學者多方引述運用 — 從電影理論擴展至所有以鏡頭為紀錄基礎之媒材，其中也包含素描與繪畫的透視表現方法。尤其拉康的「凝視（gaze）」 理論，特別引起藝術家與藝評的注目 — 拉康認為凝視呈現了眼睛本身與視線（sight）兩者間的劃分：視線根本上只是檢閱視野間的事物；凝視則從被觀看事物之間誕生。「觀看自己的視線」與「事物反射之凝視」間的關係是對稱的；正如拉康所言：「你從來不曾在我看見你的地方觀看我」—「凝視」的概念強調了拉康「主體在自身之中」的主張。透過同一人體主動的觀看與被動的凝視，動態影像作品無疑挑戰著女性自主權（self agency）在不同媒介間的動態平衡。</p>";
+            break;
+        case 4:
+            wing_text2.innerHTML = "<p class='wing-text-cn'>藝術史並不只是簡單地陳列出所有藝術運動並將它們置放在時間軸上，它是對藝術作品在其時代背景下的研究。琢磨歷史洪流中的藝術提供我們如何看待自己和自己的世界的另一視角，並激發向他人展示自己所處世界樣貌的心意。通曉藝術史就能理解藝術創作是如何的無處不在，串接身為人類我們的過去、現在與未來。</p>";
+            break;
+        case 5:
+            wing_text2.innerHTML = "<p class='wing-text-cn'>在當代城市生活中，我們每天都在經驗視覺性及其千變萬化的文化現象。視覺文化研究是一項結合藝術史、人文、科學與社會科學的工作；它與人們在日常生活中所看到的一切交織在一起 － 廣告、景觀、建築、照片、電影、繪畫、服飾 － 各種文化當中任何通過視覺手段達到溝通的方式。在審視視覺文化時，我們必須專注於生產手段、被設計的接收方式和傳達意圖，以及經濟、社會和意識形態等面向；它們反映了作品背後的文化，並分析這些文化是如何被視覺因素所影響。視覺文化關注的是可見物體和觀者的關係議題 – 視野、知識和權力如何交疊。視覺文化將觀看行為定調為 「外在物體和內部思維過程間拉鋸的張力」。視覺批判研究使學生能夠透過批判性眼光去解讀視覺信息，並更有意義地將他們的學習創作歷程與研究方向置於更廣泛的知識論視野當中。</p>";
+            break;
+        }
     wing_text2.className = 'wing-text-cn';
     // wing_text.classList.add('sign' + x);
 
     let wing_text2_obj = new CSS3DObject(wing_text2);
     wing_text2_obj.scale.set(0.008, 0.008, 0.008);
     wing_text2_obj.rotateY(Math.PI / 2)
-    wing_text2_obj.position.set(21, 0.2, -4.5)
+    switch(wing_number){
+        case 1:
+            wing_text2_obj.position.set(21, 1.32, -4.5)
+            break;
+        case 2:
+            wing_text2_obj.position.set(21, 1.1, -4.5)
+            break;
+        case 3:
+            wing_text2_obj.position.set(21, 0.3, -4.5)
+            break;
+        case 4:
+            wing_text2_obj.position.set(21, 1.32, -4.5)
+            break;
+        case 5:
+            wing_text2_obj.position.set(21, 0.74, -4.5)
+            break;
+    }
     wingGroup.add(wing_text2_obj)
     wingGroup.add(sign_obj)
 
@@ -945,23 +1094,56 @@ function addWing(x, wing_number) {
                             case 1:
                                 switch (index) {
                                     case 0:
-                                        card.innerHTML = "<p class='artist'>林佳翰</p><b><i class='title'>光與幾何,</i></b><p class='year'>2020</p><p class='content'><br>石膏繃帶、雕塑、攝影、數位影像檔</p>";
+                                        card.innerHTML = "<p class='artist'>林佳翰&nbsp;<nobr>Jia-Han John Lin</nobr></p><b><i class='title'>光與幾何,</i></b><p class='year'>2020</p><p class='content'><br>石膏繃帶、雕塑、攝影、數位影像檔</p>";
                                         break;
                                     case 1:
-                                        card.innerHTML = "<p class='artist'>郭光祥</p><b><i class='title'>Key metrics,</i></b><p class='year'>2020</p><p class='content'><br>電腦鍵盤、攝影、數位影像檔</p>";
+                                        card.innerHTML = "<p class='artist'>郭光祥&nbsp;<nobr>Guang-Xiang Guo</nobr></p><b><i class='title'>Key metrics,</i></b><p class='year'>2020</p><p class='content'><br>電腦鍵盤、攝影、數位影像檔</p>";
                                         break;
                                     case 2:
-                                        card.innerHTML = "<p class='artist'>陳睦夫</p><b><i class='title'>兩面之隔,</i></b><p class='year'>2020</p><p class='content'><br>手、自拍像、影像合成、數位影像檔</p>";
+                                        card.innerHTML = "<p class='artist'>陳睦夫&nbsp;<nobr>Mu-Fu Chen</nobr></p><b><i class='title'>兩面之隔,</i></b><p class='year'>2020</p><p class='content'><br>手、自拍像、影像合成、數位影像檔</p>";
                                         break;
                                     case 3:
-                                        card.innerHTML = "<p class='artist'>蔣承育</p><b><i class='title'>Between 1 and 0,</i></b><p class='year'>2020</p><p class='content'><br>衍生藝術、自動生成數位影像</p>";
+                                        card.innerHTML = "<p class='artist'>蔣承育&nbsp;<nobr>Cheng-Yu Jiang</nobr></p><b><i class='title'>Between 1 and 0,</i></b><p class='year'>2020</p><p class='content'><br>衍生藝術、自動生成數位影像</p>";
                                         break;
                                     case 4:
-                                        card.innerHTML = "<p class='artist'>林佳翰</p><b><i class='title'>逝,</i></b><p class='year'>2020</p><p class='content'><br>番茄皮、玻璃器皿、水、衣物、各類生活用品、攝影、文字、影像、電子書檔</p>";
+                                        card.innerHTML = "<p class='artist'>林佳翰&nbsp;<nobr>Jia-Han John Lin</nobr></p><b><i class='title'>逝,</i></b><p class='year'>2020</p><p class='content'><br>番茄皮、玻璃器皿、水、衣物、各類生活用品、攝影、文字、影像、電子書檔</p>";
                                         break;
                                     case 5:
-                                        card.innerHTML = "<p class='artist'>程祖寧</p><b><i class='title'>鏡像空間,</i></b><p class='year'>2020</p><p><br>水晶、攝影、影像後製、圖像互換格式</p>";
+                                        card.innerHTML = "<p class='artist'>程祖寧&nbsp;<nobr>Zu-Ning Cheng</nobr></p><b><i class='title'>鏡像空間,</i></b><p class='year'>2020</p><p><br>水晶、攝影、影像後製、圖像互換格式</p>";
                                         break;
+
+                                }
+                                break;
+                            case 2:
+                                switch (index) {
+                                    case 0:
+                                        card.innerHTML = "<p class='artist'>蕭筑元&nbsp;<nobr>Zhu-Yuan Xiao</nobr></p><b><i class='title'>Daydreaming,</i></b><p class='year'>2021</p><p class='content'><br>互動網頁遊戲</p>";
+                                        break;
+                                    case 1:
+                                        card.innerHTML = "<p class='artist'>莊慶怡&nbsp;<nobr>Qing-Yi Zhuang</nobr></p><b><i class='title'>無題,</i></b><p class='year'>2021</p><p class='content'><br>電腦繪圖、 攝影、電子書檔</p>";
+                                        break;
+                                    case 2:
+                                        card.innerHTML = "<p class='artist'>陳睦夫&nbsp;<nobr>Mu-Fu Chen</nobr></p><b><i class='title'文字遊戲,</i></b><p class='year'>2021</p><p class='content'><br>線上數位遊戲</p>";
+                                        break;
+                                    case 3:
+                                        card.innerHTML = "<p class='artist'>柯亦霏&nbsp;<nobr>Yi-Fei Judy Ke</nobr></p><b><i class='title'>いただきます,</i></b><p class='year'>2021</p><p class='content'><br>吃播、攝影機、單頻道錄像，5分57秒</p>";
+                                        break;
+                                    case 4:
+                                        card.innerHTML = "<p class='artist'>陳睦夫&nbsp;<nobr>Mu-Fu Chen</nobr></p><b><i class='title'>Museum,</i></b><p class='year'>2021</p><p class='content'><br>線上數位遊戲</p>";
+                                        break;
+                                    case 5:
+                                        card.innerHTML = "<p class='artist'>莊慶怡&nbsp;<nobr>Qing-Yi Zhuang</nobr></p><b><i class='title'>病態我,</i></b><p class='year'>2021</p><p><br>3D建模、單頻道3D動畫，2分45秒</p>";
+                                        break;
+                                    case 6:
+                                        card.innerHTML = "<p class='artist'>黃姿瑀&nbsp;<nobr>Zi-Yu Riley Huang</nobr></p><b><i class='title'>IYIYI,</i></b><p class='year'>2021</p><p><br單頻道錄像，1分06秒</p>";
+                                        break;
+                                    case 7:
+                                        card.innerHTML = "<p class='artist'>黃暘&nbsp;<nobr>Yang Huang</nobr></p><b><i class='title'>竹林七賢,</i></b><p class='year'>2021</p><p><br>Youtube頻道</p>";
+                                        break;
+                                    case 8:
+                                        card.innerHTML = "<p class='artist'>黃暘&nbsp;<nobr>Yang Huang</nobr></p><b><i class='title'>沒考上台大的建中生現在在哪,</i></b><p class='year'>2021</p><p><br>單頻道錄像，9分16秒</p>";
+                                        break;
+                    
 
                                 }
                                 break;
@@ -1291,6 +1473,33 @@ function create() {
     plant_bg.rotation.y = -Math.PI / 2;
     plant_bg.position.set(60.5, 3.5, 0);
     scene.add(plant_bg);
+
+    let riley_left_Text = new THREE.TextureLoader(manager).load("./img/ReilyShinning-left.jpg");
+    let riley_left_Material = new THREE.MeshLambertMaterial({ map: riley_left_Text });
+    let riley_left = new THREE.Mesh(new THREE.PlaneGeometry(0.295, 0.25), riley_left_Material);
+    riley_left.position.set(32.762, 1.7, 4.14);
+    riley_left.rotateY(-6*Math.PI/5+0.05);
+    scene.add(riley_left);
+    let riley_right_Text = new THREE.TextureLoader(manager).load("./img/ReilyShinning-right.jpg");
+    let riley_right_Material = new THREE.MeshLambertMaterial({ map: riley_right_Text });
+    let riley_right = new THREE.Mesh(new THREE.PlaneGeometry(0.295, 0.25), riley_right_Material);
+    riley_right.position.set(32.52, 1.7, 4.1345);
+    riley_right.rotateY(-4*Math.PI/5-0.04);
+    scene.add(riley_right);
+    let riley_mid_Text = new THREE.TextureLoader(manager).load("./img/ReilyShinning-mid.jpg");
+    let riley_mid_Material = new THREE.MeshLambertMaterial({ map: riley_mid_Text });
+    let riley_mid = new THREE.Mesh(new THREE.PlaneGeometry(0.015, 0.25), riley_mid_Material);
+    riley_mid.position.set(32.637, 1.7, 4.045);
+    riley_mid.rotateY(Math.PI);
+    scene.add(riley_mid);
+    let jon_Text = new THREE.TextureLoader(manager).load("./img/jon3.jpg");
+    jon_Text.anisotropy = renderer.capabilities.getMaxAnisotropy();
+    let jon_Material = new THREE.MeshLambertMaterial({ map: jon_Text });
+    let jon = new THREE.Mesh(new THREE.PlaneGeometry(0.21, 0.26), jon_Material);
+    jon.position.set(47.815, 1.625, 4.157);
+    jon.rotateX(-Math.PI/2);
+    jon.rotateZ(-5*Math.PI/4);
+    scene.add(jon);
 
     wall3.position.x = 60;
     wall3.rotation.y = -Math.PI / 2;

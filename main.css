@@ -192,10 +192,19 @@ select {
 	padding-bottom: 32px;
 	margin: unset;
 }
+
+.modal_header > iframe{
+	position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 90%;
+}
+
 .modal_header > video{
 	position: relative;
   left: 50%;
   transform: translateX(-50%);
+  max-width: 90%;
 }
 
 embed{
@@ -476,7 +485,7 @@ audio{
 	color: #222;
 	display:none;
 	min-height:120px;
-	width:160px;
+	width:180px;
 	background: transparent;	
 	border: 1.5px solid #999999;
 
@@ -484,7 +493,7 @@ audio{
 	/* font-size: 18px; */
 	padding: 10px;
 	/* font-family: Helvetica, sans-serif ; */
-	font-family: 'Helvetica', sans-serif 'cwTeXYen', sans-serif ;
+	font-family:  'cwTeXYen', sans-serif ;
 	/* z-index: -1; */
 	line-height:normal;
 }
@@ -492,20 +501,25 @@ audio{
 .card > p{
 	margin: unset;
 }
-.card > .title{
-	font-size: 18px;
-	font-weight: 400; 
+
+.card > nobr{
+	font-size: 14px;
 }
-.card > .artist{
+
+.card .title{
+	font-size: 18px;
+	/* font-weight: 400;  */
+}
+.card .artist{
 	font-size: 16px;
 	font-family: 'cwTeXYen', sans-serif ;
 }
-.card > .year{
+.card .year{
 	font-size: 14px;
 	font-weight: 400;
 }
-.card > .content{
-	font-size: 12px;
+.card .content{
+	font-size: 14px;
 	font-weight: 200;
 }
 .card > .name{
@@ -816,7 +830,7 @@ audio{
 	transition: opacity .5s;
 	color: #444;
 	width:350px;
-	font-size:15px;
+	font-size:16px;
 	line-height: 18px;
 	/* word-break: keep-all; */
 	font-family: 'cwTeXYen', sans-serif;
@@ -828,6 +842,8 @@ audio{
 	/* display: block; */
 	opacity: 1;
   }
+
+
   .wing-title{
 	color: #444;
 	width:350px;
