@@ -172,14 +172,25 @@ select {
 	padding: 30px 10px 10px;
 	color: #111;
 	font-size: 20px;
-	font-family: 'cwTeXYen', sans-serif;
+	font-family: 'Montserrat', sans-serif ;
 	line-height: normal;
+}
+
+.modal_header > .modal_cn{
+	font-family: 'cwTeXYen', sans-serif;
+}
+
+.modal_cn.text{
+	font-size:16.5px;
+	line-height: 20.5px;
 }
 
 .modal_header > p{
 	font-size: 16px;
 	color: #555;
 	padding-left: 1px;
+	padding-bottom: 32px;
+	margin: unset;
 }
 .modal_header > video{
 	position: relative;
@@ -188,8 +199,8 @@ select {
 }
 
 embed{
-	width: 90%;
-	height: 80%;
+	width: 100%;
+	height: 120%;
 }
 
 /* .img_container{
@@ -210,13 +221,13 @@ embed{
 }
 .detail_pdf{
 	/* position: relative; */
-	width: 100%;
-	height: 100%;
+	/* width: 100%;
+	height: 100%; */
 	position: relative;
   left: 50%;
   transform: translateX(-50%);
 	object-fit: contain;
-	padding-bottom: 20px;
+	/* padding-bottom: 20px; */
 }
 
 /* .hide{
@@ -260,6 +271,7 @@ embed{
 .close{
 	margin: unset;
 	position: absolute;
+	
 	right: 15px;
 	top:10px;
 	color:#000;
