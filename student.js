@@ -1979,7 +1979,7 @@ function screenroom_init() {
     let screen4_obj = new CSS3DObject(screen4);
     screen4_obj.scale.set(6/210, 6/210, 1);
     screen4_obj.rotateY(Math.PI / 2)
-    screen4_obj.position.set(-20, 3, 54);
+    screen4_obj.position.set(-5, 3, 54);
     scene.add(screen4_obj);
     screen4_obj.needsUpdate=true;
 }
