@@ -12,6 +12,7 @@ let speed = 70;
 let
     bench=null,
     screen_bench_bbox=[],
+    screen4,
     screen2,
     research = [],
     walls = [],
@@ -21,10 +22,10 @@ let
     translate_text = false,
     translate = [],
     prevHover,
-    num_of_paintings = [6, 9, 5, 8],
-    offset_back = [-50, -48, -30, -50],
-    offset_front = [-13, -10, -8, -8],
-    seperation = [12, 8, 10, 10],
+    num_of_paintings = [6, 9, 5, 8, 10],
+    offset_back = [-50, -48, -30, -45, -50],
+    offset_front = [-13, -10, -8, -4, -13],
+    seperation = [12, 8, 10, 8, 7],
     ui = false,
     floor,
     navigate = false,
@@ -580,9 +581,9 @@ function init() {
     user.BBox = new THREE.Box3().setFromObject(user);
 
     camera.add(user);
-    // camera.position.set(-19, 2, 0);
-    camera.position.set(20, 2, 5);
-    // camera.rotation.y = -Math.PI / 2;
+    camera.position.set(-19, 2, 0);
+    // camera.position.set(20, 2, 5);
+    camera.rotation.y = -Math.PI / 2;
 
     //For fps control
     controls = new PointerLockControls(camera, renderer.domElement);
@@ -595,9 +596,11 @@ function init() {
 
     startPaint.addEventListener('click', function () {
         enablePaint = true;
+        controls.lock();
     });
     exitPaint.addEventListener('click', function () {
         enablePaint = false;
+        controls.lock();
     });
 
     //Music UI
@@ -1114,7 +1117,7 @@ function addWing(x, wing_number) {
 
     // const num_of_paintings = 6;
     const artHeight = 2.5 - 3, cardHeight = 1.8 - 3, card_offset = 0.7, offset__front = -8;
-    if (wing_number <= 4) {
+    if (wing_number <= 5) {
         for (var i = 0; i < num_of_paintings[wing_number - 1]; i++) {
             (function (index) {
                 //https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/Image
@@ -1139,8 +1142,14 @@ function addWing(x, wing_number) {
                     if (artwork.width > 100) {
 
                         // console.log(artwork.width)
-                        ratiow = artwork.width / 200;
-                        ratioh = artwork.height / 200;
+                        if(wing_number==4){
+                            ratiow = artwork.width / 250;
+                            ratioh = artwork.height / 250;
+                        }else{
+
+                            ratiow = artwork.width / 200;
+                            ratioh = artwork.height / 200;
+                        }
 
                         var art = new THREE.Group();
                         art.name = 'art-' + wing_number.toString() + '-' + (index).toString();
@@ -1196,13 +1205,82 @@ function addWing(x, wing_number) {
                                         card.innerHTML = "<p class='artist'>莊慶怡&nbsp;<nobr>Qing-Yi Zhuang</nobr></p><b><i class='title'>病態我,</i></b><p class='year'>2021</p><p><br>3D建模、單頻道3D動畫，2分45秒</p>";
                                         break;
                                     case 6:
-                                        card.innerHTML = "<p class='artist'>黃姿瑀&nbsp;<nobr>Zi-Yu Riley Huang</nobr></p><b><i class='title'>IYIYI,</i></b><p class='year'>2021</p><p><br單頻道錄像，1分06秒</p>";
+                                        card.innerHTML = "<p class='artist'>黃姿瑀&nbsp;<nobr>Zi-Yu Riley Huang</nobr></p><b><i class='title'>IYIYI,</i></b><p class='year'>2021</p><p><br>單頻道錄像，1分06秒</p>";
                                         break;
                                     case 7:
                                         card.innerHTML = "<p class='artist'>黃暘&nbsp;<nobr>Yang Huang</nobr></p><b><i class='title'>竹林七賢,</i></b><p class='year'>2021</p><p><br>Youtube頻道</p>";
                                         break;
                                     case 8:
                                         card.innerHTML = "<p class='artist'>黃暘&nbsp;<nobr>Yang Huang</nobr></p><b><i class='title'>沒考上台大的建中生現在在哪,</i></b><p class='year'>2021</p><p><br>單頻道錄像，9分16秒</p>";
+                                        break;
+
+
+                                }
+                                break;
+                            case 4:
+                                switch (index) {
+                                    case 0:
+                                        card.innerHTML = "<p class='artist'>紀禹豪&nbsp;<nobr>Yu-Hao Ji</nobr></p><b><i class='title'>Phantasia,</i></b><p class='year'>2022</p><p class='content'><br>電腦繪圖、數位影像檔</p>";
+                                        break;
+                                    case 1:
+                                        card.innerHTML = "<p class='artist'>黃彥鈞&nbsp;<nobr>Yen-Chun James Huang</nobr></p><b><i class='title'>Contro!!ed,</i></b><p class='year'>2022</p><p class='content'><br>衍生藝術、自動生成數位影像</p>";
+                                        card.style.width = "210px";
+                                        break;
+                                    case 2:
+                                        card.innerHTML = "<p class='artist'>林妤庭&nbsp;<nobr>Yu-Ting Rita Lin</nobr></p><b><i class='title'>家的輪廓,</i></b><p class='year'>2022</p><p class='content'><br>採訪、文字、圖像設計、明信片、數位輸出</p>";
+                                        break;
+                                    case 3:
+                                        card.innerHTML = "<p class='artist'>黃姿瑀&nbsp;<nobr>Zi-Yu Riley Huang</nobr></p><b><i class='title'>女子ㄠ白ㄠ團 2022,</i></b><p class='year'>2022</p><p class='content'><br>人物攝影、圖像互換格式、電子配樂、單頻道錄像，1分05秒</p>";
+                                        break;
+                                    case 4:
+                                        card.innerHTML = "<p class='artist'>屠娟娟&nbsp;<nobr>Juan-Juan Janey Tu</nobr></p><b><i class='title'>聽說紅色是吉祥的顏色,</i></b><p class='year'>2022</p><p class='content'><br>台灣街景、影像後製、攝影、電子書檔</p>";
+                                        break;
+                                    case 5:
+                                        card.innerHTML = "<p class='artist'>張虔惠&nbsp;<nobr>Qian-Hui Rebecca Zhang</nobr></p><b><i class='title'>Becky’s,</i></b><p class='year'>2022</p><p><br>Pinterest圖板、網頁互動</p>";
+                                        card.style.width = "210px";
+                                        break;
+                                    case 6:
+                                        card.innerHTML = "<p class='artist'>張瀚勻&nbsp;<nobr>Han-Yun Zhang</nobr></p><b><i class='title'>不只是看風景,</i></b><p class='year'>2022</p><p><br>粉蠟筆、紙、文字、電子書檔</p>";
+                                        break;
+                                    case 7:
+                                        card.innerHTML = "<p class='artist'>劉星妤&nbsp;<nobr>Xing-Yu Liu</nobr></p><b><i class='title'>Life Is Elsewhere,</i></b><p class='year'>2022</p><p><br>貓、書、書架、文字、攝影、影像、電子書檔</p>";
+                                        break;
+
+
+                                }
+                                break;
+                            case 5:
+                                switch (index) {
+                                    case 0:
+                                        card.innerHTML = "<p class='artist'>黃子倫&nbsp;<nobr>Zi-Lun Julia Huang</nobr></p><b><i class='title'>The Invisible City,</i></b><p class='year'>2023</p><p class='content'><br>3D線上遊戲、3D建模</p>";
+                                        break;
+                                    case 1:
+                                        card.innerHTML = "<p class='artist'>紀禹豪&nbsp;<nobr>Yu-Hao Ji</nobr></p><b><i class='title'>Yellow and Purple,</i></b><p class='year'>2023</p><p class='content'><br>圖像互換格式9張</p>";
+                                        break;
+                                    case 2:
+                                        card.innerHTML = "<p class='artist'>韓松庭&nbsp;<nobr>Yu-Ting Rita Lin</nobr></p><b><i class='title'>竹狐元宇宙,</i></b><p class='year'>2023</p><p class='content'><br>元宇宙、非同質化代幣、電腦繪圖、社群軟體帳號、擴增實境濾鏡、文字、故事</p>";
+                                        break;
+                                    case 3:
+                                        card.innerHTML = "<p class='artist'>陳卓琦&nbsp;<nobr>Zhuo-Qi Toby Chen</nobr></p><b><i class='title'>笑死,</i></b><p class='year'>2023</p><p class='content'><br>人電腦繪圖、漫畫小誌、3D打印玩具</p>";
+                                        break;
+                                    case 4:
+                                        card.innerHTML = "<p class='artist'>卓予杰&nbsp;<nobr>Yu-Jie Tera Zhuo</nobr></p><b><i class='title'>Time after Time,</i></b><p class='year'>2023</p><p class='content'><br>壓克力板、 裝置、數位音訊</p>";
+                                        break;
+                                    case 5:
+                                        card.innerHTML = "<p class='artist'>林妤庭&nbsp;<nobr>Yu-Ting Rita Lin</nobr></p><b><i class='title'>Anxiety,</i></b><p class='year'>2023</p><p><br>圖像設計、數位影像檔</p>";
+                                        break;
+                                    case 6:
+                                        card.innerHTML = "<p class='artist'>郭譯&nbsp;<nobr>Yi Vito Guo</nobr></p><b><i class='title'>無題,</i></b><p class='year'>2023</p><p><br>音樂三部曲、電腦繪圖、單頻道錄像，7分47秒</p>";
+                                        break;
+                                    case 7:
+                                        card.innerHTML = "<p class='artist'>王幃帆&nbsp;<nobr> Wei-Fan Eater Wang</nobr></p><b><i class='title'>幹,</i></b><p class='year'>2023</p><p><br>貼紙、文字、街頭物件、音樂、單頻道錄像，1分01秒</p>";
+                                        card.style.width = "210px";
+                                        break;
+                                    case 8:
+                                        card.innerHTML = "<p class='artist'>蔡宜臻&nbsp;<nobr>Yi-Zhen Maggie Cai</nobr></p><b><i class='title'>缺愛小孩向前ㄔㄨㄥ,</i></b><p class='year'>2023</p><p><br>網頁、電腦繪圖、現成音樂</p>";
+                                        break;
+                                    case 9:
+                                        card.innerHTML = "<p class='artist'>黃姿瑀&nbsp;<nobr>Zi-Yu Riley Huang</nobr></p><b><i class='title'>Rewilding,</i></b><p class='year'>2023</p><p><br>煙霧裝置、投影機、暗室、環境音樂、單頻道錄像，1分51秒</p>";
                                         break;
 
 
@@ -1226,7 +1304,12 @@ function addWing(x, wing_number) {
                         // art_border.classList.add('art-border' + x);
                         art_border.id = 'art-border-' + wing_number.toString() + '-' + index.toString();
                         let art_border_obj = new CSS3DObject(art_border);
-                        art_border_obj.scale.set(0.01, 0.01, 0.01);
+                        if(wing_number==4 && index==3){
+                            art_border_obj.scale.set(0.006,0.006,0.006);
+                        }else{
+
+                            art_border_obj.scale.set(0.01, 0.01, 0.01);
+                        }
 
                         //-1 because index is 0 - n-1 but num of paintings is n
                         if (wing_number != 3) {
@@ -1283,7 +1366,10 @@ function addWing(x, wing_number) {
                                 gifScreen.position.set(-(seperation[wing_number - 1] * index + offset_back[wing_number - 1]), artHeight, 4.96);
                                 //plane.position.set(65*i - 75*Math.floor(num_of_paintings/2) - 15*Math.floor(num_of_paintings/2), 48, 90);
                                 gifScreen.rotation.y = Math.PI;
+                                gifScreen.receiveShadow=true;
                                 art.add(gifScreen)
+                                art_border_obj.position.copy(gifScreen.position);
+
                             }
                             else if (wing_number == 4 && index == 3) {
                                 gif_band_Texture.minFilter = THREE.LinearFilter;
@@ -1294,16 +1380,19 @@ function addWing(x, wing_number) {
                                 })
                                 let gifGeometry = new THREE.PlaneGeometry(2.8, 2);
                                 let gifScreen = new THREE.Mesh(gifGeometry, gifMaterial);
-                                gifScreen.position.set(-(seperation[wing_number - 1] * index + offset_front[wing_number - 1]), artHeight, -4.96);
+                                gifScreen.position.set(-(seperation[wing_number - 1] * index + offset_front[wing_number - 1])+6.5, artHeight, -4.96);
                                 //plane.position.set(65*i - 75*Math.floor(num_of_paintings/2) - 15*Math.floor(num_of_paintings/2), 48, 90);
                                 // gifScreen.rotation.y = Math.PI;
+                                gifScreen.receiveShadow=true;
                                 art.add(gifScreen)
+                                art_border_obj.position.copy(gifScreen.position);
+                                card_obj.position.set(-(seperation[wing_number - 1] * index + offset_front[wing_number - 1])+6.5 + 1.5 + card_offset, cardHeight, -5);
                             }
                             else {
                                 art.add(plane);
 
+                                art_border_obj.position.copy(plane.position);
                             }
-                            art_border_obj.position.copy(plane.position);
 
                             art.add(art_border_obj);
 
@@ -1871,7 +1960,6 @@ function screenroom_init() {
     screen2.height = 158; // in px
     screen2.width = 288; // in px
     screen2.autoplay = true;
-    screen2.play();
     screen2.id="screen2";
     let screen2_obj = new CSS3DObject(screen2);
     screen2_obj.scale.set(6/158, 6/158, 1);
@@ -1879,6 +1967,21 @@ function screenroom_init() {
     screen2_obj.position.set(25, 3, 54);
     scene.add(screen2_obj);
     screen2_obj.needsUpdate=true;
+
+    screen4 = document.createElement('video');
+    screen4.src ="./videos/girl.mp4";
+    screen4.controls = false;
+    screen4.muted = true;
+    screen4.height = 210; // in px
+    screen4.width = 336; // in px
+    screen4.autoplay = true;
+    screen4.id="screen4";
+    let screen4_obj = new CSS3DObject(screen4);
+    screen4_obj.scale.set(6/210, 6/210, 1);
+    screen4_obj.rotateY(Math.PI / 2)
+    screen4_obj.position.set(-20, 3, 54);
+    scene.add(screen4_obj);
+    screen4_obj.needsUpdate=true;
 }
 
 function animate() {
@@ -1925,21 +2028,27 @@ function animate() {
         }
         if (bench==1 && user.BBox.intersectsBox(screen_bench_bbox[5-prevLocation])) {
             bench = 2;
-            console.log(bench)
         }
         if(!user.BBox.intersectsBox(screen_bench_bbox[5-prevLocation])){
             bench = 1;
         }
         if(bench==2){
-            document.querySelector("#screenroom").classList.add('show');
-            controls.unlock();
-            ui = true;
+            if(prevLocation==2){
+
+                document.querySelector("#screenroom").classList.add('show');
+                controls.unlock();
+                ui = true;
+            }
         }
 
         if (location) {
             if(prevLocation==2){
                 screen2.muted=true;
                 screen2.classList.remove("show");
+            }
+            if(prevLocation==4){
+                screen4.muted=true;
+                screen4.classList.remove("show");
             }
             audio.volume = 0.3;
             let showCard = document.querySelectorAll(".card" + location);
@@ -2077,8 +2186,14 @@ function animate() {
         else {
             if (screen){
                 if(prevLocation==2){
+                    screen2.play();
                     screen2.muted=false;
                     screen2.classList.add("show");
+                }
+                if(prevLocation==4){
+                    screen4.play();
+                    screen4.muted=false;
+                    screen4.classList.add("show");
                 }
                 audio.volume = 0;
             }
@@ -2238,6 +2353,72 @@ function animate() {
 
         raycaster.setFromCamera(mouse.clone(), camera);
 
+        
+        let intersects_obj = raycaster.intersectObjects(interactables);
+        if (intersects_obj.length !== 0) {
+            if (intersects_obj[0].distance < 1.5) {
+                
+                    document.querySelector('#progress' + intersects_obj[0].object.name).classList.add('show')
+                    if(progressValue<progressEndValue)
+                        progressValue++;
+                    // console.log(progressValue);
+                    // valueContainer.textContent = `${progressValue}%`;
+                    document.querySelector('#progress' + intersects_obj[0].object.name).style.borderImageSource = `conic-gradient(
+                        from 45deg,
+                        #ee82ee,
+                        #ffff00,
+                        #ee82ee
+                        ${progressValue * 5}deg,
+                        #fafafa ${progressValue * 5}deg
+                    )`;
+                    if (progressValue == progressEndValue && detail) {
+                        progressValue = 0;
+                        translate_text=false;
+                        // console.log(document.getElementById(intersects[0].object.parent.name));
+                        if (intersects_obj[0].object.name == "1") {
+                            document.querySelector(".container").classList.add("show")
+                            controls.unlock();
+                            ui = true;
+                        }
+                        else if (intersects_obj[0].object.name == "2") {
+                            music.classList.add('show');
+                            controls.unlock();
+                            ui = true;
+                        }
+                        else if (intersects_obj[0].object.name == "3") {
+                            paintUI.classList.add('show');
+                            controls.unlock();
+                            ui = true;
+                        }
+                        else if (intersects_obj[0].object.name == "4") {
+                            document.querySelector('#riley-shining').classList.add('show');
+                            controls.unlock();
+                            ui = true;
+                        }
+                        else if (intersects_obj[0].object.name == "5") {
+                            document.querySelector('#jon-cates').classList.add('show');
+                            controls.unlock();
+                            ui = true;
+                        }
+                        else if (intersects_obj[0].object.name == "portal2")
+                            camera.position.set(14, 0, 4.5);
+                    }
+            }
+                else {
+                    progressValue = 0;
+                    document.querySelector('#progress' + intersects_obj[0].object.name).classList.remove('show')
+                }
+            
+            // else {
+            //     document.querySelector('#interactable' + intersects_obj[0].object.name).classList.remove('show');
+            // }
+
+        }
+        // else {
+        //     document.querySelectorAll('.interact_instruction').forEach(e => {
+        //         e.classList.remove('show');
+        //     });
+        // }
         let intersects_text = raycaster.intersectObjects(translate);
         if (intersects_text.length !== 0 && translate_text) {
             if (en) {
@@ -2294,63 +2475,6 @@ function animate() {
 
             }
         }
-        let intersects_obj = raycaster.intersectObjects(interactables);
-        if (intersects_obj.length !== 0) {
-            if (intersects_obj[0].distance < 1.5) {
-                document.querySelector('#interactable' + intersects_obj[0].object.name).classList.add('show');
-
-                if (interacting) {
-                    document.querySelector('#progress' + intersects_obj[0].object.name).classList.add('show')
-                    progressValue++;
-                    // console.log(progressValue);
-                    // valueContainer.textContent = `${progressValue}%`;
-                    document.querySelector('#progress' + intersects_obj[0].object.name).style.borderImageSource = `conic-gradient(
-                        from 45deg,
-                        #ee82ee,
-                        #ffff00,
-                        #ee82ee
-                        ${progressValue * 5}deg,
-                        #fafafa ${progressValue * 5}deg
-                    )`;
-                    if (progressValue == progressEndValue) {
-                        progressValue = 0;
-
-                        // console.log(document.getElementById(intersects[0].object.parent.name));
-                        if (intersects_obj[0].object.name == "1") {
-                            document.querySelector(".container").classList.add("show")
-                            controls.unlock();
-                            ui = true;
-                        }
-                        else if (intersects_obj[0].object.name == "2") {
-                            music.classList.add('show');
-                            controls.unlock();
-                            ui = true;
-                        }
-                        else if (intersects_obj[0].object.name == "3") {
-                            paintUI.classList.add('show');
-                            controls.unlock();
-                            ui = true;
-                        }
-                        else if (intersects_obj[0].object.name == "portal2")
-                            camera.position.set(14, 0, 4.5);
-                    }
-                }
-                else {
-                    progressValue = 0;
-                    document.querySelector('#progress' + intersects_obj[0].object.name).classList.remove('show')
-                }
-            }
-            else {
-                document.querySelector('#interactable' + intersects_obj[0].object.name).classList.remove('show');
-            }
-
-        }
-        else {
-            document.querySelectorAll('.interact_instruction').forEach(e => {
-                e.classList.remove('show');
-            });
-        }
-
         let intersects_walls = raycaster.intersectObjects(walls);
         let intersects_floor = raycaster.intersectObject(floor);
         if (intersects_walls.length != 0) {

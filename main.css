@@ -497,6 +497,12 @@ audio{
 #screen2.show{
 	display:block;
 }
+#screen4{
+	display:none;
+}
+#screen4.show{
+	display:block;
+}
 
 #screenroom {
 	/* background-color: white; */
@@ -561,11 +567,11 @@ audio{
 	line-height:normal;
 }
 
-.card > p{
+.card p{
 	margin: unset;
 }
 
-.card > nobr{
+.card nobr{
 	font-size: 14px;
 }
 
@@ -585,7 +591,7 @@ audio{
 	font-size: 14px;
 	font-weight: 200;
 }
-.card > .name{
+.card .name{
 	font-size: 15px;
 	font-weight: 400;
 }
@@ -749,7 +755,7 @@ audio{
 
 #instructions{
 	width: 500px;
-	height: 520px;
+	height: 530px;
 	background: #eee;
 	position: absolute;
 	left: 50%;
@@ -763,7 +769,7 @@ audio{
 	align-items: center;
 	font-size: 14px;
 	/* cursor: pointer; */
-	z-index: 2;
+	z-index: 3;
 }
 
 #instructions .title{
@@ -953,3 +959,5 @@ audio{
 	font-size:15px;
 	border: 1px solid #444;
   }
+
+ 
