@@ -510,7 +510,7 @@ audio{
 	display:block;
 }
 
-#screenroom {
+.screenroom {
 	/* background-color: white; */
 	z-index: 5;
 	display: none;
@@ -522,7 +522,7 @@ audio{
 	height: 300px; */
 	background-color:transparent
 }
-#screenroom > p{
+.screenroom > p{
 	border: 3px solid white;
 	border-radius: 8px;
 	color: white;
@@ -534,10 +534,10 @@ audio{
 	text-align: center;
 }
 
-#screenroom > p:hover{
+.screenroom > p:hover{
 	cursor: pointer;
 }
-#screenroom > .close{
+.screenroom > .close{
 	position: unset;
 	color: white;
 	opacity: 1;
@@ -546,7 +546,7 @@ audio{
 	top:-20px;
 }
 
-#screenroom.show {
+.screenroom.show {
 	display: flex;
 	justify-content: center;
 	align-items: center;

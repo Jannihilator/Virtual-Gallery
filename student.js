@@ -10,6 +10,7 @@ import { Sky } from './Sky.js'
 
 let speed = 70;
 let
+    exit_door=true,
     bench=null,
     screen_bench_bbox=[],
     screen5,
@@ -101,6 +102,8 @@ const
     modal = document.querySelectorAll(".modal"),
     instructions = document.getElementById('instructions'),
     music = document.getElementById('music'),
+    door_exit = document.getElementById('door-exit'),
+    door_stay = document.getElementById('door-stay'),
     // interact = document.getElementById('interact'),
     // progressBar = document.querySelector(".circular-progress"),
     valueContainer = document.querySelector(".value-container"),
@@ -114,6 +117,7 @@ const
     spinner = document.getElementById('spinner'),
     song = document.querySelectorAll(".song"),
     screen2_vid = document.querySelectorAll(".screen2-vid"),
+    screen5_vid = document.querySelectorAll(".screen5-vid"),
     wingButton = document.querySelectorAll(".wing-button"),
     progressEndValue = 72;
 
@@ -623,6 +627,15 @@ function init() {
         })
 
     });
+    screen5_vid.forEach(s => {
+        s.addEventListener('click', function () {
+            screen5.src = s.getAttribute('data-value');
+            screen5.load();
+            screen5.play();
+            bench=3;
+        })
+
+    });
 
     //Travelator UI
     wingButton.forEach(e => {
@@ -649,6 +662,13 @@ function init() {
         modal.forEach(m => {
             m.classList.remove('show');
         })
+        controls.lock();
+    })
+
+    door_exit.addEventListener('click', function(){
+        window.location.href = "https://jannihilator.github.io/Virtual-Gallery-Hosted/";
+    })
+    door_stay.addEventListener('click', function(){
         controls.lock();
     })
 
@@ -689,9 +709,12 @@ function init() {
         music.classList.remove('show');
         paintUI.classList.remove('show');
         travelatorUI.classList.remove('show');
-        document.querySelector("#screenroom").classList.remove('show');
+        document.querySelector("#door").classList.remove('show');
+        document.querySelector("#screenroom2").classList.remove('show');
+        document.querySelector("#screenroom5").classList.remove('show');
         document.querySelector('.container').classList.remove('show');
         ui = false;
+        exit_door=false;
         bench=3;
     });
 
@@ -2025,6 +2048,14 @@ function animate() {
         if (moveForward || moveBackward) velocity.z -= direction.z * speed * delta;
         if (moveLeft || moveRight) velocity.x -= direction.x * speed * delta;
 
+        if(camera.position.x<-19 && camera.position.z>-2 && camera.position.z<2 && exit_door){
+            document.querySelector("#door").classList.add("show");
+            controls.unlock();
+                ui = true;
+        }
+        else if(!(camera.position.x<-19 && camera.position.z>-2 && camera.position.z<2)){
+            exit_door=true;
+        }
         for (i = 0; i < wing_BBox.length; i++) {
             if (user.BBox.intersectsBox(wing_BBox[i])) {
                 location = i + 1;
@@ -2053,7 +2084,13 @@ function animate() {
         if(bench==2){
             if(prevLocation==2){
 
-                document.querySelector("#screenroom").classList.add('show');
+                document.querySelector("#screenroom2").classList.add('show');
+                controls.unlock();
+                ui = true;
+            }
+            if(prevLocation==5){
+
+                document.querySelector("#screenroom5").classList.add('show');
                 controls.unlock();
                 ui = true;
             }
