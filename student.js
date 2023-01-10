@@ -12,6 +12,7 @@ let speed = 70;
 let
     bench=null,
     screen_bench_bbox=[],
+    screen5,
     screen4,
     screen2,
     research = [],
@@ -1960,6 +1961,7 @@ function screenroom_init() {
     screen2.height = 158; // in px
     screen2.width = 288; // in px
     screen2.autoplay = true;
+    screen2.loop = true;
     screen2.id="screen2";
     let screen2_obj = new CSS3DObject(screen2);
     screen2_obj.scale.set(6/158, 6/158, 1);
@@ -1975,6 +1977,7 @@ function screenroom_init() {
     screen4.height = 210; // in px
     screen4.width = 336; // in px
     screen4.autoplay = true;
+    screen4.loop = true;
     screen4.id="screen4";
     let screen4_obj = new CSS3DObject(screen4);
     screen4_obj.scale.set(6/210, 6/210, 1);
@@ -1983,6 +1986,21 @@ function screenroom_init() {
     scene.add(screen4_obj);
     screen4_obj.needsUpdate=true;
 }
+    screen5 = document.createElement('video');
+    screen5.src ="./videos/fuck.mp4";
+    screen5.controls = false;
+    screen5.muted = true;
+    screen5.height = 72; // in px
+    screen5.width = 128; // in px
+    screen5.autoplay = true;
+    screen5.loop = true;
+    screen5.id="screen5";
+    let screen5_obj = new CSS3DObject(screen5);
+    screen5_obj.scale.set(6/72, 6/72, 1);
+    screen5_obj.rotateY(Math.PI / 2)
+    screen5_obj.position.set(-20, 3, 54);
+    scene.add(screen5_obj);
+    screen5_obj.needsUpdate=true;
 
 function animate() {
     requestAnimationFrame(animate);
@@ -2049,6 +2067,10 @@ function animate() {
             if(prevLocation==4){
                 screen4.muted=true;
                 screen4.classList.remove("show");
+            }
+            if(prevLocation==5){
+                screen5.muted=true;
+                screen5.classList.remove("show");
             }
             audio.volume = 0.3;
             let showCard = document.querySelectorAll(".card" + location);
@@ -2194,6 +2216,11 @@ function animate() {
                     screen4.play();
                     screen4.muted=false;
                     screen4.classList.add("show");
+                }
+                if(prevLocation==5){
+                    screen5.play();
+                    screen5.muted=false;
+                    screen5.classList.add("show");
                 }
                 audio.volume = 0;
             }
@@ -2489,7 +2516,7 @@ function animate() {
 
                     nav_circle_obj.position.y = 0.01;
                 }
-                if (nav_click == true) {
+                if (nav_click == true && intersects_floor[0].distance < 30) {
                     document.querySelector(".circle").classList.add("grow");
                     nav_target.copy(nav_circle_obj.position);
                     nav_target.y = 2;

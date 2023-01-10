@@ -503,6 +503,12 @@ audio{
 #screen4.show{
 	display:block;
 }
+#screen5{
+	display:none;
+}
+#screen5.show{
+	display:block;
+}
 
 #screenroom {
 	/* background-color: white; */
