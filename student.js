@@ -10,7 +10,10 @@ import { Sky } from './Sky.js'
 
 let speed = 70;
 let
-    research=[],
+    bench=null,
+    screen_bench_bbox=[],
+    screen2,
+    research = [],
     walls = [],
     detail = false,
     wing3_pedestal_position = [],
@@ -20,8 +23,8 @@ let
     prevHover,
     num_of_paintings = [6, 9, 5, 8],
     offset_back = [-50, -48, -30, -50],
-    offset_front = [-13,-10,-8,-8],
-    seperation = [12,8,10,10],
+    offset_front = [-13, -10, -8, -8],
+    seperation = [12, 8, 10, 10],
     ui = false,
     floor,
     navigate = false,
@@ -77,6 +80,9 @@ let gif_mirror_Texture = new THREE.VideoTexture(gif_mirror);
 let gif_band = document.getElementById("gif-band");
 gif_band.play();
 let gif_band_Texture = new THREE.VideoTexture(gif_band);
+// let IYIYI_vid = document.getElementById("IYIYI");
+// IYIYI_vid.play();
+// let IYIYI_vid_Texture = new THREE.VideoTexture(IYIYI_vid);
 let cube1, cube2;
 let enablePaint = false;
 let colorPicker = document.getElementById('color-picker');
@@ -105,6 +111,7 @@ const
     source = document.getElementById('audioSource'),
     spinner = document.getElementById('spinner'),
     song = document.querySelectorAll(".song"),
+    screen2_vid = document.querySelectorAll(".screen2-vid"),
     wingButton = document.querySelectorAll(".wing-button"),
     progressEndValue = 72;
 
@@ -132,12 +139,13 @@ manager.onLoad = function () {
 init();
 initSky();
 create();
+screenroom_init();
 const size = 100;
 const divisions = 1000;
 
-const gridHelper = new THREE.GridHelper( size, divisions );
-gridHelper.position.set(0,3.5,5)
-gridHelper.rotateX(Math.PI/2)
+const gridHelper = new THREE.GridHelper(size, divisions);
+gridHelper.position.set(0, 3.5, 5)
+gridHelper.rotateX(Math.PI / 2)
 // scene.add( gridHelper );
 
 function init() {
@@ -270,7 +278,7 @@ function init() {
     });
 
     loader.load('./monitor.gltf', function (gltf) {
-        gltf.scene.position.set(17.5, 1.7, 15);
+        gltf.scene.position.set(17.5, 1.7, 15.1);
         gltf.scene.scale.set(0.002, 0.002, 0.002);
         gltf.scene.rotateY(Math.PI / 2)
         gltf.scene.castShadow = true;
@@ -279,12 +287,15 @@ function init() {
 
 
         let clone = gltf.scene.clone()
-        clone.position.set(22.5, 1.7, 15);
+        clone.position.set(22.6, 1.7, 15);
+        clone.rotateY(Math.PI/4);
         scene.add(clone);
 
 
         clone = gltf.scene.clone()
-        clone.position.set(22.5, 1.7, 24);
+        clone.position.set(22.6, 1.7, 24);
+        clone.rotateY(Math.PI/4);
+
         // gltf.scene.rotateY(-Math.PI / 8);
         scene.add(clone);
 
@@ -292,6 +303,8 @@ function init() {
 
         clone = gltf.scene.clone()
         clone.position.set(17.5, 1.7, 24);
+        clone.rotateY(-Math.PI/4);
+
         scene.add(clone);
 
 
@@ -301,6 +314,7 @@ function init() {
         // clone.rotateY(-Math.PI / 4);
         scene.add(clone);
 
+        gltf.scene.rotateY(-Math.PI / 4)
 
 
 
@@ -315,7 +329,7 @@ function init() {
         // gltf.scene.updateMatrixWorld(true)
         // obstacles.push(gltf.scene);
         let clone = glb.scene.clone()
-        clone.position.set(-8, 5, 54.5);
+        clone.position.set(8, 5, 54.5);
         scene.add(clone);
 
 
@@ -380,7 +394,30 @@ function init() {
         gltf.scene.rotateY(-Math.PI / 2);
         // gltf.scene.rotateX(7*Math.PI/12);
         scene.add(gltf.scene);
-        obstacles_bbox.push(new THREE.Box3(new THREE.Vector3(-13.5, 0, 52.5), new THREE.Vector3(-12.5, 2, 56.5)));
+        obstacles_bbox.push(new THREE.Box3(new THREE.Vector3(-13.5, 0, 51.5), new THREE.Vector3(-12.5, 2, 56.5)));
+        screen_bench_bbox.push(new THREE.Box3(new THREE.Vector3(-13.8, 0, 51.2), new THREE.Vector3(-12.3, 2, 56.7)));
+
+        let clone = gltf.scene.clone();
+        clone.position.set(2, 0, 54.5);
+        scene.add(clone);
+        obstacles_bbox.push(new THREE.Box3(new THREE.Vector3(1.5, 0, 51.5), new THREE.Vector3(2.5, 2, 56.5)));
+        screen_bench_bbox.push(new THREE.Box3(new THREE.Vector3(1.2, 0, 51.2), new THREE.Vector3(2.7, 2, 56.7)));
+        clone = gltf.scene.clone();
+        clone.position.set(17, 0, 54.5);
+        scene.add(clone);
+        obstacles_bbox.push(new THREE.Box3(new THREE.Vector3(16.5, 0, 51.5), new THREE.Vector3(17.5, 2, 56.5)));
+        screen_bench_bbox.push(new THREE.Box3(new THREE.Vector3(16.2, 0, 51.2), new THREE.Vector3(17.7, 2, 56.7)));
+        clone = gltf.scene.clone();
+        clone.position.set(32, 0, 54.5);
+        scene.add(clone);
+        obstacles_bbox.push(new THREE.Box3(new THREE.Vector3(31.5, 0, 51.5), new THREE.Vector3(32.5, 2, 56.5)));
+        screen_bench_bbox.push(new THREE.Box3(new THREE.Vector3(31.2, 0, 51.2), new THREE.Vector3(32.7, 2, 56.7)));
+        clone = gltf.scene.clone();
+        clone.position.set(47, 0, 54.5);
+        scene.add(clone);
+        obstacles_bbox.push(new THREE.Box3(new THREE.Vector3(46.5, 0, 51.5), new THREE.Vector3(47.5, 2, 56.5)));
+        screen_bench_bbox.push(new THREE.Box3(new THREE.Vector3(46.2, 0, 51.2), new THREE.Vector3(47.7, 2, 56.7)));
+
     });
     loader.load('./potted_plant.glb', function (gltf) {
         gltf.scene.position.set(-19, 0, 4);
@@ -393,10 +430,20 @@ function init() {
     loader.load('./screen_plant2.glb', function (gltf) {
         gltf.scene.position.set(-13, 0, 52);
         gltf.scene.scale.set(0.1, 0.1, 0.1);
-        // gltf.scene.rotateY(-Math.PI / 2);
-        // gltf.scene.rotateX(7*Math.PI/12);
         scene.add(gltf.scene);
-        // obstacles_bbox.push(new THREE.Box3(new THREE.Vector3(-13.5, 0, 52.5), new THREE.Vector3(-12.5, 2, 56.5)));
+
+        let clone = gltf.scene.clone();
+        clone.position.set(2, 0, 52);
+        scene.add(clone);
+        clone = gltf.scene.clone();
+        clone.position.set(17, 0, 52);
+        scene.add(clone);
+        clone = gltf.scene.clone();
+        clone.position.set(32, 0, 52);
+        scene.add(clone);
+        clone = gltf.scene.clone();
+        clone.position.set(47, 0, 52);
+        scene.add(clone);
     });
     loader.load('./variety_of_books.glb', function (gltf) {
         gltf.scene.position.set(32.6, 1.6, 4.65);
@@ -410,7 +457,7 @@ function init() {
         gltf.scene.position.set(32.63, 1.7, 4.18);
         gltf.scene.scale.set(0.1, 0.15, 0.098);
         gltf.scene.rotateY(-Math.PI / 2);
-        gltf.scene.rotateX(-Math.PI/2);
+        gltf.scene.rotateX(-Math.PI / 2);
         scene.add(gltf.scene);
         // obstacles_bbox.push(new THREE.Box3(new THREE.Vector3(-13.5, 0, 52.5), new THREE.Vector3(-12.5, 2, 56.5)));
     });
@@ -425,10 +472,14 @@ function init() {
     loader.load('./wet_floor_sign.glb', function (gltf) {
         gltf.scene.position.set(50, 0.8, 46.5);
         gltf.scene.scale.set(0.02, 0.02, 0.02);
-        gltf.scene.rotateY(5*Math.PI / 8);
-        gltf.scene.receiveShadow=true;
+        gltf.scene.rotateY(5 * Math.PI / 8);
+        gltf.scene.receiveShadow = true;
         // gltf.scene.rotateX(7*Math.PI/12);
         scene.add(gltf.scene);
+
+        let clone = gltf.scene.clone();
+        clone.position.set(20, 0.8, 46.5);
+        scene.add(clone);
         // obstacles_bbox.push(new THREE.Box3(new THREE.Vector3(-13.5, 0, 52.5), new THREE.Vector3(-12.5, 2, 56.5)));
     });
     loader.load('./ceiling_light.glb', function (gltf) {
@@ -530,8 +581,8 @@ function init() {
 
     camera.add(user);
     // camera.position.set(-19, 2, 0);
-    camera.position.set(35, 2, 5);
-    camera.rotation.y = -Math.PI / 2;
+    camera.position.set(20, 2, 5);
+    // camera.rotation.y = -Math.PI / 2;
 
     //For fps control
     controls = new PointerLockControls(camera, renderer.domElement);
@@ -556,6 +607,15 @@ function init() {
             console.log(source.src);
             audio.load();
             audio.play();
+        })
+
+    });
+    screen2_vid.forEach(s => {
+        s.addEventListener('click', function () {
+            screen2.src = s.getAttribute('data-value');
+            screen2.load();
+            screen2.play();
+            bench=3;
         })
 
     });
@@ -625,8 +685,10 @@ function init() {
         music.classList.remove('show');
         paintUI.classList.remove('show');
         travelatorUI.classList.remove('show');
+        document.querySelector("#screenroom").classList.remove('show');
         document.querySelector('.container').classList.remove('show');
         ui = false;
+        bench=3;
     });
 
     controls.addEventListener('unlock', function () {
@@ -845,7 +907,7 @@ function addWing(x, wing_number) {
     sign_obj.position.set(-20, -0.3, -2.6)
 
     let wing_title = document.createElement('div');
-    switch(wing_number){
+    switch (wing_number) {
         case 1:
             wing_title.innerHTML = "<b class='wing-title'>109</b><b class='wing-title-ch'>下，</b><b class='wing-title-ch'>藝術創作基礎</b><b class='wing-title'><br>Core Studio in Fine Arts</b>";
             break;
@@ -861,13 +923,13 @@ function addWing(x, wing_number) {
         case 5:
             wing_title.innerHTML = "<b class='wing-title'>111</b><b class='wing-title-ch'>上，</b><b class='wing-title-ch'>當代藝術與跨域設計</b><b class='wing-title' style='font-size:32px'><br>Contemporary Art and Cross-Disciplinary Design</b>";
             break;
-            // wing_title.innerHTML = "<b class='wing-title'>109</b><b class='wing-title-ch'>下，</b><b class='wing-title'>1652</b><b class='wing-title-ch'> 藝術創作基礎</b><b class='wing-title'><br>Core Studio in Fine Arts</b>";
+        // wing_title.innerHTML = "<b class='wing-title'>109</b><b class='wing-title-ch'>下，</b><b class='wing-title'>1652</b><b class='wing-title-ch'> 藝術創作基礎</b><b class='wing-title'><br>Core Studio in Fine Arts</b>";
     }
 
     let wing_title_obj = new CSS3DObject(wing_title);
     wing_title_obj.scale.set(0.008, 0.008, 0.008);
     wing_title_obj.rotateY(Math.PI / 2)
-    switch(wing_number){
+    switch (wing_number) {
         case 1:
             wing_title_obj.position.set(21, 2.3, -4.5);
             break;
@@ -885,11 +947,11 @@ function addWing(x, wing_number) {
             break;
     }
     // wing_title_obj.position.set(21, 2.3, -4.5)
-    
+
     wingGroup.add(wing_title_obj)
 
     let wing_text = document.createElement('div');
-    switch(wing_number){
+    switch (wing_number) {
         case 1:
             wing_text.innerHTML = "<div class='wing-text-en show'><p class='wing-text'>The elements and principles of design are the building blocks used to create a work of art. Elements of Art are the visual &quot;tools&quot; that artists use to create artwork - they make up an image or an art object: line, shape/form, value, color, space, and texture. Principles of Design are how artists use the Elements of Art in an artwork - this is &quot;what we do with the Elements&quot; - how we arrange them, balance them, what is being emphasized, etc.</p>";
             break;
@@ -905,7 +967,7 @@ function addWing(x, wing_number) {
         case 5:
             wing_text.innerHTML = "<div class='wing-text-en show'><p class='wing-text' style='width:470px;'>In our contemporary urban life, we experience visuality and its constantly shifting cultural phenomena daily. Visual culture studies a work that uses art history, humanities, sciences, and social sciences. It is intertwined with everything one sees in day-to-day life - advertising, landscape, buildings, photographs, movies, paintings, apparel - anything within our culture that communicates through visual means. When looking at visual culture, one must focus on production, reception, and intention, as well as economic, social, and ideological aspects. It reflects the culture of the work and analyzes how the visual aspect affected it. Visual culture focuses on questions of the visible object and the viewer - how sight, knowledge, and power are all related. Visual culture analyzes the act of seeing as 'tension between the external object and the internal thought processes.' Visual and critical studies enable students to critically unpack such visual information and meaningfully situate their journey/research within a broader epistemological horizon.</p>";
             break;
-        }
+    }
     // <div class='wing-text-ui-cn'>中</div></div>
     // wing_text.className = 'wing-text-visible';
     // wing_text.classList.add('sign' + x);
@@ -913,7 +975,7 @@ function addWing(x, wing_number) {
     let wing_text_obj = new CSS3DObject(wing_text);
     wing_text_obj.scale.set(0.008, 0.008, 0.008);
     wing_text_obj.rotateY(Math.PI / 2)
-    switch(wing_number){
+    switch (wing_number) {
         case 1:
             wing_text_obj.position.set(21, 1.1, -4.5);
             break;
@@ -933,7 +995,7 @@ function addWing(x, wing_number) {
     wingGroup.add(wing_text_obj)
 
     let wing_text2 = document.createElement('div');
-    switch(wing_number){
+    switch (wing_number) {
         case 1:
             wing_text2.innerHTML = "<p class='wing-text-cn'>設計的本質和原則是藝術創作的構成條件。組成藝術的元素是藝術家創造作品時所運用的視覺 「工具」 － 它們可以堆疊出一個圖像或藝術物件：線條、形狀／形式、明暗、色彩、空間和肌理；而設計原則是藝術家在作品中應用這些組成工具的手法 – 即 「我們如何運用元素」 – 如何編排與平衡，並抉擇怎樣做出重點的強調等等。</p>";
             break;
@@ -949,14 +1011,14 @@ function addWing(x, wing_number) {
         case 5:
             wing_text2.innerHTML = "<p class='wing-text-cn'>在當代城市生活中，我們每天都在經驗視覺性及其千變萬化的文化現象。視覺文化研究是一項結合藝術史、人文、科學與社會科學的工作；它與人們在日常生活中所看到的一切交織在一起 － 廣告、景觀、建築、照片、電影、繪畫、服飾 － 各種文化當中任何通過視覺手段達到溝通的方式。在審視視覺文化時，我們必須專注於生產手段、被設計的接收方式和傳達意圖，以及經濟、社會和意識形態等面向；它們反映了作品背後的文化，並分析這些文化是如何被視覺因素所影響。視覺文化關注的是可見物體和觀者的關係議題 – 視野、知識和權力如何交疊。視覺文化將觀看行為定調為 「外在物體和內部思維過程間拉鋸的張力」。視覺批判研究使學生能夠透過批判性眼光去解讀視覺信息，並更有意義地將他們的學習創作歷程與研究方向置於更廣泛的知識論視野當中。</p>";
             break;
-        }
+    }
     wing_text2.className = 'wing-text-cn';
     // wing_text.classList.add('sign' + x);
 
     let wing_text2_obj = new CSS3DObject(wing_text2);
     wing_text2_obj.scale.set(0.008, 0.008, 0.008);
     wing_text2_obj.rotateY(Math.PI / 2)
-    switch(wing_number){
+    switch (wing_number) {
         case 1:
             wing_text2_obj.position.set(21, 1.32, -4.5)
             break;
@@ -1142,7 +1204,7 @@ function addWing(x, wing_number) {
                                     case 8:
                                         card.innerHTML = "<p class='artist'>黃暘&nbsp;<nobr>Yang Huang</nobr></p><b><i class='title'>沒考上台大的建中生現在在哪,</i></b><p class='year'>2021</p><p><br>單頻道錄像，9分16秒</p>";
                                         break;
-                    
+
 
                                 }
                                 break;
@@ -1251,26 +1313,29 @@ function addWing(x, wing_number) {
                         else if (wing_number == 3) {
                             switch (index) {
                                 case (0):
-                                    plane.position.set(22.45, 2.26, 14.78); //y and z kept constant
-                                    plane.rotation.y = Math.PI;
+                                    plane.position.set(22.44, 2.26, 14.87); //y and z kept constant
+                                    // plane.rotation.y = Math.PI;
+                                    plane.rotation.y = 5*Math.PI/4;
                                     plane.scale.set(0.22, 0.22, 0.22)
                                     scene.add(plane);
                                     break;
                                 case (1):
-                                    plane.position.set(17.45, 2.26, 14.78); //y and z kept constant
-                                    plane.rotation.y = Math.PI;
-                                    plane.scale.set(0.43, 0.4, 0.4)
+                                    plane.position.set(17.64, 2.26, 14.9); //y and z kept constant
+                                    // plane.rotation.y = Math.PI;
+                                    plane.rotation.y = 3*Math.PI/4;
+
+                                    plane.scale.set(0.4, 0.38, 0.38)
                                     scene.add(plane);
                                     break;
                                 case (2):
-                                    plane.position.set(22.45, 2.26, 23.78); //y and z kept constant
-                                    plane.rotation.y = Math.PI;
+                                    plane.position.set(22.44, 2.26, 23.87); //y and z kept constant
+                                    plane.rotation.y = 5*Math.PI/4;
                                     plane.scale.set(0.4, 0.4, 0.4)
                                     scene.add(plane);
                                     break;
                                 case (3):
-                                    plane.position.set(17.45, 2.26, 23.78); //y and z kept constant
-                                    plane.rotation.y = Math.PI;
+                                    plane.position.set(17.64, 2.26, 23.85); //y and z kept constant
+                                    plane.rotation.y = 3*Math.PI/4;
                                     plane.scale.set(0.42, 0.42, 0.42)
                                     scene.add(plane);
                                     break;
@@ -1281,7 +1346,7 @@ function addWing(x, wing_number) {
                                     scene.add(plane);
                                     break;
                             }
-                            plane.name = 'art-3-'+ index.toString();
+                            plane.name = 'art-3-' + index.toString();
                             research.push(plane);
                         }
                         // card_cover.position.copy(card_obj.position);
@@ -1379,11 +1444,11 @@ function create() {
     floorText.repeat.set(14, 7);
 
     let floorMaterial = new THREE.MeshLambertMaterial({ map: floorText });
-    floor = new THREE.Mesh(new THREE.PlaneGeometry(80, 60), floorMaterial);
+    floor = new THREE.Mesh(new THREE.PlaneGeometry(80, 80), floorMaterial);
     floor.receiveShadow = true;
     floor.rotation.x = Math.PI / 2;
     floor.rotation.y = Math.PI;
-    floor.position.set(20, 0, 20);
+    floor.position.set(20, 0, 30);
     floor.receiveShadow = true;
     scene.add(floor);
 
@@ -1493,13 +1558,13 @@ function create() {
     let riley_left_Material = new THREE.MeshLambertMaterial({ map: riley_left_Text });
     let riley_left = new THREE.Mesh(new THREE.PlaneGeometry(0.295, 0.25), riley_left_Material);
     riley_left.position.set(32.762, 1.7, 4.14);
-    riley_left.rotateY(-6*Math.PI/5+0.05);
+    riley_left.rotateY(-6 * Math.PI / 5 + 0.05);
     scene.add(riley_left);
     let riley_right_Text = new THREE.TextureLoader(manager).load("./img/ReilyShinning-right.jpg");
     let riley_right_Material = new THREE.MeshLambertMaterial({ map: riley_right_Text });
     let riley_right = new THREE.Mesh(new THREE.PlaneGeometry(0.295, 0.25), riley_right_Material);
     riley_right.position.set(32.52, 1.7, 4.1345);
-    riley_right.rotateY(-4*Math.PI/5-0.04);
+    riley_right.rotateY(-4 * Math.PI / 5 - 0.04);
     scene.add(riley_right);
     let riley_mid_Text = new THREE.TextureLoader(manager).load("./img/ReilyShinning-mid.jpg");
     let riley_mid_Material = new THREE.MeshLambertMaterial({ map: riley_mid_Text });
@@ -1512,8 +1577,8 @@ function create() {
     let jon_Material = new THREE.MeshLambertMaterial({ map: jon_Text });
     let jon = new THREE.Mesh(new THREE.PlaneGeometry(0.21, 0.26), jon_Material);
     jon.position.set(47.815, 1.625, 4.157);
-    jon.rotateX(-Math.PI/2);
-    jon.rotateZ(-5*Math.PI/4);
+    jon.rotateX(-Math.PI / 2);
+    jon.rotateZ(-5 * Math.PI / 4);
     scene.add(jon);
 
     wall3.position.x = 60;
@@ -1654,8 +1719,8 @@ function create() {
     scene.add(clone);
     obstacles.push(clone);
     walls.push(clone);
-    
-    
+
+
 
     let hallwaypedestalMaterial = [
         new THREE.MeshBasicMaterial({ color: 0xffffff }),
@@ -1729,17 +1794,17 @@ function create() {
 
 
 
-    videoTexture.minFilter = THREE.LinearFilter;
-    videoTexture.magFilter = THREE.LinearFilter;
-    // videoTexture.anisotropy = renderer.capabilities.getMaxAnisotropy();
-    var slideshowMaterial = new THREE.MeshLambertMaterial({
-        map: videoTexture
-    })
-    let slideshowGeometry = new THREE.PlaneGeometry(9.6, 5.4);
-    let slideshowScreen = new THREE.Mesh(slideshowGeometry, slideshowMaterial);
-    slideshowScreen.position.set(-19.99, 3, 54);
-    slideshowScreen.rotation.y = Math.PI / 2;
-    scene.add(slideshowScreen)
+    // videoTexture.minFilter = THREE.LinearFilter;
+    // videoTexture.magFilter = THREE.LinearFilter;
+    // // videoTexture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+    // var slideshowMaterial = new THREE.MeshLambertMaterial({
+    //     map: videoTexture
+    // })
+    // let slideshowGeometry = new THREE.PlaneGeometry(9.6, 5.4);
+    // let slideshowScreen = new THREE.Mesh(slideshowGeometry, slideshowMaterial);
+    // slideshowScreen.position.set(-19.99, 3, 54);
+    // slideshowScreen.rotation.y = Math.PI / 2;
+    // scene.add(slideshowScreen)
 
 
     // videoTexture2.minFilter = THREE.LinearFilter;
@@ -1786,7 +1851,35 @@ function create() {
 
 }
 
-
+function screenroom_init() {
+    // IYIYI_vid_Texture.minFilter = THREE.LinearFilter;
+    // IYIYI_vid_Texture.magFilter = THREE.LinearFilter;
+    // IYIYI_vid_Texture.needsUpdate=true;
+    // // videoTexture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+    // var screenMaterial = new THREE.MeshLambertMaterial({
+    //     map: IYIYI_vid_Texture
+    // })
+    // let screenGeometry = new THREE.PlaneGeometry(2.88*4, 1.58*4);
+    // let Screen = new THREE.Mesh(screenGeometry, screenMaterial);
+    // Screen.position.set(-19.99, 3, 54);
+    // // Screen.rotation.y = Math.PI / 2;
+    // scene.add(Screen);
+    screen2 = document.createElement('video');
+    screen2.src ="./videos/word-game.mp4";
+    screen2.controls = false;
+    screen2.muted = true;
+    screen2.height = 158; // in px
+    screen2.width = 288; // in px
+    screen2.autoplay = true;
+    screen2.play();
+    screen2.id="screen2";
+    let screen2_obj = new CSS3DObject(screen2);
+    screen2_obj.scale.set(6/158, 6/158, 1);
+    screen2_obj.rotateY(Math.PI / 2)
+    screen2_obj.position.set(25, 3, 54);
+    scene.add(screen2_obj);
+    screen2_obj.needsUpdate=true;
+}
 
 function animate() {
     requestAnimationFrame(animate);
@@ -1830,7 +1923,24 @@ function animate() {
                 screen = null;
             }
         }
+        if (bench==1 && user.BBox.intersectsBox(screen_bench_bbox[5-prevLocation])) {
+            bench = 2;
+            console.log(bench)
+        }
+        if(!user.BBox.intersectsBox(screen_bench_bbox[5-prevLocation])){
+            bench = 1;
+        }
+        if(bench==2){
+            document.querySelector("#screenroom").classList.add('show');
+            controls.unlock();
+            ui = true;
+        }
+
         if (location) {
+            if(prevLocation==2){
+                screen2.muted=true;
+                screen2.classList.remove("show");
+            }
             audio.volume = 0.3;
             let showCard = document.querySelectorAll(".card" + location);
             showCard.forEach(s => {
@@ -1838,6 +1948,7 @@ function animate() {
 
             });
             document.querySelector(".sign" + location).classList.add("show");
+
             let research_interact = raycaster.intersectObjects(research);
             if (research_interact.length !== 0) {
                 // intersects[0].object.material.color.set(0xaaeeee);
@@ -1852,12 +1963,12 @@ function animate() {
                     if (research_interact[0].distance < 10) {
                         // document.querySelector('#art-border-' + research_interact[0].object.parent.name.substring(4)).classList.add('show');
                         // prevHover = '#art-border-' + research_interact[0].object.parent.name.substring(4);
-                        // if (detail) {
-                        //     nav_click = false;
-                        //     document.getElementById(intersects[0].object.parent.name).classList.add('show');
-                        //     controls.unlock();
-                        //     ui = true;
-                        // }
+                        if (detail) {
+                            nav_click = false;
+                            document.getElementById(research_interact[0].object.name).classList.add('show');
+                            controls.unlock();
+                            ui = true;
+                        }
                     }
                     // if (interacting) {
                     //     let target = document.querySelector('#card' + location + '-' + intersects[0].object.parent.name.substring(4));
@@ -1964,10 +2075,18 @@ function animate() {
             }
         }
         else {
-            if (screen)
+            if (screen){
+                if(prevLocation==2){
+                    screen2.muted=false;
+                    screen2.classList.add("show");
+                }
                 audio.volume = 0;
-            else
+            }
+            else{
+                
                 audio.volume = 1;
+            }
+            
             let showCard = document.querySelectorAll(".card" + prevLocation);
             showCard.forEach(s => {
                 s.classList.remove("show")
@@ -2089,8 +2208,11 @@ function animate() {
             canJump = true;
 
         }
-        if(camera.position.x>45 && camera.position.z>45){
-            camera.position.z=45;
+        if (camera.position.x > 45 && camera.position.z > 45) {
+            camera.position.z = 45;
+        }
+        if (camera.position.x > 15 && camera.position.x < 25 && camera.position.z > 45) {
+            camera.position.z = 45;
         }
         // if (camera.position.y > 5) {
 
