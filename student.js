@@ -1833,6 +1833,16 @@ function create() {
     obstacles.push(clone);
     walls.push(clone);
 
+    let carpetText = new THREE.TextureLoader(manager).load("./img/carpet2.jpg");
+    // carpetText.wrapS = THREE.RepeatWrapping;
+    // carpetText.wrapT = THREE.RepeatWrapping;
+    // carpetText.repeat.set(6, 6);
+
+    let carpetMaterial = new THREE.MeshLambertMaterial({ map: carpetText });
+    let carpetDark = new THREE.Mesh(new THREE.PlaneGeometry(3, 4), carpetMaterial);
+    carpetDark.rotation.x = -Math.PI / 2;
+    carpetDark.position.set(-18.3, 0.001, 0);
+    scene.add(carpetDark);
 
 
     let hallwaypedestalMaterial = [
