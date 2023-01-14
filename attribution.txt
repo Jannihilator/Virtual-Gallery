@@ -1,6 +1,20 @@
-<a href="https://www.flaticon.com/free-icons/single" title="single icons">Single icons created by Pixel perfect - Flaticon</a>
-<a href="https://www.flaticon.com/free-icons/ui" title="ui icons">Ui icons created by Smashicons - Flaticon</a>
-<a href="https://www.flaticon.com/free-icons/keyboard" title="keyboard icons">Keyboard icons created by deemakdaksina - Flaticon</a>
-<a href="https://www.flaticon.com/free-icons/keyboard-button" title="keyboard button icons">Keyboard button icons created by Ayman Elasfory - Flaticon</a>
-<a href="https://www.flaticon.com/free-icons/escape" title="escape icons">Escape icons created by Pixel perfect - Flaticon</a>
-Potted Plant by Gonçalo Miranda on Sketchfab    https://sketchfab.com/3d-models/potted-plant-1a68fc8877b847c6834ea29a7e65de7a
+<a href="https://www.flaticon.com/free-icons/single" title="single icons">Single icons created by Pixel perfect - Flaticon</a><br>
+<a href="https://www.flaticon.com/free-icons/ui" title="ui icons">Ui icons created by Smashicons - Flaticon</a><br>
+<a href="https://www.flaticon.com/free-icons/keyboard" title="keyboard icons">Keyboard icons created by deemakdaksina - Flaticon</a><br>
+<a href="https://www.flaticon.com/free-icons/keyboard-button" title="keyboard button icons">Keyboard button icons created by Ayman Elasfory - Flaticon</a><br>
+<a href="https://www.flaticon.com/free-icons/escape" title="escape icons">Escape icons created by Pixel perfect - Flaticon</a><br>
+<a href="https://www.flaticon.com/free-icons/translation" title="translation icons">Translation icons created by Freepik - Flaticon</a><br>
+<a href="https://www.flaticon.com/free-icons/click" title="click icons">Click icons created by Freepik - Flaticon</a><br>
+<a href="https://sketchfab.com/3d-models/potted-plant-1a68fc8877b847c6834ea29a7e65de7a">Potted Plant by Gonçalo Miranda on Sketchfab</a><br>
+<a href="https://sketchfab.com/3d-models/lighting-fixture-3d-recessed-light-aa69a71e7cb34ecbaa83bd1dd50aad08" >Lighting Fixture - 3D Recessed Light by Marc Sawyer on Sketchfab</a><br>
+<a href="https://sketchfab.com/3d-models/potted-plant-83986836419445edb3e507b9eb0c786b" >Potted Plant by laanita on Sketchfab</a><br>
+<a href="https://sketchfab.com/3d-models/catania-8-seater-bench-natural-grey-89a04e7b47e54254aa460cae0ff8305d">Catania 8 Seater Bench, Natural Grey by MADE.COM on Sketchfab</a><br>
+<a href="https://sketchfab.com/3d-models/cc0-paint-brush-3-5e38a7f8f1dd44cf859b23258c471445" >CC0 - Paint Brush 3 by plaggy on Sketchfab </a><br>
+<a href="https://sketchfab.com/3d-models/painting-palette-f2db9dc21de24510b14619442c133ce7" >Painting palette by matousekfoto on Sketchfab</a><br>
+<a href="https://sketchfab.com/3d-models/stationery-pencil-pen-and-eraser-lowpoly-4737f219b0834245a9fbd5b5f90b16a5" >Stationery: pencil, pen and eraser (lowpoly) by Mikhail Antonov on Sketchfab</a><br>
+<a href=" https://sketchfab.com/3d-models/gramophone-record-player-c9423dd2b249488a95b797c7355272fb" >Gramophone Record Player by MichaelDolman on Sketchfab></a><br>
+<a href="https://sketchfab.com/3d-models/notebook-b081286782c944f7a3bb3d8b93a7daf8" >Notebook by _SeF_ on Sketchfab</a><br>
+<a href="https://sketchfab.com/3d-models/office-monitor-workstation-monitor-6a7b0147890242418a49f6db26657ab4" >Office Monitor / Workstation Monitor by DatSketch on Sketchfab</a>
+Book by Eric Fan on Sketchfab https://sketchfab.com/3d-models/book-fc1b43e332d147edb7dca8f89cffa4d7
+Book opened by Jiří Kuba on Sketchfab https://sketchfab.com/3d-models/book-opened-1d4acde699b04a18b9d25e6086ebc194
+Variety of Books by VR.Space on Sketchfab https://sketchfab.com/3d-models/variety-of-books-9ecd80af3b7e4cd59efb4c141511a55b
