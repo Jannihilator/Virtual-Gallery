@@ -608,10 +608,17 @@ audio{
 
 .art-border.show{
 	display:block;
+	
 }
 .art-border{
 	display:none;
 	background: transparent;
+	border: 2px solid;
+	border-image-slice: 1;
+	border-image-source: conic-gradient(
+		     #ee82ee,
+		     #ffff00,
+		     #ee82ee)
 }
 
 .interact_progress{

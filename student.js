@@ -1322,7 +1322,7 @@ function addWing(x, wing_number) {
                         art_border.style.width = (100 * ratiow + 20) + 'px';
                         art_border.innerHTML = "";
                         // art_border.style.border='10px solid red';
-                        art_border.style.border = '2px solid #999';
+                        // art_border.style.border = '2px solid #999';
                         // art_border.style.boxShadow = '0px 0px 15px #ff6ec7';
                         art_border.className = 'art-border';
                         // art_border.classList.add('art-border' + x);
