@@ -250,7 +250,7 @@ function init() {
     // }
 
     let loader = new GLTFLoader(manager);
-    loader.load('../models/glass3.gltf', function (gltf) {
+    loader.load('./models/glass3.gltf', function (gltf) {
         gltf.scene.position.set(24.5, 0, -4.5);
         gltf.scene.scale.set(0.083, 0.083, 0.083);
         scene.add(gltf.scene);
@@ -262,7 +262,7 @@ function init() {
         obstacles.push(gltf.scene);
         obstacles.push(clone);
     });
-    loader.load('../models/handrail2.glb', function (glb) {
+    loader.load('./models/handrail2.glb', function (glb) {
         glb.scene.position.set(24.5, 0, -4.5);
         glb.scene.scale.set(0.083, 0.083, 0.083);
         scene.add(glb.scene);
@@ -274,7 +274,7 @@ function init() {
         obstacles.push(glb.scene);
         obstacles.push(clone);
     });
-    loader.load('../models/books.glb', function (glb) {
+    loader.load('./models/books.glb', function (glb) {
         glb.scene.position.set(47.95, 1.6, 4.4);
         glb.scene.rotation.y = Math.PI / 2
         glb.scene.scale.set(1, 1, 1);
@@ -283,7 +283,7 @@ function init() {
         obstacles.push(glb.scene);
     });
 
-    loader.load('../models/monitor.gltf', function (gltf) {
+    loader.load('./models/monitor.gltf', function (gltf) {
         gltf.scene.position.set(17.5, 1.7, 15.1);
         gltf.scene.scale.set(0.002, 0.002, 0.002);
         gltf.scene.rotateY(Math.PI / 2)
@@ -325,7 +325,7 @@ function init() {
 
 
     });
-    loader.load('../models/projector.glb', function (glb) {
+    loader.load('./models/projector.glb', function (glb) {
         glb.scene.position.set(-7, 5, 54.5);
         glb.scene.scale.set(1.7, 1.7, 1.7);
         glb.scene.rotateY(-Math.PI / 2)
@@ -356,21 +356,21 @@ function init() {
         clone.position.set(53, 5, 54.5);
         scene.add(clone);
     });
-    loader.load('../models/gramophone.glb', function (gltf) {
+    loader.load('./models/gramophone.glb', function (gltf) {
         gltf.scene.position.set(2.7, 2.5, 4.4);
         gltf.scene.scale.set(0.2, 0.2, 0.2);
         gltf.scene.rotateY(Math.PI / 2);
         scene.add(gltf.scene);
 
     });
-    loader.load('../models/notebook.glb', function (gltf) {
+    loader.load('./models/notebook.glb', function (gltf) {
         gltf.scene.position.set(-12.4, 1.55, 4.38);
         gltf.scene.scale.set(0.002, 0.002, 0.002);
         gltf.scene.rotateY(Math.PI);
         scene.add(gltf.scene);
 
     });
-    loader.load('../models/pen.glb', function (gltf) {
+    loader.load('./models/pen.glb', function (gltf) {
         gltf.scene.position.set(-12.5, 0.4, 3.7);
         gltf.scene.scale.set(1.5, 1.5, 1.5);
         // gltf.scene.rotateX(-Math.PI/6);
@@ -378,7 +378,7 @@ function init() {
         scene.add(gltf.scene);
 
     });
-    loader.load('../models/painting_palette.glb', function (gltf) {
+    loader.load('./models/painting_palette.glb', function (gltf) {
         gltf.scene.position.set(17.7, 1.62, 4.4);
         gltf.scene.scale.set(2.3, 1, 2.3);
         // gltf.scene.rotateX(-Math.PI/6);
@@ -386,7 +386,7 @@ function init() {
         scene.add(gltf.scene);
 
     });
-    loader.load('../models/paint_brush.glb', function (gltf) {
+    loader.load('./models/paint_brush.glb', function (gltf) {
         gltf.scene.position.set(17.4, 1.63, 4.2);
         gltf.scene.scale.set(1.5, 1.5, 1.5);
         gltf.scene.rotateY(-Math.PI / 12);
@@ -394,7 +394,7 @@ function init() {
         scene.add(gltf.scene);
 
     });
-    loader.load('../models/bench.glb', function (gltf) {
+    loader.load('./models/bench.glb', function (gltf) {
         gltf.scene.position.set(-13, 0, 54.5);
         gltf.scene.scale.set(0.02, 0.02, 0.02);
         gltf.scene.rotateY(-Math.PI / 2);
@@ -425,7 +425,7 @@ function init() {
         screen_bench_bbox.push(new THREE.Box3(new THREE.Vector3(46.2, 0, 51.2), new THREE.Vector3(47.7, 2, 56.7)));
 
     });
-    loader.load('../models/potted_plant.glb', function (gltf) {
+    loader.load('./models/potted_plant.glb', function (gltf) {
         gltf.scene.position.set(-19, 0, 4);
         gltf.scene.scale.set(0.25, 0.25, 0.25);
         // gltf.scene.rotateY(-Math.PI / 2);
@@ -433,7 +433,7 @@ function init() {
         scene.add(gltf.scene);
         // obstacles_bbox.push(new THREE.Box3(new THREE.Vector3(-13.5, 0, 52.5), new THREE.Vector3(-12.5, 2, 56.5)));
     });
-    loader.load('../models/screen_plant2.glb', function (gltf) {
+    loader.load('./models/screen_plant2.glb', function (gltf) {
         gltf.scene.position.set(-13, 0, 52);
         gltf.scene.scale.set(0.1, 0.1, 0.1);
         scene.add(gltf.scene);
@@ -451,7 +451,7 @@ function init() {
         clone.position.set(47, 0, 52);
         scene.add(clone);
     });
-    loader.load('../models/variety_of_books.glb', function (gltf) {
+    loader.load('./models/variety_of_books.glb', function (gltf) {
         gltf.scene.position.set(32.6, 1.6, 4.65);
         gltf.scene.scale.set(0.15, 0.2, 0.15);
         gltf.scene.rotateY(Math.PI / 2);
@@ -459,7 +459,7 @@ function init() {
         scene.add(gltf.scene);
         // obstacles_bbox.push(new THREE.Box3(new THREE.Vector3(-13.5, 0, 52.5), new THREE.Vector3(-12.5, 2, 56.5)));
     });
-    loader.load('../models/book_opened.glb', function (gltf) {
+    loader.load('./models/book_opened.glb', function (gltf) {
         gltf.scene.position.set(32.63, 1.7, 4.18);
         gltf.scene.scale.set(0.1, 0.15, 0.098);
         gltf.scene.rotateY(-Math.PI / 2);
@@ -475,7 +475,7 @@ function init() {
     //     scene.add(gltf.scene);
     //     // obstacles_bbox.push(new THREE.Box3(new THREE.Vector3(-13.5, 0, 52.5), new THREE.Vector3(-12.5, 2, 56.5)));
     // });
-    loader.load('../models/wet_floor_sign.glb', function (gltf) {
+    loader.load('./models/wet_floor_sign.glb', function (gltf) {
         gltf.scene.position.set(50, 0.8, 46.5);
         gltf.scene.scale.set(0.02, 0.02, 0.02);
         gltf.scene.rotateY(5 * Math.PI / 8);
@@ -488,7 +488,7 @@ function init() {
         scene.add(clone);
         // obstacles_bbox.push(new THREE.Box3(new THREE.Vector3(-13.5, 0, 52.5), new THREE.Vector3(-12.5, 2, 56.5)));
     });
-    loader.load('../models/ceiling_light.glb', function (gltf) {
+    loader.load('./models/ceiling_light.glb', function (gltf) {
         gltf.scene.scale.set(0.3, 0.3, 0.3);
         // gltf.scene.rotateY(-Math.PI / 2);
         gltf.scene.rotateX(Math.PI);
@@ -547,7 +547,7 @@ function init() {
     scene.add(spotLight3.target);
 
     //Travelator
-    let travelatorText = new THREE.TextureLoader(manager).load("../img/escalator-texture2.jpg");
+    let travelatorText = new THREE.TextureLoader(manager).load("./img/escalator-texture2.jpg");
     travelatorText.wrapS = THREE.RepeatWrapping;
     travelatorText.wrapT = THREE.RepeatWrapping;
     travelatorText.repeat.set(1, 15);
@@ -1129,7 +1129,7 @@ function addWing(x, wing_number) {
     ceilDark.position.set(-28.5, 3, -2.5);
     ceilDark.rotation.x = Math.PI / 2;
 
-    let floorText = new THREE.TextureLoader(manager).load("../img/carpet2.jpg");
+    let floorText = new THREE.TextureLoader(manager).load("./img/carpet2.jpg");
     floorText.wrapS = THREE.RepeatWrapping;
     floorText.wrapT = THREE.RepeatWrapping;
     floorText.repeat.set(6, 6);
@@ -1149,11 +1149,11 @@ function addWing(x, wing_number) {
                 var ratiow = 0;
                 var ratioh = 0;
                 if (wing_number == 4) {
-                    var source = '../img/wing' + wing_number.toString() + '/art-' + (index).toString() + '.png';
+                    var source = './img/wing' + wing_number.toString() + '/art-' + (index).toString() + '.png';
                 }
                 else {
 
-                    var source = '../img/wing' + wing_number.toString() + '/art-' + (index).toString() + '.jpg';
+                    var source = './img/wing' + wing_number.toString() + '/art-' + (index).toString() + '.jpg';
                 }
                 artwork.src = source;
 
@@ -1551,7 +1551,7 @@ function create() {
     // }
 
     //set the floor up
-    let floorText = new THREE.TextureLoader(manager).load("../img/concrete5.jpg");
+    let floorText = new THREE.TextureLoader(manager).load("./img/concrete5.jpg");
     floorText.wrapS = THREE.RepeatWrapping;
     floorText.wrapT = THREE.RepeatWrapping;
     floorText.repeat.set(14, 7);
@@ -1657,7 +1657,7 @@ function create() {
     wall2_3.rotation.y = Math.PI / 2;
     wall2_3.myNormal = new THREE.Vector3(0.01, 0, 0);
     //end window
-    let plantText = new THREE.TextureLoader(manager).load("../img/plant.jpg");
+    let plantText = new THREE.TextureLoader(manager).load("./img/plant.jpg");
 
     //Phong is for shiny surfaces
     let plantMaterial = new THREE.MeshLambertMaterial({ map: plantText });
@@ -1667,25 +1667,25 @@ function create() {
     plant_bg.position.set(60.5, 3.5, 0);
     scene.add(plant_bg);
 
-    let riley_left_Text = new THREE.TextureLoader(manager).load("../img/ReilyShinning-left.jpg");
+    let riley_left_Text = new THREE.TextureLoader(manager).load("./img/ReilyShinning-left.jpg");
     let riley_left_Material = new THREE.MeshLambertMaterial({ map: riley_left_Text });
     let riley_left = new THREE.Mesh(new THREE.PlaneGeometry(0.295, 0.25), riley_left_Material);
     riley_left.position.set(32.762, 1.7, 4.14);
     riley_left.rotateY(-6 * Math.PI / 5 + 0.05);
     scene.add(riley_left);
-    let riley_right_Text = new THREE.TextureLoader(manager).load("../img/ReilyShinning-right.jpg");
+    let riley_right_Text = new THREE.TextureLoader(manager).load("./img/ReilyShinning-right.jpg");
     let riley_right_Material = new THREE.MeshLambertMaterial({ map: riley_right_Text });
     let riley_right = new THREE.Mesh(new THREE.PlaneGeometry(0.295, 0.25), riley_right_Material);
     riley_right.position.set(32.52, 1.7, 4.1345);
     riley_right.rotateY(-4 * Math.PI / 5 - 0.04);
     scene.add(riley_right);
-    let riley_mid_Text = new THREE.TextureLoader(manager).load("../img/ReilyShinning-mid.jpg");
+    let riley_mid_Text = new THREE.TextureLoader(manager).load("./img/ReilyShinning-mid.jpg");
     let riley_mid_Material = new THREE.MeshLambertMaterial({ map: riley_mid_Text });
     let riley_mid = new THREE.Mesh(new THREE.PlaneGeometry(0.015, 0.25), riley_mid_Material);
     riley_mid.position.set(32.637, 1.7, 4.045);
     riley_mid.rotateY(Math.PI);
     scene.add(riley_mid);
-    let jon_Text = new THREE.TextureLoader(manager).load("../img/jon3.jpg");
+    let jon_Text = new THREE.TextureLoader(manager).load("./img/jon3.jpg");
     jon_Text.anisotropy = renderer.capabilities.getMaxAnisotropy();
     let jon_Material = new THREE.MeshLambertMaterial({ map: jon_Text });
     let jon = new THREE.Mesh(new THREE.PlaneGeometry(0.21, 0.26), jon_Material);
@@ -1833,7 +1833,7 @@ function create() {
     obstacles.push(clone);
     walls.push(clone);
 
-    let carpetText = new THREE.TextureLoader(manager).load("../img/carpet2.jpg");
+    let carpetText = new THREE.TextureLoader(manager).load("./img/carpet2.jpg");
     // carpetText.wrapS = THREE.RepeatWrapping;
     // carpetText.wrapT = THREE.RepeatWrapping;
     // carpetText.repeat.set(6, 6);
@@ -1988,7 +1988,7 @@ function screenroom_init() {
     // // Screen.rotation.y = Math.PI / 2;
     // scene.add(Screen);
     screen2 = document.createElement('video');
-    screen2.src ="../videos/word-game.mp4";
+    screen2.src ="./videos/word-game.mp4";
     screen2.controls = false;
     screen2.muted = true;
     screen2.height = 158; // in px
@@ -2004,7 +2004,7 @@ function screenroom_init() {
     screen2_obj.needsUpdate=true;
 
     screen4 = document.createElement('video');
-    screen4.src ="../videos/girl.mp4";
+    screen4.src ="./videos/girl.mp4";
     screen4.controls = false;
     screen4.muted = true;
     screen4.height = 210; // in px
@@ -2020,7 +2020,7 @@ function screenroom_init() {
     screen4_obj.needsUpdate=true;
 }
     screen5 = document.createElement('video');
-    screen5.src ="../videos/fuck.mp4";
+    screen5.src ="./videos/fuck.mp4";
     screen5.controls = false;
     screen5.muted = true;
     screen5.height = 72; // in px
